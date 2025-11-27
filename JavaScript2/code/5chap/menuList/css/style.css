@@ -1,0 +1,36 @@
+body {
+    text-align: center;
+    font-family: 'Kiwi Maru', serif;
+}
+
+#menu {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1020px;
+    margin: auto;
+    padding: 30px;
+}
+
+
+
+/*#menu の子要素である各グリッドに緑色を枠を付与　　「>*」がIDの子要素を指定する方法　*/
+#menu > * {
+    border: 2px solid green; /* 各子要素に緑色の枠線を追加 */
+    border-radius: 5px; /* 角を少し丸めたい場合（任意） */
+    padding: 10px; /* 枠と内容の間に余白を追加（任意） */
+}
+
+img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+h1 {
+    margin: 30px 0;
+    font-size: 40px;
+}
+
+h2 {
+    margin-top: 6px;
+}
