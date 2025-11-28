@@ -35,19 +35,19 @@ const lists = [
 
 // console.log(lists[5].name)
 
-for (let i = 0; i < lists.length; i++){
-    const content = `<div><img src= "images/${lists[i].img}" alt= "商品画像">
-    <h2>${lists[i].name}</h2>
-    <p>${lists[i].price}円</p></div>`;
-    menu.insertAdjacentHTML('beforeend', content);
-}
-
 // for (let i = 0; i < lists.length; i++){
-//     const {name, img, price} = lists[i];
-//     const content = `<div><img src= "images/${img}" alt= "商品画像">
-//     <h2>${name}</h2>
-//     <p>${price}円</p></div>`;
+//     const content = `<div><img src= "images/${lists[i].img}" alt= "商品画像">
+//     <h2>${lists[i].name}</h2>
+//     <p>${lists[i].price}円</p></div>`;
 //     menu.insertAdjacentHTML('beforeend', content);
 // }
+
+for (let i = 0; i < lists.length; i++){
+    const {name, img, price} = lists[i];
+    const content = `<div><img src= "images/${img}" alt= "商品画像">
+    <h2>${name}</h2>
+    <p>${price}円</p></div>`;
+    menu.insertAdjacentHTML('beforeend', content);
+}
 
 
