@@ -49,5 +49,3 @@ for (let i = 0; i < lists.length; i++){
     <p>${price}円</p></div>`;
     menu.insertAdjacentHTML('beforeend', content);
 }
-
-え
