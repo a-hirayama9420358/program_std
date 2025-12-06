@@ -8,6 +8,7 @@ for (let i = 0; i < items.length; i++){
 
     const option = {
         duration: 3000,
+        delay:i *500,
         fill: 'forwards'
     };
 
