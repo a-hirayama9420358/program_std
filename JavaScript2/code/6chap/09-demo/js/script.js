@@ -3,7 +3,12 @@ const items = document.querySelectorAll(".img-item");
 
 for (let i = 0; i < items.length; i++){
     const keyframe = {
-        opacity:[0, 1]
+        opacity:[0, 1],
+        // rotate:['x 90deg', '0deg'],
+        // translate:['0 330px', '0 0'],
+        rotate:['10deg', '0deg'],
+        scale:[1.1, 1],
+        filter:['blur(20px)', 'blur(0px)'],
     };
 
     const option = {
