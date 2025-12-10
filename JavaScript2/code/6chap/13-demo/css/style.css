@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+    padding: 1rem;
+}
+
+/* h1要素を画面の高さいっぱいにするため画面サイズの上50％とした50％にマージンを付ける */
+h1 {
+    margin: 50vh 0 70vh;
+}
+
+img{
+    max-width: 100%;
+}
