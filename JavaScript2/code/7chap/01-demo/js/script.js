@@ -2,6 +2,7 @@
 // ==========
 const loadingAreaGrey = document.querySelector('#loading');
 const loadingAreaGreen = document.querySelector('#loading-screen')
+const loadingText = document.querySelector('#loading p')
 
 // ローディング中(グレースクリーン)
 window.addEventListener('load',() =>{
@@ -29,5 +30,36 @@ window.addEventListener('load',() =>{
         fill: 'forwards',
     }
     );
+
+//ローディング中のテキスト
+loadingText.animate(
+    [
+        {
+            opacity: 1,
+            offset: .8, //80%
+        },
+        {
+            opacity: 0,
+            offset: 1,
+        },
+    ],
+    {
+        duration: 1200,
+        easing: 'ease',
+        fill: 'forwards'
+    },
+);
 });
+
+// 画像ギャラリー
+// ==========
+const mainImage = document.querySelector('.gallery-image img')
+const thumbImages = document.querySelectorAll('.gallery-thumbnails img')
+
+for (let i = 0; i < thumbImages.length; i++){
+    thumbImages[i].addEventListener('mouseover', (event) =>{
+        mainImage.src = event.target.src;
+        mainImage.animate({opacity: [0, 1]}, 500);
+    });
+}
 
