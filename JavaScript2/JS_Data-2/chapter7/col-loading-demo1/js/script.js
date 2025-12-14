@@ -6,8 +6,8 @@ window.addEventListener('load', () => {
   loadingArea.animate(
     {
       backdropFilter: ['blur(10px)', 'blur(0)'],
-      background: ['rgba(238, 221, 136, 1)', 'rgba(238, 221, 136, 0)'],
-      visibility: 'hidden',
+      // background: ['rgba(238, 221, 136, 1)', 'rgba(238, 221, 136, .5)'],
+      // visibility: 'hidden',
     },
     {
       duration: 2000,
