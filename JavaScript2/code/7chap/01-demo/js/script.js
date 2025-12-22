@@ -56,6 +56,8 @@ loadingText.animate(
 const mainImage = document.querySelector('.gallery-image img')
 const thumbImages = document.querySelectorAll('.gallery-thumbnails img')
 
+
+//mousoverのイベントを０から５の全てのiamageごとに書くのが面倒なんでFor分で処理
 // for (let i = 0; i < thumbImages.length; i++){
 //     thumbImages[i].addEventListener('mouseover', (event) =>{
 //         mainImage.src = event.target.src;
@@ -63,8 +65,10 @@ const thumbImages = document.querySelectorAll('.gallery-thumbnails img')
 //     });
 // }
 
-thumbImages.forEach((thumbImage) => {
-    thumbImage.addEventListener('mouseover', (event) =>{
+
+//ForEachでthumbImagesの要素を渡す箱として引数imgを設定、名前はなんでもいい
+thumbImages.forEach((img) => {
+    img.addEventListener('mouseover', (event) =>{
         mainImage.src = event.target.src;
         mainImage.animate({opacity:[0, 1]}, 500);
     })
