@@ -65,11 +65,30 @@ const thumbImages = document.querySelectorAll('.gallery-thumbnails img')
 //     });
 // }
 
-
 //ForEachでthumbImagesの要素を渡す箱として引数imgを設定、名前はなんでもいい
 thumbImages.forEach((img) => {
     img.addEventListener('mouseover', (event) =>{
         mainImage.src = event.target.src;
         mainImage.animate({opacity:[0, 1]}, 500);
     })
+});
+
+const menuOpen = document.querySelector('#menu-open');
+const menuClose = document.querySelector('#menu-close');
+const menuPanel = document.querySelector('#menu-panel');
+const menuOptions = {
+    duration: 1400,
+    easing: 'ease',
+    fill: 'forwards',
+}
+
+// メニューを開く
+menuOpen.addEventListener('click', () => {
+    // console.log('メニュー開く');
+    menuPanel.animate({translate: ['100vw', 0]}, menuOptions);
+});
+
+// メニュー閉じる
+menuClose.addEventListener('click', () => {
+    menuPanel.animate({translate: [0, '100vw']}, menuOptions);
 });
