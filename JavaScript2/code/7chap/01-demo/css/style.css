@@ -135,6 +135,10 @@ Loading
     text-decoration: none;
     font-size: 2rem;
 }
+.menu-list li {
+    margin: 1.5rem 0;
+    opacity: 0;
+}
 /*
 HERO
 ================================================ */

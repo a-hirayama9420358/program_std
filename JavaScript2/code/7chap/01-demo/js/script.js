@@ -76,6 +76,7 @@ thumbImages.forEach((img) => {
 const menuOpen = document.querySelector('#menu-open');
 const menuClose = document.querySelector('#menu-close');
 const menuPanel = document.querySelector('#menu-panel');
+const menuItems = document.querySelectorAll('#menu-panel li')
 const menuOptions = {
     duration: 1400,
     easing: 'ease',
@@ -86,9 +87,29 @@ const menuOptions = {
 menuOpen.addEventListener('click', () => {
     // console.log('メニュー開く');
     menuPanel.animate({translate: ['100vw', 0]}, menuOptions);
+
+// リンクをひとつずつ表示 引数itemにはリストの各要素が入り第二引数indexには各要素の番号が自動で入る
+    menuItems.forEach((item, index) =>              {
+        // console.log(`${index}番目のリスト`);
+        item.animate({
+            opacity:[0, 1],
+            translate:['2rem', 0],
+        },
+        {
+            duration: 3000,
+            delay: 1000 *index,
+            easing: 'ease',
+            fill: 'forwards',
+        }
+    );
 });
+});
+
 
 // メニュー閉じる
 menuClose.addEventListener('click', () => {
     menuPanel.animate({translate: [0, '100vw']}, menuOptions);
+    menuItems.forEach((item) => {
+        item.animate({opacity: [1, 0]}, menuOptions);
+    });
 });
