@@ -105,11 +105,44 @@ menuOpen.addEventListener('click', () => {
 });
 });
 
-
 // メニュー閉じる
 menuClose.addEventListener('click', () => {
     menuPanel.animate({translate: [0, '100vw']}, menuOptions);
     menuItems.forEach((item) => {
         item.animate({opacity: [1, 0]}, menuOptions);
     });
+});
+
+// 監視対象が範囲内に入ったら実行する動作 第二引数obsは「const fadeObserver = new IntersectionObserver(animateFade)」
+const  animateFade = (entries, obs) => {
+    entries.forEach((entry) => {
+        if(entry.isIntersecting){
+            // console.log(entry.target);
+            entry.target.animate(
+                {
+                    opacity: [0, 1],
+                    filter: ['blur(.4rem)', 'blur(0rem)'], //blurでぼかしを調整
+                    translate: ['0 10rem', 0],
+                },
+                {
+                    duration: 2000,
+                    easing: 'ease',
+                    fill: 'forwards',
+                }
+            );
+            // 一度ふわっと表示させたら監視をやめる
+            obs.unobserve(entry.target);
+        }
+});
+};
+
+// 監視設定　インスタンス
+const fadeObserver = new IntersectionObserver(animateFade)
+
+// .fadeinを監視するように指示
+const  fadeElements = document.querySelectorAll('.fadein')
+
+// fadeElementsは配列なんで ForEachで回して各要素を監視
+fadeElements.forEach((fadeElement) => {
+fadeObserver.observe(fadeElement);
 });
