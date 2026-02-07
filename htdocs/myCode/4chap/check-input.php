@@ -4,7 +4,7 @@
         <input type = "checkbox" name = "mail">お買い得の情報を受け取る
     </p>
     <p>
-        <input type = "submit" value = "確定">
+        <input type = "submit" value = "確定する">
     </p>
 
 </form>
