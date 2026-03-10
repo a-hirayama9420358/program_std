@@ -8,7 +8,7 @@ use shop;
 create table product(
     id int auto_increment primary key,
     name varchar(200) not null,
-    price int not null,
+    price int not null
 );
 
 insert into product values(null, '松の実', 700);
