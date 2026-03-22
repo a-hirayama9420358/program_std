@@ -3,6 +3,7 @@ create database shop default character set utf8 collate utf8_general_ci;
 drop user if exists 'staff'@'localhost';
 create user 'staff'@'localhost' identified by 'password';
 grant all on shop.* to 'staff'@'localhost';
+
 use shop;
 
 create table product(
