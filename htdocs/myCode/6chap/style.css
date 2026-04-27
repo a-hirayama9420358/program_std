@@ -30,3 +30,7 @@
 .td1 {
 	width: 11em;
 }
+
+form {
+	display: inline-block;
+}
