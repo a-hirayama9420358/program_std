@@ -1,0 +1,102 @@
+app:
+  description: 'あなたは経費精算ヘルプデスクです。
+
+
+    質問された内容に対して、経費精算の社内規定を参照し回答してください。
+
+    経費精算の社内規定に記載のない場合は回答せず、必ず「担当者に確認してください」と返答するようにしてください。'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: chat
+  name: 3-4_経費精算ヘルプデスク
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.14@8a331ba0572f889222b76d6a26f718264841e74c849b60f9542963483c5dec99
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 5
+    strategy: function_call
+    tools: []
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    reranking_mode: weighted_score
+    retrieval_model: multiple
+    top_k: 4
+    weights:
+      keyword_setting:
+        keyword_weight: 0
+      vector_setting:
+        embedding_model_name: text-embedding-3-large
+        embedding_provider_name: openai
+        vector_weight: 1
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .MPGA
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4o-mini
+    provider: langgenius/openai/openai
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: 'あなたは経費精算ヘルプデスクです。
+
+
+    質問された内容に対して、経費精算の社内規定を参照し回答してください。
+
+    経費精算の社内規定に記載のない場合は回答せず、必ず「担当者に確認してください」と返答するようにしてください。'
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.1.5

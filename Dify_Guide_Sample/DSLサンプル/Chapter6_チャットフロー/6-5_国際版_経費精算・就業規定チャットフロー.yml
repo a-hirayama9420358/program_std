@@ -1,0 +1,531 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 6-5_国際版_経費精算・就業規定チャットフロー
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.14@8a331ba0572f889222b76d6a26f718264841e74c849b60f9542963483c5dec99
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: if-else
+      id: 1737209735444-source-1737209903946-target
+      selected: false
+      source: '1737209735444'
+      sourceHandle: source
+      target: '1737209903946'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1737209903946-true-1737209990386-target
+      selected: false
+      source: '1737209903946'
+      sourceHandle: 'true'
+      target: '1737209990386'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1737209903946-12ad2b1a-249f-42fc-8f56-119ff19192f1-1737210225964-target
+      selected: false
+      source: '1737209903946'
+      sourceHandle: 12ad2b1a-249f-42fc-8f56-119ff19192f1
+      target: '1737210225964'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1737209990386-source-1737210342150-target
+      selected: false
+      source: '1737209990386'
+      sourceHandle: source
+      target: '1737210342150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1737210225964-source-1737210533113-target
+      selected: false
+      source: '1737210225964'
+      sourceHandle: source
+      target: '1737210533113'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1737210342150-source-1737211596515-target
+      selected: false
+      source: '1737210342150'
+      sourceHandle: source
+      target: '1737211596515'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1737211596515-source-1737210522683-target
+      selected: false
+      source: '1737211596515'
+      sourceHandle: source
+      target: '1737210522683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1737210533113-source-1737256580031-target
+      selected: false
+      source: '1737210533113'
+      sourceHandle: source
+      target: '1737256580031'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1737256580031-source-1737211331525-target
+      selected: false
+      source: '1737256580031'
+      sourceHandle: source
+      target: '1737211331525'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: 確認したい項目を選択してください。
+          max_length: 48
+          options:
+          - 1.就業規則
+          - 2.経費精算
+          required: true
+          type: select
+          variable: user_input
+      height: 89
+      id: '1737209735444'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 9c274fa6-223f-4336-a596-180e7f9db160
+            value: '1'
+            varType: string
+            variable_selector:
+            - '1737209735444'
+            - user_input
+          id: 'true'
+          logical_operator: and
+        - case_id: 12ad2b1a-249f-42fc-8f56-119ff19192f1
+          conditions:
+          - comparison_operator: contains
+            id: 9bf6e348-a3a6-4062-bf40-e6edffef6bc0
+            value: '2'
+            varType: string
+            variable_selector:
+            - '1737209735444'
+            - user_input
+          id: 12ad2b1a-249f-42fc-8f56-119ff19192f1
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 173
+      id: '1737209903946'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - d31f191b-a30c-4169-9dbc-f21999d06ec9
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: weighted_score
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: text-embedding-3-large
+              embedding_provider_name: openai
+              vector_weight: 1
+        query_variable_selector:
+        - '1737209735444'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知識習得_就業規則
+        type: knowledge-retrieval
+      height: 53
+      id: '1737209990386'
+      position:
+        x: 673.6989298200726
+        y: 267.69892982007264
+      positionAbsolute:
+        x: 673.6989298200726
+        y: 267.69892982007264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - 67bc1244-3d59-4a1e-85a9-66ac30637251
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: weighted_score
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: text-embedding-3-large
+              embedding_provider_name: openai
+              vector_weight: 1
+        query_variable_selector:
+        - '1737209735444'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知識習得_経費精算
+        type: knowledge-retrieval
+      height: 53
+      id: '1737210225964'
+      position:
+        x: 673.6989298200726
+        y: 412
+      positionAbsolute:
+        x: 673.6989298200726
+        y: 412
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1737209990386'
+          - result
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: f128ce09-2ffc-4066-a5c4-006d8612ac60
+          role: system
+          text: ユーザーからの質問に対して、{{#context#}}を参照して回答してください。記載していない・正確な回答があった場合は必ず「担当者へ直接ご確認ください」と返答してください。
+        selected: false
+        title: 就業規則回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1737210342150'
+      position:
+        x: 976.6989298200726
+        y: 267.69892982007264
+      positionAbsolute:
+        x: 976.6989298200726
+        y: 267.69892982007264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '==日本語==
+
+          {{#1737210342150.text#}}
+
+
+          ==英語==
+
+          {{#1737211596515.text#}}'
+        desc: ''
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 138
+      id: '1737210522683'
+      position:
+        x: 1582.391138521695
+        y: 267.69892982007264
+      positionAbsolute:
+        x: 1582.391138521695
+        y: 267.69892982007264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1737210225964'
+          - result
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 4da4b0c0-118f-4c55-a735-7fa0d366dda1
+          role: system
+          text: ユーザーからの質問に対して、{{#context#}}を参照して回答してください。記載していない・正確な回答があった場合は必ず「担当者へ直接ご確認ください」と返答してください。
+        selected: false
+        title: 経費精算回答
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1737210533113'
+      position:
+        x: 970.1989298200726
+        y: 412
+      positionAbsolute:
+        x: 970.1989298200726
+        y: 412
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '==日本語==
+
+          {{#1737210533113.text#}}
+
+
+          ==英語==
+
+          {{#1737256580031.text#}}'
+        desc: ''
+        selected: false
+        title: 回答2
+        type: answer
+        variables: []
+      height: 138
+      id: '1737211331525'
+      position:
+        x: 1579.6989298200726
+        y: 412
+      positionAbsolute:
+        x: 1579.6989298200726
+        y: 412
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: ''
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: fa753529-fa7c-4987-ac00-06242693605d
+          role: system
+          text: '{{#1737210342150.text#}}を日本語から英語に翻訳してください。'
+        selected: false
+        title: 英語翻訳
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1737211596515'
+      position:
+        x: 1280.891138521695
+        y: 267.69892982007264
+      positionAbsolute:
+        x: 1280.891138521695
+        y: 267.69892982007264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 165ddbd8-fcf7-4779-b295-9a5cd169d13a
+          role: system
+          text: '{{#1737210533113.text#}}を日本語から英語に翻訳してください。'
+        selected: false
+        title: 英語翻訳
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1737256580031'
+      position:
+        x: 1273.1989298200726
+        y: 412
+      positionAbsolute:
+        x: 1273.1989298200726
+        y: 412
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -75.8317816368558
+      y: -121.22313642851122
+      zoom: 1.1233017603748494

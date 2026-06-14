@@ -1,0 +1,156 @@
+app:
+  description: 'ユーザーの入力をもとに、以下の条件を満たすメールマガジンを作成してください。
+
+
+    - ターゲット像は{{age}}歳の{{gender}}、{{persona}}という特徴があることを考慮して、メール本文を作成してください。
+
+    - {{name}}を含んだ、クリック率が高くなるようなタイトル名を設定してください。
+
+    - 本文中に{{url}}のリンクを埋め込んでください。
+
+    - 紹介する内容は{{details}}の情報を購買意欲が高まるように、魅力たっぷりに紹介してください。
+
+
+    禁止事項は以下の通りです。
+
+    - 本文中には直接​ターゲット像の情報は掲載してはいけません。
+
+    - 紹介する内容は{{details}}の内容に矛盾しないようにしてください。
+
+    - タイトルと本文以外の情報は追加しないようにしてください。'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: completion
+  name: 4-3_メルマガジェネレーター
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.7@11ec0b1909200f62b6ebf2cec1da981a9071d11c1ee0e2ef332ce89bcffa2544
+kind: app
+model_config:
+  agent_mode:
+    enabled: false
+    max_iteration: 5
+    strategy: function_call
+    tools: []
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .MPGA
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4o-mini
+    provider: langgenius/openai/openai
+  more_like_this:
+    enabled: true
+  opening_statement: null
+  pre_prompt: 'ユーザーの入力をもとに、以下の条件を満たすメールマガジンを作成してください。
+
+
+    - ターゲット像は{{age}}歳の{{gender}}、{{persona}}という特徴があることを考慮して、メール本文を作成してください。
+
+    - {{name}}を含んだ、クリック率が高くなるようなタイトル名を設定してください。
+
+    - 本文中に{{url}}のリンクを埋め込んでください。
+
+    - 紹介する内容は{{details}}の情報を購買意欲が高まるように、魅力たっぷりに紹介してください。
+
+
+    禁止事項は以下の通りです。
+
+    - 本文中には直接​ターゲット像の情報は掲載してはいけません。
+
+    - 紹介する内容は{{details}}の内容に矛盾しないようにしてください。
+
+    - タイトルと本文以外の情報は追加しないようにしてください。'
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    enabled: false
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form:
+  - text-input:
+      default: ''
+      label: 商品/サービス名を入力してください。
+      max_length: 48
+      required: true
+      variable: name
+  - paragraph:
+      default: ''
+      label: 商品/サービスの詳細を入力してください。
+      max_length: 500
+      required: true
+      variable: details
+  - select:
+      default: ''
+      label: ターゲットの性別を選択してください。
+      options:
+      - 男性
+      - 女性
+      - 性別は限定しない
+      required: true
+      variable: gender
+  - number:
+      default: ''
+      label: ターゲットの年齢を入力してください。
+      required: true
+      variable: age
+  - paragraph:
+      default: ''
+      label: ターゲットの性格・趣味・ライフスタイルなどの特徴を入力してください。
+      max_length: 500
+      required: false
+      variable: persona
+  - text-input:
+      default: ''
+      label: ユーザーにクリックさせたいURLを入力してください。
+      max_length: 200
+      required: false
+      variable: url
+version: 0.1.5
