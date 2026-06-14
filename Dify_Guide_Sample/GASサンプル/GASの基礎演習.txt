@@ -1,0 +1,7 @@
+function doGet(e) {
+  return ContentService.createTextOutput("GASにGETリクエストしました！");
+}
+
+function doPost(e) {
+  return ContentService.createTextOutput("GASにPOSTリクエストしました！");
+}

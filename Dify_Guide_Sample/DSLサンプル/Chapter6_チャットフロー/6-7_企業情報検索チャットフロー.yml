@@ -1,0 +1,356 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 6-7_企業情報検索チャットフロー
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/google:0.0.8@3efcf55ffeef9d0f77715e0afb23534952ae0cb385c051d0637e86d71199d1a6
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.14@8a331ba0572f889222b76d6a26f718264841e74c849b60f9542963483c5dec99
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: tool
+      id: 1737338133427-source-1737338162406-target
+      selected: false
+      source: '1737338133427'
+      sourceHandle: source
+      target: '1737338162406'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: llm
+      id: 1737338162406-source-llm-target
+      selected: false
+      source: '1737338162406'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: llm
+      id: 1737338162406-source-1737338360509-target
+      source: '1737338162406'
+      sourceHandle: source
+      target: '1737338360509'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: llm-source-1737338461638-target
+      source: llm
+      sourceHandle: source
+      target: '1737338461638'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1737338360509-source-1737338461638-target
+      source: '1737338360509'
+      sourceHandle: source
+      target: '1737338461638'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1737338461638-source-answer-target
+      source: '1737338461638'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables: []
+      height: 53
+      id: '1737338133427'
+      position:
+        x: 117.42705641813566
+        y: 282
+      positionAbsolute:
+        x: 117.42705641813566
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 3a95a46d-f1df-45ee-85e4-bde16106aa72
+          role: system
+          text: '{{#1737338162406.text#}}の検索結果をもとに下記を教えてください
+
+
+            ●基本情報
+
+            会社名
+
+            設立年月日
+
+            所在地
+
+            主な事業内容
+
+            従業員数
+
+            資本金'
+        selected: false
+        title: 基本情報
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: llm
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '◆基本情報
+
+          {{#llm.text#}}
+
+
+          ◆サービス概要
+
+          {{#1737338360509.text#}}
+
+
+          ◆将来戦略
+
+          {{#1737338461638.text#}}'
+        desc: ''
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 140
+      id: answer
+      position:
+        x: 1257.769579943111
+        y: 282
+      positionAbsolute:
+        x: 1257.769579943111
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        provider_id: google
+        provider_name: google
+        provider_type: builtin
+        selected: false
+        title: GoogleSearch
+        tool_configurations: {}
+        tool_label: GoogleSearch
+        tool_name: google_search
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#sys.query#}}'
+        type: tool
+      height: 53
+      id: '1737338162406'
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: f1c5dbe1-3498-4c0c-a061-54a66613ea52
+          role: system
+          text: '{{#1737338162406.text#}}の検索結果をもとに下記を教えてください
+
+
+            ●サービス概要
+
+            主力製品やサービスの説明'
+        selected: false
+        title: サービス概要
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1737338360509'
+      position:
+        x: 680
+        y: 410.1187319694394
+      positionAbsolute:
+        x: 680
+        y: 410.1187319694394
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 0af226aa-4fb9-4b24-9c19-7dbe37da15f2
+          role: system
+          text: '{{#llm.text#}}{{#1737338360509.text#}}
+
+            これらの情報から企業の将来戦略として想定されるアクションの仮説を類推してください'
+        selected: true
+        title: 将来戦略の仮説
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1737338461638'
+      position:
+        x: 979.4160621933236
+        y: 282
+      positionAbsolute:
+        x: 979.4160621933236
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -113.09356897227394
+      y: -377.6721554078167
+      zoom: 1.5874011415110536

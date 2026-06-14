@@ -1,0 +1,32 @@
+function doPost(e) {
+  try {
+    // リクエストのJSONデータを解析
+    var jsonData = JSON.parse(e.postData.contents);
+    
+    // 現在のスプレッドシートを取得し、シート名を指定
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('領収書管理');
+    
+    // 現在の日時を取得
+    var currentDate = new Date();
+    
+    // データを格納するオブジェクト
+    var data = {
+      timestamp: currentDate,
+      amount: jsonData.Amount || '',
+      date: jsonData.Date || '',
+      issuer: jsonData.Issuer || ''
+    };
+    
+    // スプレッドシートに新しい行を追加
+    sheet.appendRow([data.timestamp, data.amount, data.date, data.issuer]);
+    
+    // 成功ステータスを返す
+    return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    // エラー発生時の処理
+    return ContentService.createTextOutput(JSON.stringify({status: 'error', message: error.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

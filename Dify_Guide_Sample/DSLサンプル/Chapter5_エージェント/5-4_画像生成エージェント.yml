@@ -1,0 +1,176 @@
+app:
+  description: 'ユーザーが入力した情報を元に画像生成してください。
+
+
+    #Step1
+
+    ユーザーが入力したテキストを、GoogleSearchにて検索してください。
+
+
+    #Step2
+
+    検索後、上位表示されている記事を参照し、画像生成のためのコンセプトを2つ考えてください。
+
+
+    #Step3
+
+    Step2にて考えたコンセプトを元に、画像生成を2件実行してください。
+
+    1コンセプトにつき1枚生成してください。
+
+    '
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: agent-chat
+  name: 5-4_画像生成エージェント
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/google:0.0.8@3efcf55ffeef9d0f77715e0afb23534952ae0cb385c051d0637e86d71199d1a6
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/dalle:0.0.4@c0d3625ef2fe13b8e8f6125fb4335822904d382e9c65e592f0d44dca037e3f6a
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/stability:0.0.2@b0a227423a7e79785a962c9adcd66c0455389c07a232b93e34069e1231da544b
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.7@11ec0b1909200f62b6ebf2cec1da981a9071d11c1ee0e2ef332ce89bcffa2544
+kind: app
+model_config:
+  agent_mode:
+    enabled: true
+    max_iteration: 5
+    prompt: null
+    strategy: function_call
+    tools:
+    - enabled: true
+      isDeleted: false
+      notAuthor: true
+      provider_id: langgenius/google/google
+      provider_name: langgenius/google/google
+      provider_type: builtin
+      tool_label: GoogleSearch
+      tool_name: google_search
+      tool_parameters:
+        query: ''
+    - enabled: true
+      isDeleted: false
+      notAuthor: true
+      provider_id: langgenius/dalle/dalle
+      provider_name: langgenius/dalle/dalle
+      provider_type: builtin
+      tool_label: DALL-E 3
+      tool_name: dalle3
+      tool_parameters:
+        n: ''
+        prompt: ''
+        quality: ''
+        size: ''
+        style: ''
+    - enabled: true
+      notAuthor: true
+      provider_id: langgenius/stability/stability
+      provider_name: langgenius/stability/stability
+      provider_type: builtin
+      tool_label: StableDiffusion
+      tool_name: stability_text2image
+      tool_parameters:
+        aspect_ratio: ''
+        model: ''
+        negative_prompt: ''
+        prompt: ''
+        seeds: ''
+  annotation_reply:
+    enabled: false
+  chat_prompt_config: {}
+  completion_prompt_config: {}
+  dataset_configs:
+    datasets:
+      datasets: []
+    reranking_enable: false
+    retrieval_model: multiple
+    top_k: 4
+  dataset_query_variable: ''
+  external_data_tools: []
+  file_upload:
+    allowed_file_extensions:
+    - .JPG
+    - .JPEG
+    - .PNG
+    - .GIF
+    - .WEBP
+    - .SVG
+    - .MP4
+    - .MOV
+    - .MPEG
+    - .MPGA
+    allowed_file_types: []
+    allowed_file_upload_methods:
+    - remote_url
+    - local_file
+    enabled: false
+    image:
+      detail: high
+      enabled: false
+      number_limits: 3
+      transfer_methods:
+      - remote_url
+      - local_file
+    number_limits: 3
+  model:
+    completion_params:
+      stop: []
+    mode: chat
+    name: gpt-4o-mini
+    provider: langgenius/openai/openai
+  more_like_this:
+    enabled: false
+  opening_statement: ''
+  pre_prompt: 'ユーザーが入力した情報を元に画像生成してください。
+
+
+    #Step1
+
+    ユーザーが入力したテキストを、GoogleSearchにて検索してください。
+
+
+    #Step2
+
+    検索後、上位表示されている記事を参照し、画像生成のためのコンセプトを2つ考えてください。
+
+
+    #Step3
+
+    Step2にて考えたコンセプトを元に、下記にて画像生成を実行してください。
+
+    - dalle3にて2枚
+
+    - stability_txt2imageにて2枚
+
+    - 1コンセプトにつき1枚生成してください
+
+    '
+  prompt_type: simple
+  retriever_resource:
+    enabled: true
+  sensitive_word_avoidance:
+    configs: []
+    enabled: false
+    type: ''
+  speech_to_text:
+    enabled: false
+  suggested_questions: []
+  suggested_questions_after_answer:
+    enabled: false
+  text_to_speech:
+    enabled: false
+    language: ''
+    voice: ''
+  user_input_form: []
+version: 0.1.5

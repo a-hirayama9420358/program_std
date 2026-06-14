@@ -1,0 +1,40 @@
+function doPost(e) {
+  try {
+    var jsonData = JSON.parse(e.postData.contents);
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('家計簿');
+    var currentDate = new Date();
+   
+    var data = {
+      timestamp: currentDate,
+      category: jsonData.Category || '',
+      person: jsonData.Person || '',
+      name: jsonData.Name || '',
+      amount: jsonData.Amount || '',
+      details: jsonData.Details || ''
+    };
+
+
+    // 最終行の次の行を取得
+    var lastRow = sheet.getLastRow() + 1;
+   
+    // A-F列にのみデータを追加
+    sheet.getRange(lastRow, 1, 1, 6).setValues([[
+      data.timestamp,
+      data.category,
+      data.person,
+      data.name,
+      data.amount,
+      data.details
+    ]]);
+   
+    return ContentService.createTextOutput(JSON.stringify({status: 'success'}))
+      .setMimeType(ContentService.MimeType.JSON);
+     
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      status: 'error',
+      message: error.toString()
+    }))
+    .setMimeType(ContentService.MimeType.JSON);
+  }
+}

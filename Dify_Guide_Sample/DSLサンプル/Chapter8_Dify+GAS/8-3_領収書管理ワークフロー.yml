@@ -1,0 +1,387 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 8-3_領収書管理ワークフロー
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.7@11ec0b1909200f62b6ebf2cec1da981a9071d11c1ee0e2ef332ce89bcffa2544
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1743351896471-source-1743351955514-target
+      source: '1743351896471'
+      sourceHandle: source
+      target: '1743351955514'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1743351955514-source-1743352053948-target
+      source: '1743351955514'
+      sourceHandle: source
+      target: '1743352053948'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1743352053948-source-1743352427037-target
+      source: '1743352053948'
+      sourceHandle: source
+      target: '1743352427037'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: if-else
+      id: 1743352427037-source-1743352490999-target
+      source: '1743352427037'
+      sourceHandle: source
+      target: '1743352490999'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1743352490999-true-1743352535626-target
+      source: '1743352490999'
+      sourceHandle: 'true'
+      target: '1743352535626'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1743352490999-false-1743352601146-target
+      source: '1743352490999'
+      sourceHandle: 'false'
+      target: '1743352601146'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 登録する領収書のデータをアップロードしてください。
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: file
+      height: 89
+      id: '1743351896471'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: c1bb259e-bb6c-436e-9bd9-eb7170aef0e5
+          role: system
+          text: '領収書の情報を抽出します。
+
+            抽出する情報は以下の３つです。
+
+            - 金額
+
+            - 日付
+
+            - 発行元'
+        selected: false
+        title: 領収書読み取り
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1743351896471'
+            - file
+          enabled: true
+      height: 89
+      id: '1743351955514'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 8d991064-379e-4291-b5e2-0e12b7a66b43
+          role: system
+          text: '{{#1743351955514.text#}}から、以下のJSON形式に変換してtext形式で出力してください。
+
+            JSON形式のみを出力し、不要な装飾を排除すること。
+
+
+            {
+
+             "Amount": "{{#1743351955514.text#}}の金額",
+
+              "Date": "{{#1743351955514.text#}}の日付",
+
+              "Issuer": "{{#1743351955514.text#}}の発行元情報"
+
+            }'
+        selected: false
+        title: JSONデータ生成
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1743352053948'
+      position:
+        x: 688
+        y: 282
+      positionAbsolute:
+        x: 688
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1056
+            key: ''
+            type: text
+            value: '{{#1743352053948.text#}}'
+          type: json
+        desc: ''
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTPリクエスト
+        type: http-request
+        url: <<アプリのURLを入力する>>
+        variables: []
+      height: 119
+      id: '1743352427037'
+      position:
+        x: 992
+        y: 282
+      positionAbsolute:
+        x: 992
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 16e63a37-de24-41f2-ba33-2dda0ed4f955
+            value: success
+            varType: string
+            variable_selector:
+            - '1743352427037'
+            - body
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 125
+      id: '1743352490999'
+      position:
+        x: 1296
+        y: 282
+      positionAbsolute:
+        x: 1296
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1743351955514'
+          - text
+          variable: text
+        - value_selector:
+          - '1743352053948'
+          - text
+          variable: text
+        selected: false
+        title: スプレッドシートに格納完了
+        type: end
+      height: 115
+      id: '1743352535626'
+      position:
+        x: 1600
+        y: 282
+      positionAbsolute:
+        x: 1600
+        y: 282
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1743351955514'
+          - text
+          variable: text
+        - value_selector:
+          - '1743352053948'
+          - text
+          variable: text
+        selected: false
+        title: スプレッドシートに格納失敗
+        type: end
+      height: 115
+      id: '1743352601146'
+      position:
+        x: 1600
+        y: 436
+      positionAbsolute:
+        x: 1600
+        y: 436
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 1
