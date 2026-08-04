@@ -1,0 +1,1249 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: article generator
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.2.3@1f549adb04dae791e36f4dac3edb5d128a381ed7da3e05c1b3734274e5bf01d6
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tavily:0.0.5@7f277f7a63e36b1b3e9ed53e55daab0b281599d14902664bade86215f5374f06
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/anthropic:0.0.14@d664a277a0148dc3eb2a9cd73611faca82c48bafcbb87347524a22731c76fdc5
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: WordPressアカウントのパスワードを保存しておきます。
+    id: 04f42ef1-d90e-47f2-b219-0c2c6956eae6
+    name: password
+    selector:
+    - env
+    - password
+    value: 投稿するWordPressアカウントのパスワードを入力します。
+    value_type: string
+  - description: WordPressアカウントのユーザー名を保存しておきます。
+    id: d0178764-3447-42d1-9c28-46178fe26905
+    name: username
+    selector:
+    - env
+    - username
+    value: 投稿するWordPressアカウントのユーザー名を入力します。
+    value_type: string
+  - description: 作成した記事の送り先となるWordPressのCMSのエンドポイントの文字列を保存して利用します。
+    id: 95905364-804c-4dd5-9f13-84c46eebea14
+    name: URL
+    selector:
+    - env
+    - URL
+    value: ここにWordPressのCMSのPost先のエンドポイントを入力してください。
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: tool
+      id: 1720337641762-source-1720337831013-target
+      selected: false
+      source: '1720337641762'
+      sourceHandle: source
+      target: '1720337831013'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: llm
+      id: 1720339168525-source-1720340278909-target
+      selected: false
+      source: '1720339168525'
+      sourceHandle: source
+      target: '1720340278909'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1720346709504'
+        sourceType: code
+        targetType: llm
+      id: 1720349144510-source-1720350539075-target
+      selected: false
+      source: '1720349144510'
+      sourceHandle: source
+      target: '1720350539075'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: code
+      id: 1720346709504-source-1720357855219-target
+      selected: false
+      source: '1720346709504'
+      sourceHandle: source
+      target: '1720357855219'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: template-transform
+      id: 1720357855219-source-1720357917274-target
+      selected: false
+      source: '1720357855219'
+      sourceHandle: source
+      target: '1720357917274'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: end
+      id: 1723469765869-source-1720337402285-target
+      selected: false
+      source: '1723469765869'
+      sourceHandle: source
+      target: '1720337402285'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: code
+      id: 1720357917274-source-1723470278910-target
+      selected: false
+      source: '1720357917274'
+      sourceHandle: source
+      target: '1723470278910'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1723470278910-source-1723469765869-target
+      selected: false
+      source: '1723470278910'
+      sourceHandle: source
+      target: '1723469765869'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1720346709504'
+        sourceType: iteration-start
+        targetType: code
+      id: 1720346709504start0-source-1720349144510-target
+      selected: false
+      source: 1720346709504start0
+      sourceHandle: source
+      target: '1720349144510'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1720323205845-source-1720337641762-target
+      selected: false
+      source: '1720323205845'
+      sourceHandle: source
+      target: '1720337641762'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1720337831013-source-1720339168525-target
+      selected: false
+      source: '1720337831013'
+      sourceHandle: source
+      target: '1720339168525'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: parameter-extractor
+      id: 1720340278909-source-1751604166603-target
+      selected: false
+      source: '1720340278909'
+      sourceHandle: source
+      target: '1751604166603'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: iteration
+      id: 1751604166603-source-1720346709504-target
+      selected: false
+      source: '1751604166603'
+      sourceHandle: source
+      target: '1720346709504'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: title
+          max_length: 100
+          options: []
+          required: true
+          type: text-input
+          variable: title
+        - label: keywords
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: keywords
+        - label: target_word_count
+          max_length: 48
+          options: []
+          required: false
+          type: number
+          variable: target_word_count
+        - label: tone_and_voice
+          max_length: 4000
+          options: []
+          required: false
+          type: paragraph
+          variable: tone_and_voice
+        - label: audience
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: audience
+        - label: item
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: item
+        - label: sub_keyword
+          max_length: 256
+          options: []
+          required: false
+          type: text-input
+          variable: sub_keyword
+        - label: structured_outline
+          max_length: 33024
+          options: []
+          required: false
+          type: paragraph
+          variable: structured_outline
+        - label: final_prompts
+          max_length: 33024
+          options: []
+          required: false
+          type: paragraph
+          variable: final_prompts
+        - label: filtered_info
+          max_length: 33024
+          options: []
+          required: false
+          type: paragraph
+          variable: filtered_info
+      height: 324
+      id: '1720323205845'
+      position:
+        x: 4263.353640138399
+        y: -554.1589706341049
+      positionAbsolute:
+        x: 4263.353640138399
+        y: -554.1589706341049
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1720357917274'
+          - output
+          variable: optimized_article
+        selected: false
+        title: 終了
+        type: end
+      height: 90
+      id: '1720337402285'
+      position:
+        x: 6032.94863533926
+        y: -122.62113949700141
+      positionAbsolute:
+        x: 6032.94863533926
+        y: -122.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: claude-3-haiku-20240307
+          provider: langgenius/anthropic/anthropic
+        prompt_template:
+        - edition_type: basic
+          id: 705c28e8-e54c-485c-84a4-8eb1fe63a98c
+          role: system
+          text: "  {{#1720323205845.audience#}}を対象とした、{{#1720323205845.title#}}という記事を作りたい。\n\
+            \n  特に {{#1720323205845.item#}}の{{#1720323205845.keywords#}}の情報を集めたい\n\
+            \n  特に{{#1720323205845.sub_keyword#}}についても知りたい\n\n  この情報を集めることができるような検索フレーズを返してください。検索クエリに馴染みのない単語を含めてください。"
+        - id: 7802f7dc-513f-4f58-b23c-ba691d0c9b9c
+          role: user
+          text: 'フレーズだけを返し、その前後は何も返しません： '
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: クエリ作成
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 124
+      id: '1720337641762'
+      position:
+        x: 4604.597535321129
+        y: -554.1589706341049
+      positionAbsolute:
+        x: 4604.597535321129
+        y: -554.1589706341049
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        provider_id: tavily
+        provider_name: tavily
+        provider_type: builtin
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: ソース情報検索
+        tool_configurations:
+          exclude_domains:
+            type: constant
+            value: null
+          include_answer:
+            type: constant
+            value: 1
+          include_domains:
+            type: constant
+            value: null
+          include_image_descriptions:
+            type: constant
+            value: 0
+          include_images:
+            type: constant
+            value: 0
+          include_raw_content:
+            type: constant
+            value: 0
+          max_results:
+            type: constant
+            value: 10
+          search_depth:
+            type: constant
+            value: basic
+        tool_label: TavilySearch
+        tool_name: tavily_search
+        tool_node_version: '2'
+        tool_parameters:
+          days:
+            type: constant
+            value: 1
+          query:
+            type: mixed
+            value: '{{#1720337641762.text#}}'
+          search_depth:
+            type: constant
+            value: advanced
+          time_range:
+            type: constant
+            value: year
+          topic:
+            type: constant
+            value: news
+        type: tool
+      height: 300
+      id: '1720337831013'
+      position:
+        x: 4898.197854747192
+        y: -554.1589706341049
+      positionAbsolute:
+        x: 4898.197854747192
+        y: -554.1589706341049
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-pro-preview-05-06
+          provider: langgenius/gemini/google
+        prompt_config:
+          jinja2_variables:
+          - value_selector:
+            - '1720323205845'
+            - title
+            variable: title
+          - value_selector:
+            - '1720323205845'
+            - keywords
+            variable: keywords
+          - value_selector:
+            - '1720323205845'
+            - target_word_count
+            variable: target_word_count
+          - value_selector:
+            - '1720337831013'
+            - text
+            value_type: string
+            variable: filtered_info
+        prompt_template:
+        - edition_type: jinja2
+          id: baff53b8-dd66-4d81-b77c-f6792942ceaa
+          jinja2_text: "1. まず、{{title}}に関する記事を作成する目的と、読者にとっての価値を考えてください。その思考過程を簡潔に記述してください。その際に以下の情報源を参考にしてください\n\
+            \n{{ output }}\n\n2. 次に、この目的を達成し、読者に価値を提供するために最適な記事構成について検討してください。以下の点を考慮し、その思考過程を記述してください：\n\
+            \   - タイトルの主題をどのように展開するか\n   - キーワードをどのように効果的に組み込むか\n   - 読者の興味をどのように維持するか\n\
+            \   - 情報をどのような順序で提示すると最も効果的か\n\n3. 上記の思考プロセスに基づいて、{{title}}に最適なアウトラインを作成してください。アウトライン作成時は以下の点に注意してください：\n\
+            \   - SEO最適化のため、適切な見出し階層（H1, H2, H3など）を使用すること\n   - 各セクションは論理的につながり、スムーズな流れを作ること\n\
+            \   - 読者の関心を維持するため、適切な見出しと小見出しを使用すること\n   - {{target_word_count}}字を目安に最大10000文字までで、各セクションのバランスを考慮すること\n\
+            \   - セクションの数は、指定された文字数を元に現実的なセクション数にすること\n   - 参考情報から得られた独自の視点や最新情報を積極的に取り入れること\n\
+            \   - タイトルに従った内容にフォーカスし、論理的に構成を組み立て、重要な内容をなるべく前に持ってくるように書く\n\n4. アウトラインを作成したら、それが{{title}}に対して最適であるか再度確認し、必要に応じて微調整を行ってください。特に、参考情報から得られた洞察が効果的に組み込まれているか確認してください。\n\
+            \n5. 最後に、画像の挿入計画を立ててください：\n   - 2000文字ごと、かつセクションの区切りのタイミングで各1枚の画像をUnsplashから取得し表示する位置を指定してください。\n\
+            \   - 各セクションに少なくとも1つの画像プランを含めてください。ただし、そのセクションに画像が不要だと判断した場合は、その理由を明記してください。\n\
+            \   - 各画像について、そのセクションの内容に関連する適切なキーワードと、簡潔な説明文（alt text）を提案してください。\n  \
+            \ - 画像が不要な場合は、\"画像不要\"と明記し、その理由を簡単に説明してください。\n\n出力形式：\n1. 目的と価値の考察\n2.\
+            \ 最適な記事構成の検討プロセス\n3. 詳細なアウトライン（番号付きリストと箇条書きを使用し、階層構造を明確に示す）\n4. 画像挿入計画（各セクションに1つ以上のプランを含む。不要な場合はその旨を明記）\n\
+            \n各主要セクションには、予想される内容の簡単な説明を追加してください。"
+          role: system
+          text: "次の情報を基に、{{#1720323205845.title#}}についての詳細な記事アウトラインを作成してください：\n\n\n\
+            \  タイトル: {{#1720323205845.title#}}\n\n  キーワード: {{#1720323205845.keywords#}}\n\
+            \n  目標文字数: {{#1720323205845.target_word_count#}}\n\n  記事タイプ: [ハウツー/比較/トレンド分析など]\n\
+            \n  アウトラインは以下の構造に従って作成してください：\n\n  1. はじめに（導入）\n     - 記事の目的と読者が得られる価値を明確に述べる\n\
+            \     - 主要キーワード{{#1720323205845.keywords#}}を自然に組み込む\n\n\n  2. 背景情報\n \
+            \    - トピックの重要性や現状の課題を説明\n     - 関連する統計や事実を含める\n\n  3. 主要セクション（3つ）\n \
+            \    - 各セクションは具体的なサブトピックを扱う\n     - サブセクションを使用して情報を整理する\n     - 各セクションで{{#1720323205845.keywords#}}のうち1つ以上を使用\n\
+            \n\n  4. 実践的なアドバイスまたは分析\n     - 読者が直接活用できる情報や洞察を提供\n     - 具体例や事例研究を含める\n\
+            \n  5. まとめ\n     - 主要ポイントを簡潔に要約\n     - 読者に次のアクションを促す\n\n  参考情報：\n  {{#1720338028001.text#}}\n\
+            \n\n  注意事項：\n  - 各セクションは論理的につながり、スムーズな流れを作ること\n  - 読者の関心を維持するため、適切な見出しと小見出しを使用すること\n\
+            \  - {{#1720323205845.target_word_count#}}字を目安に、各セクションのバランスを考慮すること"
+        - id: 47e05b78-1d26-48b2-ac2f-761e674e7cdf
+          role: user
+          text: <outline>
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: アウトライン生成
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: false
+      height: 118
+      id: '1720339168525'
+      position:
+        x: 5211.143067175697
+        y: -554.1589706341049
+      positionAbsolute:
+        x: 5211.143067175697
+        y: -554.1589706341049
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: claude-3-7-sonnet-20250219
+          provider: langgenius/anthropic/anthropic
+        prompt_template:
+        - id: 09aacf33-7ac4-4660-acc5-26aacaf4afc1
+          role: system
+          text: "以下のデータに含まれるアウトラインを構造化してください。\n\n  入力データ:\n{{#1720339168525.text#}}\n\
+            \n  アウトラインを以下の形式のXMLに変換してください：\n\n  <structured_outline>\n    <section\
+            \ id=\"introduction\">\n      <title>はじめに</title>\n      <content>\n \
+            \       <item>記事の目的</item>\n        <item>読者が得られる価値</item>\n      </content>\n\
+            \      <image>\n        <position>セクションの末尾</position>\n        <keyword>記事の目的と価値</keyword>\n\
+            \        <alt>記事の目的と読者の価値を表現した画像</alt>\n        <description>記事のテーマを視覚的に表現し、読者の興味を引く画像を選択してください。</description>\n\
+            \        <required>true</required>\n      </image>\n    </section>\n \
+            \   <section id=\"background\">\n      <title>背景情報</title>\n      <content>\n\
+            \        <item>トピックの重要性</item>\n        <item>現状の課題</item>\n        <item>関連する統計や事実</item>\n\
+            \      </content>\n      <image>\n        <position>セクションの末尾</position>\n\
+            \        <keyword>背景情報</keyword>\n        <alt>背景情報を表現した画像</alt>\n   \
+            \     <description>背景情報を視覚的に表現し、読者の理解を深める画像を選択してください。</description>\n\
+            \        <required>true</required>\n      </image>\n    </section>\n \
+            \   <section id=\"main_content\">\n      <title>主要セクション</title>\n    \
+            \  <content>\n        <section id=\"subtopic_1\">\n          <title>サブトピック1</title>\n\
+            \          <content>\n            <item>詳細情報1</item>\n            <item>詳細情報2</item>\n\
+            \          </content>\n          <image>\n            <position>セクションの末尾</position>\n\
+            \            <keyword>サブトピック1</keyword>\n            <alt>サブトピック1を表現した画像</alt>\n\
+            \            <description>サブトピック1の重要なポイントを強調し、読者の理解を深める画像を選択してください。</description>\n\
+            \            <required>true</required>\n          </image>\n        </section>\n\
+            \        <section id=\"subtopic_2\">\n          <title>サブトピック2</title>\n\
+            \          <content>\n            <item>詳細情報1</item>\n            <item>詳細情報2</item>\n\
+            \          </content>\n          <image>\n            <position>セクションの中間</position>\n\
+            \            <keyword>サブトピック2の主要概念</keyword>\n            <alt>サブトピック2の主要概念を視覚化した画像</alt>\n\
+            \            <description>サブトピック2の重要なポイントを強調し、読者の理解を深める画像を選択してください。</description>\n\
+            \            <required>true</required>\n          </image>\n        </section>\n\
+            \      </content>\n    </section>\n    <section id=\"practical_advice\"\
+            >\n      <title>実践的なアドバイス</title>\n      <content>\n        <item>読者が直接活用できる情報</item>\n\
+            \        <item>具体例や事例研究</item>\n      </content>\n      <image>\n    \
+            \    <position>セクションの冒頭</position>\n        <keyword>実践的なアドバイスの視覚化</keyword>\n\
+            \        <alt>実践的なアドバイスを象徴する画像</alt>\n        <description>読者が実践的なアドバイスをイメージしやすい、具体的な行動や成果を表現した画像を選択してください。</description>\n\
+            \        <required>true</required>\n      </image>\n    </section>\n \
+            \   <section id=\"faq\">\n      <title>よくある質問</title>\n      <content>\n\
+            \        <item>質問1と回答</item>\n        <item>質問2と回答</item>\n      </content>\n\
+            \      <image>\n        <position>セクションの末尾</position>\n        <keyword>よくある質問</keyword>\n\
+            \        <alt>よくある質問を表現した画像</alt>\n        <description>よくある質問を視覚的に表現し、読者の理解を深める画像を選択してください。</description>\n\
+            \        <required>true</required>\n      </image>\n    </section>\n \
+            \   <section id=\"conclusion\">\n      <title>まとめ</title>\n      <content>\n\
+            \        <item>主要ポイントの要約</item>\n        <item>次のアクション</item>\n      </content>\n\
+            \      <image>\n        <position>セクションの末尾</position>\n        <keyword>記事のまとめと次のステップ</keyword>\n\
+            \        <alt>記事の主要ポイントと次のアクションを表現した画像</alt>\n        <description>記事全体の要点を視覚的に表現し、読者に次のアクションを促す画像を選択してください。</description>\n\
+            \        <required>true</required>\n      </image>\n    </section>\n \
+            \ </structured_outline>\n\n  注意事項：\n  1. 入力データのXMLから\"text\"要素の内容を抽出し、それをアウトラインとして扱ってください。\n\
+            \  2. アウトラインの各主要セクションを別々の<section>要素として扱い、内容に基づいて適切なIDを付けてください。\n  3.\
+            \ 各セクションの内容（サブセクションや箇条書き）は、<content>要素内の<item>要素または入れ子の<section>要素として含めてください。\n\
+            \  4. 親子構造が必要な場合は、<section>要素を入れ子にして表現してください。\n  5. セクションの順序や構造は、入力されたアウトラインに基づいて適切に調整してください。\n\
+            \  6. 各セクションのタイトルはあくまでも例なので、それぞれのセクションの内容にあった魅力的なタイトルをつけてください\n  7. 各セクションに<image>要素を必ず含めてください。画像が不要な場合は、<required>false</required>を設定し、<description>要素に画像が不要な理由を記述してください。\n\
+            \  8. <image>要素内の<keyword>、<alt>、<description>は常に値を持つようにしてください。<required>がfalseの場合でも、潜在的な画像のための情報として扱います。"
+        - id: e6eedfe4-a836-46ff-a3b4-064b7e0428a9
+          role: user
+          text: <structured_outline>
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: アウトラインXML化
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: true
+      height: 124
+      id: '1720340278909'
+      position:
+        x: 5488.048570779773
+        y: -554.1589706341049
+      positionAbsolute:
+        x: 5488.048570779773
+        y: -554.1589706341049
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 215
+        is_parallel: true
+        iterator_input_type: array[object]
+        iterator_selector:
+        - '1751604166603'
+        - final_promts
+        output_selector:
+        - '1720350539075'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        startNodeType: code
+        start_node_id: 1720346709504start0
+        title: 執筆イテレーション
+        type: iteration
+        width: 611
+      height: 215
+      id: '1720346709504'
+      position:
+        x: 4263.353640138399
+        y: -122.62113949700141
+      positionAbsolute:
+        x: 4263.353640138399
+        y: -122.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 611
+      zIndex: 1
+    - data:
+        code: "def main(arg1: dict) -> dict:\n    image = arg1.get(\"image\", {})\n\
+          \    return {\n        \"id\": arg1.get(\"id\", \"\"),\n        \"prompt\"\
+          : arg1.get(\"prompt\", \"\"),\n        \"name\": arg1.get(\"name\", \"\"\
+          ),\n        \"data\": arg1.get(\"data\", \"\"),\n        \"parent_id\":\
+          \ arg1.get(\"parent_id\", \"\"),\n        \"image_position\": image.get(\"\
+          position\") if image else \"\",\n        \"image_keyword\": image.get(\"\
+          keyword\") if image else \"\",\n        \"image_alt\": image.get(\"alt\"\
+          ) if image else \"\",\n        \"image_description\": image.get(\"description\"\
+          ) if image else \"\",\n        \"image_required\": str(image.get(\"required\"\
+          , True)).lower() if image else \"true\"\n    }"
+        code_language: python3
+        desc: ''
+        isInIteration: true
+        isIterationStart: true
+        iteration_id: '1720346709504'
+        outputs:
+          data:
+            children: null
+            type: string
+          id:
+            children: null
+            type: string
+          image_alt:
+            children: null
+            type: string
+          image_description:
+            children: null
+            type: string
+          image_keyword:
+            children: null
+            type: string
+          image_position:
+            children: null
+            type: string
+          image_required:
+            children: null
+            type: string
+          name:
+            children: null
+            type: string
+          parent_id:
+            children: null
+            type: string
+          prompt:
+            children: null
+            type: string
+        selected: false
+        title: コード 3
+        type: code
+        variables:
+        - value_selector:
+          - '1720346709504'
+          - item
+          variable: arg1
+      extent: parent
+      height: 54
+      id: '1720349144510'
+      parentId: '1720346709504'
+      position:
+        x: 86.6328762800631
+        y: 65
+      positionAbsolute:
+        x: 4349.986516418462
+        y: -57.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        isInIteration: true
+        iteration_id: '1720346709504'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: claude-3-7-sonnet-20250219
+          provider: langgenius/anthropic/anthropic
+        prompt_template:
+        - id: 59190a2b-486d-4471-b17b-eb61672af41c
+          role: system
+          text: "   <role>\n        あなたはSEOの専門家であり、ストーリー仕立てや語りかけるようなスタイルではなく、事実を淡々と、実践的、教育的なトーンで書いています。\n\
+            \    </role>\n\n    <tone>\n        以下のトーンとボイスを使用してください：{{#1720323205845.tone_and_voice#}}\n\
+            \    </tone>\n\n    <参考する調査結果>\n    記事を書くにあたり、アウトラインに足りていない情報を以下の調査結果から参考に書いて\n\
+            \    {{#1720349144510.data#}}\n    </参考する調査結果>\n\n    {{#1720349144510.prompt#}}\n\
+            /\n\nシンプルなhtmlで出力すること。（codeblock形式ではかかず、htmlの中身だけ書いてくださいね）\nh2,h3,pタグを使ってください\n\
+            \n画像関連の情報がある場合、かつimage_requiredがtrueの場合は、以下の形式でHTMLに含めてください：\n\n<figure>\n\
+            \  <img src=\"https://dummyimage.com/600x400/000/fff&text={{#1720349144510.image_keyword#}}\"\
+            \ alt=\"{{#1720349144510.image_alt#}}\" />\n  <figcaption>{{#1720349144510.image_description#}}</figcaption>\n\
+            </figure>\n\n画像の位置は {{#1720349144510.image_position#}}に配置し、検索キーワードは \"\
+            {{#1720349144510.image_keyword#}}\" を使用してください。\n\n画像関連の情報がない場合、またはimage_requiredがfalseの場合は、画像に関するHTMLは生成しないでください。"
+        - id: 9944f1c4-c6d1-42a1-9d19-f25464729442
+          role: user
+          text: '<Article outline>
+
+            {{#1720340278909.text#}}
+
+            < {{#1720349144510.id#}}>
+
+            //ここで指定したセクションのみ表現してください
+
+            //子をもつセクションがあれば、そのセクションのリード文だけ生成し、子セクションは書かないでください'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: LLM 7
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector: []
+          enabled: true
+      extent: parent
+      height: 124
+      id: '1720350539075'
+      parentId: '1720346709504'
+      position:
+        x: 347.9925183400128
+        y: 65
+      positionAbsolute:
+        x: 4611.346158478412
+        y: -57.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "\ndef main(body_list: list) -> dict:\n    # リスト内の各文字列をスペースで連結\n   \
+          \ body_string = ' '.join(body_list)\n    \n    return {\n        \"body\"\
+          : body_string,\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          body:
+            children: null
+            type: string
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 記事結合
+        type: code
+        variables:
+        - value_selector:
+          - '1720346709504'
+          - output
+          variable: body_list
+      height: 82
+      id: '1720357855219'
+      position:
+        x: 4898.197854747192
+        y: -122.62113949700141
+      positionAbsolute:
+        x: 4898.197854747192
+        y: -122.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "<html>\n<head>\n  <title>{{ title }}</title>\n</head>\n<body>\n\
+          <h1>{{ title }}</h1>\n{{ body }}\n</body>\n</html>\n"
+        title: 記事HTMLテンプレート
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1720323205845'
+          - title
+          variable: title
+        - value_selector:
+          - '1720357855219'
+          - body
+          variable: body
+      height: 54
+      id: '1720357917274'
+      position:
+        x: 5211.143067175697
+        y: -122.62113949700141
+      positionAbsolute:
+        x: 5211.143067175697
+        y: -122.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - type: text
+            value: "{\n  \"title\": \"{{#1720323205845.title#}}\",\n  \"content\"\
+              : \"{{#1720357917274.output#}}\",\n  \"status\": \"draft\"\n}"
+          type: json
+        desc: ''
+        headers: 'Authoraization:Basic {{#1723470278910.result#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: CMS送信
+        type: http-request
+        url: '{{#env.URL#}}'
+        variables: []
+      height: 126
+      id: '1723469765869'
+      position:
+        x: 5757.06752254256
+        y: -122.62113949700141
+      positionAbsolute:
+        x: 5757.06752254256
+        y: -122.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import base64\n\n\ndef main() -> dict:\n    credentials = \"username:password\"\
+          \n    encoded_credentials = base64.b64encode(credentials.encode()).decode()\n\
+          \    return {\n        \"result\": encoded_credentials,\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: CMS送信準備
+        type: code
+        variables:
+        - value_selector:
+          - env
+          - username
+          value_type: string
+          variable: username
+        - value_selector:
+          - env
+          - password
+          value_type: string
+          variable: password
+      height: 82
+      id: '1723470278910'
+      position:
+        x: 5488.048570779773
+        y: -122.62113949700141
+      positionAbsolute:
+        x: 5488.048570779773
+        y: -122.62113949700141
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1720346709504start0
+      parentId: '1720346709504'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 4287.353640138399
+        y: -54.62113949700141
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: ''
+        instruction: "  以下の構造化されたアウトラインを基に、各セクションに対するプロンプトを生成してください：\n\n  構造化アウトライン:\n\
+          \  {{#1720340278909.text#}}\n\n\n\n  関連情報:\n  {{#1720337831013.text#}}\n\
+          \n\n  キーワード:\n  {{#1720323205845.keywords#}}\n\n\n各セクションに対して、以下の形式でプロンプトを生成してください：\n\
+          \n[\n{\n  \"id\": \"セクションID\",\n  \"name\": \"セクションタイトル\",\n  \"prompt\"\
+          : \"セクションの内容を詳細に展開するためのプロンプト。約200-300単語で作成し、自然な流れと読みやすさを心がけ、SEOを意識してキーワードを適切に配置するよう指示してください。サブセクションがある場合は、それらの内容も含めて展開するよう指示してください。\"\
+          ,\n  \"data\": \"関連情報（filtered_info）から、このセクションに関連する部分を抽出して含めてください\",\n \
+          \ \"parent_id\": \"親セクションのID（トップレベルのセクションの場合は空文字列）\",\n  \"image\": {\n\
+          \    \"position\": \"セクション内での画像の挿入位置（例：セクションの冒頭、中間、末尾）。画像が不要な場合は「none」と指定してください。\"\
+          ,\n    \"keyword\": \"画像検索に使用するキーワード。画像が不要な場合は「none」と指定してください。\",\n    \"\
+          alt\": \"画像の説明文（alt text）。画像が不要な場合は「none」と指定してください。\",\n    \"description\"\
+          : \"画像の内容や選び方に関する指示。画像が不要な場合は「このセクションには画像を使用しません。」と記述してください。\",\n    \"\
+          required\": \"画像が必要な場合はtrue、不要な場合はfalseと指定してください。\"\n  }\n}\n...\n]\n\n\n\
+          XMLの構造を解析し、各<section>要素（入れ子になっているものも含む）に対してプロンプトを生成してください。すべてのセクションを同じレベルで扱い、親子関係は\"\
+          parent_id\"フィールドで表現してください。\n\n\n画像は約2000文字ごと、かつセクションの区切りのタイミングで挿入するようにしてください。セクションの文字数が2000文字未満の場合は、画像を挿入しないでください。\n\
+          \n必ず全て合わせて4000トークン以内にして、１度の出力で全てだしてください。4000トークンを超えそうな場合は、構造化アウトラインのなかから重要でないセクションを省略してください\n\
+          \  "
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-2.5-pro-preview-05-06
+          provider: langgenius/gemini/google
+        parameters:
+        - description: "[\n{\n  \"id\": \"セクションID\",\n  \"name\": \"セクションタイトル\",\n\
+            \  \"prompt\": \"セクションの内容を詳細に展開するためのプロンプト。約200-300単語で作成し、自然な流れと読みやすさを心がけ、SEOを意識してキーワードを適切に配置するよう指示してください。サブセクションがある場合は、それらの内容も含めて展開するよう指示してください。\"\
+            ,\n  \"data\": \"関連情報（filtered_info）から、このセクションに関連する部分を抽出して含めてください\",\n\
+            \  \"parent_id\": \"親セクションのID（トップレベルのセクションの場合は空文字列）\",\n  \"image\": {\n\
+            \    \"position\": \"セクション内での画像の挿入位置（例：セクションの冒頭、中間、末尾）。画像が不要な場合は「none」と指定してください。\"\
+            ,\n    \"keyword\": \"画像検索に使用するキーワード。画像が不要な場合は「none」と指定してください。\",\n  \
+            \  \"alt\": \"画像の説明文（alt text）。画像が不要な場合は「none」と指定してください。\",\n    \"description\"\
+            : \"画像の内容や選び方に関する指示。画像が不要な場合は「このセクションには画像を使用しません。」と記述してください。\",\n    \"\
+            required\": \"画像が必要な場合はtrue、不要な場合はfalseと指定してください。\"\n  }\n}\n...\n]"
+          name: final_promts
+          required: true
+          type: array[object]
+        query:
+        - '1720340278909'
+        - text
+        reasoning_mode: prompt
+        selected: false
+        title: 記事プロンプトリスト生成
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1751604166603'
+      position:
+        x: 5760.186431753551
+        y: -554.1589706341049
+      positionAbsolute:
+        x: 5760.186431753551
+        y: -554.1589706341049
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"開始ノードで入力された情報をもとにTavilyツール用のクエリを作成します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1755946764452'
+      position:
+        x: 4604.597535321129
+        y: -659.1479904559613
+      positionAbsolute:
+        x: 4604.597535321129
+        y: -659.1479904559613
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 102
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"CMS送信準備で作成した認証情報をAuthoraizationに組み込んで、作成したHTML記事をWordPressへ送信します。下書き（draft）ステータスとして保存されるようになっているので、このフローで執筆した内容は後から確認と修正を加えて公開することができます。また、その内容はワークフローの実行結果として終了時にユーザーにも出力されるようになっています。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 525
+      height: 102
+      id: '1755952016354'
+      position:
+        x: 5757.06752254256
+        y: 20.259721105375682
+      positionAbsolute:
+        x: 5757.06752254256
+        y: 20.259721105375682
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 525
+    - data:
+        author: Dify
+        desc: ''
+        height: 105
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"記事全体を１つのHTMLの形に整えます。これによりWordPressのCMSとして受け取ってもらえるようになります。テンプレートの形は必要に応じて変更してください。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 105
+      id: '1755953875860'
+      position:
+        x: 5211.143067175697
+        y: -44.82372789933184
+      positionAbsolute:
+        x: 5211.143067175697
+        y: -44.82372789933184
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 110
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"イテレーションノードで分割執筆した記事はArray型になっているので、後工程で扱いやすいように一度出力変数から取り出して単一のString型の変数にまとめます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ' (1)'
+        type: ''
+        width: 243
+      height: 110
+      id: '17559541314330'
+      position:
+        x: 4898.197854747192
+        y: -22.600111166017058
+      positionAbsolute:
+        x: 4898.197854747192
+        y: -22.600111166017058
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 243
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"まずは、執筆のためのアウトラインを生成します。Tavily
+          Searchで取得した情報も参照して、Chain of Thought手法によるプロンプト設計を行います。また、２つ目のLLMノードでアウトライン部分をXMLとして抽出します。ここで記事全体の方向性が決定されます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: '  (2)'
+        type: ''
+        width: 521
+      height: 88
+      id: '17559544205820'
+      position:
+        x: 5211.143067175697
+        y: -659.1479904559613
+      positionAbsolute:
+        x: 5211.143067175697
+        y: -659.1479904559613
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 521
+    - data:
+        author: Dify
+        desc: ''
+        height: 145
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"執筆イテレーションで、記事本文を執筆するためのプロンプトを作成します。アウトライン、検索結果、開始ノードの入力を組み合わせて、Array[Object]の形式にまとめることで、詳細な情報をイテレーションごとに与えることができます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: '  (2)'
+        type: ''
+        width: 240
+      height: 145
+      id: '17559553553560'
+      position:
+        x: 5757.06752254256
+        y: -714.7070322892483
+      positionAbsolute:
+        x: 5757.06752254256
+        y: -714.7070322892483
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"イテレーションノードではコードノードで入力されたArray[Object]型の入力を取り出してから、LLMによるHTMLの執筆を行います。与えられた情報にはしつこいほどにTavily
+          Searchの結果やアウトラインの情報を渡しており、コンテキストとして参照させ続けています。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: '  (2)'
+        type: ''
+        width: 607
+      height: 88
+      id: '17559557915470'
+      position:
+        x: 4263.353640138399
+        y: 110.74158923387154
+      positionAbsolute:
+        x: 4263.353640138399
+        y: 110.74158923387154
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 607
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"HTTP
+          Basic認証を利用するための認証情報を作成します。WordPressの場合はユーザー名とパスワードを組み合わせて利用します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: '  (2)'
+        type: ''
+        width: 250
+      height: 88
+      id: '17559562257260'
+      position:
+        x: 5482.4471157666
+        y: -22.600111166017058
+      positionAbsolute:
+        x: 5482.4471157666
+        y: -22.600111166017058
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 250
+    viewport:
+      x: -2458.7249513339725
+      y: 504.2371766090589
+      zoom: 0.6299604680912723

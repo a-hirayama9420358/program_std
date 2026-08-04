@@ -1,0 +1,283 @@
+app:
+  description: '以下のようにアプリ名と説明を入力することをおすすめします。
+
+
+    **アプリ名**：
+
+    英単語分解くん
+
+    iOSショートカットから入力された英単語をChatGPTで意味・発音・例文などに自動分解し、Googleスプレッドシートに記録する学習支援アプリです。TOEICや受験対策に最適です。
+
+    '
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 英単語分解くん
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.26@c1e643ac6a7732f6333a783320b4d3026fa5e31d8e7026375b98d44418d33f26
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: スプレッドシートへ情報を転記するGASウェブアプリのエンドポイントのURLを保存して利用します。
+    id: 969b6243-217f-4869-bc16-290a0b3fd9fa
+    name: URL
+    selector:
+    - env
+    - URL
+    value: ここにスプレッドシートへ情報を転記するGASウェブアプリのエンドポイントのURLを入力します。
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1749782934530-source-1749783008643-target
+      selected: false
+      source: '1749782934530'
+      sourceHandle: source
+      target: '1749783008643'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1749783008643-source-1749861925445-target
+      source: '1749783008643'
+      sourceHandle: source
+      target: '1749861925445'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: end
+      id: 1749861925445-source-1749783108461-target
+      source: '1749861925445'
+      sourceHandle: source
+      target: '1749783108461'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: word
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: word
+      height: 90
+      id: '1749782934530'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 2c3dedab-eb64-4006-ad51-d9aa25894aee
+          role: system
+          text: '{{#1749782934530.word#}}の英単語について、次の形式でJSONのみを返してください。ネストはせず1階層、余計な文字や説明は付け加えないでください。
+
+            {
+
+            "word": "入力された英単語",
+
+            "meaning": "日本語の意味1, 日本語の意味2, …",
+
+            "pronunciation": "発音記号",
+
+            "example": "英語の重厚な例文",
+
+            "quote": "過去の名台詞"
+
+            }'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1749783008643'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1749783008643'
+          - text
+          variable: output
+        selected: false
+        title: 終了
+        type: end
+      height: 90
+      id: '1749783108461'
+      position:
+        x: 988
+        y: 282
+      positionAbsolute:
+        x: 988
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-23
+            key: ''
+            type: text
+            value: '{{#1749783008643.text#}}'
+          type: json
+        desc: ''
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP リクエスト
+        type: http-request
+        url: '{{#env.URL#}}'
+        variables: []
+      height: 126
+      id: '1749861925445'
+      position:
+        x: 683
+        y: 282
+      positionAbsolute:
+        x: 683
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 144
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"スプレッドシートにLLMの出力を転記するGASを別途用意して、そこにPostリクエストします。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"GASのサンプルコードはダウンロードファイルの[GAS>Appendix]に保存されています。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 144
+      id: '1755941267292'
+      position:
+        x: 683
+        y: 427.2859848831198
+      positionAbsolute:
+        x: 683
+        y: 427.2859848831198
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    viewport:
+      x: 92.3050798519173
+      y: -36.72454275092889
+      zoom: 0.7937005976183844

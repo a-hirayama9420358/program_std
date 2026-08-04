@@ -1,0 +1,1093 @@
+app:
+  description: ''
+  icon: 💼
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 名刺自動読取アプリ_拡張後
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.26@c1e643ac6a7732f6333a783320b4d3026fa5e31d8e7026375b98d44418d33f26
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/perplexity:1.0.1@32531e4a1ec68754e139f29f04eaa7f51130318a908d11382a27dc05ec8d91e3
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: parameter-extractor
+      id: 1750750099361-source-1750751280741-target
+      source: '1750750099361'
+      sourceHandle: source
+      target: '1750751280741'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: agent
+        targetType: end
+      id: 1750756562844-source-1750761197277-target
+      source: '1750756562844'
+      sourceHandle: source
+      target: '1750761197277'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: tool
+      id: 1750751280741-source-1750844322601-target
+      source: '1750751280741'
+      sourceHandle: source
+      target: '1750844322601'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: agent
+      id: 1750844322601-source-1750756562844-target
+      source: '1750844322601'
+      sourceHandle: source
+      target: '1750756562844'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 名刺の画像データをアップロードしてください。
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: image_file
+      height: 90
+      id: '1750750099361'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: 'あなたは名刺OCRの専門家です。アップロードされた名刺画像を詳細に分析し、以下の情報を抽出してください。
+
+           
+
+          画像から以下の項目を探して、見つかった内容を正確に記録してください：
+
+           
+
+          1. 会社名（company_name）: 企業名、法人名
+
+          2. 名前（name）: 人の氏名、フルネーム
+
+          3. 役職（post）: 役職、肩書き、部署名
+
+          4. メールアドレス（mail）: @マークを含むメールアドレス
+
+          5. 電話番号（number）: 電話番号、FAX番号（電話番号を優先）
+
+          6. 住所（address）: 会社の住所、所在地
+
+          7. ウェブサイト（site）: URL、ホームページアドレス'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        parameters:
+        - description: 会社名
+          name: company_name
+          required: false
+          type: string
+        - description: 人の氏名、フルネーム
+          name: name
+          required: false
+          type: string
+        - description: 役職、肩書き、部署名
+          name: post
+          required: false
+          type: string
+        - description: '@を含むメールアドレス'
+          name: mail
+          required: false
+          type: string
+        - description: 電話番号、FAX番号（電話番号を優先）
+          name: number
+          required: false
+          type: string
+        - description: 会社の住所、所在地
+          name: address
+          required: false
+          type: string
+        - description: URL、ホームページアドレス
+          name: site
+          required: false
+          type: string
+        query:
+        - '1750750099361'
+        - image_file
+        reasoning_mode: prompt
+        selected: false
+        title: パラメータ抽出
+        type: parameter-extractor
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1750750099361'
+            - image_file
+          enabled: true
+      height: 90
+      id: '1750751280741'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        agent_parameters:
+          instruction:
+            type: constant
+            value: '入力された名刺情報と企業調査結果をもとに、既存のNotion「商談リスト」データベースに情報を登録してください。
+
+               
+
+              【処理手順】
+
+              1. 「Notion: Create Database Item」を使用して基本的な名刺情報をデータベースに登録
+
+              2. 「Notion: Add Content to Page」を使用して、作成されたアイテムのページに企業調査結果を追加
+
+              3. 登録内容のうち記載がない場合は空欄で登録
+
+               
+
+              ※両方のNotionアクションを順次実行してください。
+
+              ※作成されたアイテムのページIDを適切に取得して使用してください。'
+          mcp_server:
+            type: constant
+            value: "{\n  \"server_name1\": {\n    \"url\": \"{{#env.zapier_mcp#}}\"\
+              ,\n    \"headers\": {},\n    \"timeout\": 60,\n    \"sse_read_timeout\"\
+              : 300\n  }\n}"
+          model:
+            type: constant
+            value:
+              completion_params: {}
+              mode: chat
+              model: gpt-4o
+              model_type: llm
+              provider: langgenius/openai/openai
+              type: model-selector
+          query:
+            type: constant
+            value: 'ステップ1：以下の名刺情報をNotionの「商談リスト」データベースに新しいアイテムとして登録してください。
+
+               
+
+              【基本情報】
+
+              - 会社名：{{#1750751280741.company_name#}}
+
+              - 担当者：{{#1750751280741.name#}}
+
+              - 役職：{{#1750751280741.post#}}
+
+              - メールアドレス：{{#1750751280741.mail#}}
+
+              - 電話番号：{{#1750751280741.number#}}
+
+              - 住所：{{#1750751280741.address#}}
+
+              - Webサイト：{{#1750751280741.site#}}
+
+               
+
+              ステップ2：ステップ1で作成されたアイテムのページに、以下の企業調査結果を本文として追加してください。
+
+               
+
+              【企業調査結果】
+
+              {{#1750844322601.text#}}'
+          tools:
+            type: constant
+            value:
+            - enabled: true
+              extra:
+                description: A tool for getting the current time.
+              parameters: {}
+              provider_name: time
+              schemas:
+              - auto_generate: null
+                default: '%Y-%m-%d %H:%M:%S'
+                form: form
+                human_description:
+                  en_US: Time format in strftime standard.
+                  ja_JP: Time format in strftime standard.
+                  pt_BR: Time format in strftime standard.
+                  zh_Hans: strftime 标准的时间格式。
+                label:
+                  en_US: Format
+                  ja_JP: Format
+                  pt_BR: Format
+                  zh_Hans: 格式
+                llm_description: null
+                max: null
+                min: null
+                name: format
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: string
+              - auto_generate: null
+                default: UTC
+                form: form
+                human_description:
+                  en_US: Timezone
+                  ja_JP: Timezone
+                  pt_BR: Timezone
+                  zh_Hans: 时区
+                label:
+                  en_US: Timezone
+                  ja_JP: Timezone
+                  pt_BR: Timezone
+                  zh_Hans: 时区
+                llm_description: null
+                max: null
+                min: null
+                name: timezone
+                options:
+                - label:
+                    en_US: UTC
+                    ja_JP: UTC
+                    pt_BR: UTC
+                    zh_Hans: UTC
+                  value: UTC
+                - label:
+                    en_US: America/New_York
+                    ja_JP: America/New_York
+                    pt_BR: America/New_York
+                    zh_Hans: 美洲/纽约
+                  value: America/New_York
+                - label:
+                    en_US: America/Los_Angeles
+                    ja_JP: America/Los_Angeles
+                    pt_BR: America/Los_Angeles
+                    zh_Hans: 美洲/洛杉矶
+                  value: America/Los_Angeles
+                - label:
+                    en_US: America/Chicago
+                    ja_JP: America/Chicago
+                    pt_BR: America/Chicago
+                    zh_Hans: 美洲/芝加哥
+                  value: America/Chicago
+                - label:
+                    en_US: America/Sao_Paulo
+                    ja_JP: America/Sao_Paulo
+                    pt_BR: América/São Paulo
+                    zh_Hans: 美洲/圣保罗
+                  value: America/Sao_Paulo
+                - label:
+                    en_US: Asia/Shanghai
+                    ja_JP: Asia/Shanghai
+                    pt_BR: Asia/Shanghai
+                    zh_Hans: 亚洲/上海
+                  value: Asia/Shanghai
+                - label:
+                    en_US: Asia/Ho_Chi_Minh
+                    ja_JP: Asia/Ho_Chi_Minh
+                    pt_BR: Ásia/Ho Chi Minh
+                    zh_Hans: 亚洲/胡志明市
+                  value: Asia/Ho_Chi_Minh
+                - label:
+                    en_US: Asia/Tokyo
+                    ja_JP: Asia/Tokyo
+                    pt_BR: Asia/Tokyo
+                    zh_Hans: 亚洲/东京
+                  value: Asia/Tokyo
+                - label:
+                    en_US: Asia/Dubai
+                    ja_JP: Asia/Dubai
+                    pt_BR: Asia/Dubai
+                    zh_Hans: 亚洲/迪拜
+                  value: Asia/Dubai
+                - label:
+                    en_US: Asia/Kolkata
+                    ja_JP: Asia/Kolkata
+                    pt_BR: Asia/Kolkata
+                    zh_Hans: 亚洲/加尔各答
+                  value: Asia/Kolkata
+                - label:
+                    en_US: Asia/Seoul
+                    ja_JP: Asia/Seoul
+                    pt_BR: Asia/Seoul
+                    zh_Hans: 亚洲/首尔
+                  value: Asia/Seoul
+                - label:
+                    en_US: Asia/Singapore
+                    ja_JP: Asia/Singapore
+                    pt_BR: Asia/Singapore
+                    zh_Hans: 亚洲/新加坡
+                  value: Asia/Singapore
+                - label:
+                    en_US: Europe/London
+                    ja_JP: Europe/London
+                    pt_BR: Europe/London
+                    zh_Hans: 欧洲/伦敦
+                  value: Europe/London
+                - label:
+                    en_US: Europe/Berlin
+                    ja_JP: Europe/Berlin
+                    pt_BR: Europe/Berlin
+                    zh_Hans: 欧洲/柏林
+                  value: Europe/Berlin
+                - label:
+                    en_US: Europe/Moscow
+                    ja_JP: Europe/Moscow
+                    pt_BR: Europe/Moscow
+                    zh_Hans: 欧洲/莫斯科
+                  value: Europe/Moscow
+                - label:
+                    en_US: Australia/Sydney
+                    ja_JP: Australia/Sydney
+                    pt_BR: Australia/Sydney
+                    zh_Hans: 澳大利亚/悉尼
+                  value: Australia/Sydney
+                - label:
+                    en_US: Pacific/Auckland
+                    ja_JP: Pacific/Auckland
+                    pt_BR: Pacific/Auckland
+                    zh_Hans: 太平洋/奥克兰
+                  value: Pacific/Auckland
+                - label:
+                    en_US: Africa/Cairo
+                    ja_JP: Africa/Cairo
+                    pt_BR: Africa/Cairo
+                    zh_Hans: 非洲/开罗
+                  value: Africa/Cairo
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: select
+              settings:
+                format:
+                  value:
+                    type: mixed
+                    value: '%Y-%m-%d %H:%M:%S'
+                timezone:
+                  value:
+                    type: constant
+                    value: UTC
+              tool_description: A tool for getting the current time.
+              tool_label: Current Time
+              tool_name: current_time
+              type: builtin
+        agent_strategy_label: FunctionCalling
+        agent_strategy_name: function_calling
+        agent_strategy_provider_name: langgenius/agent/agent
+        desc: ''
+        meta:
+          minimum_dify_version: 1.7.0
+          version: 0.0.2
+        output_schema: null
+        plugin_unique_identifier: langgenius/agent:0.0.23@baba5fd2631a535dcd85f070f8be1bdcfb02c46e1a0a830ad00d7bc846063de4
+        selected: false
+        title: エージェント
+        tool_node_version: '2'
+        type: agent
+      height: 198
+      id: '1750756562844'
+      position:
+        x: 988
+        y: 282
+      positionAbsolute:
+        x: 988
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1750756562844'
+          - text
+          variable: result
+        selected: false
+        title: 終了
+        type: end
+      height: 90
+      id: '1750761197277'
+      position:
+        x: 1292
+        y: 282
+      positionAbsolute:
+        x: 1292
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: false
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The text query to be processed by the AI model.
+            ja_JP: The text query to be processed by the AI model.
+            pt_BR: The text query to be processed by the AI model.
+            zh_Hans: 要由 AI 模型处理的文本查询。
+          label:
+            en_US: Query
+            ja_JP: Query
+            pt_BR: Query
+            zh_Hans: 查询
+          llm_description: ''
+          max: null
+          min: null
+          name: query
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: sonar
+          form: form
+          human_description:
+            en_US: The Perplexity AI model to use for generating the response.
+            ja_JP: The Perplexity AI model to use for generating the response.
+            pt_BR: The Perplexity AI model to use for generating the response.
+            zh_Hans: 用于生成响应的 Perplexity AI 模型。
+          label:
+            en_US: Model Name
+            ja_JP: Model Name
+            pt_BR: Model Name
+            zh_Hans: 模型名称
+          llm_description: ''
+          max: null
+          min: null
+          name: model
+          options:
+          - label:
+              en_US: sonar
+              ja_JP: sonar
+              pt_BR: sonar
+              zh_Hans: sonar
+            value: sonar
+          - label:
+              en_US: sonar-pro
+              ja_JP: sonar-pro
+              pt_BR: sonar-pro
+              zh_Hans: sonar-pro
+            value: sonar-pro
+          - label:
+              en_US: sonar-reasoning
+              ja_JP: sonar-reasoning
+              pt_BR: sonar-reasoning
+              zh_Hans: sonar-reasoning
+            value: sonar-reasoning
+          - label:
+              en_US: sonar-reasoning-pro
+              ja_JP: sonar-reasoning-pro
+              pt_BR: sonar-reasoning-pro
+              zh_Hans: sonar-reasoning-pro
+            value: sonar-reasoning-pro
+          - label:
+              en_US: sonar-deep-research
+              ja_JP: sonar-deep-research
+              pt_BR: sonar-deep-research
+              zh_Hans: sonar-deep-research
+            value: sonar-deep-research
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: 4096
+          form: form
+          human_description:
+            en_US: The maximum number of tokens to generate in the response.
+            ja_JP: The maximum number of tokens to generate in the response.
+            pt_BR: O número máximo de tokens a serem gerados na resposta.
+            zh_Hans: 在响应中生成的最大令牌数。
+          label:
+            en_US: Max Tokens
+            ja_JP: Max Tokens
+            pt_BR: Máximo de Tokens
+            zh_Hans: 最大令牌数
+          llm_description: ''
+          max: 4096
+          min: 1
+          name: max_tokens
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 0.7
+          form: form
+          human_description:
+            en_US: Controls randomness in the output. Lower values make the output
+              more focused and deterministic.
+            ja_JP: Controls randomness in the output. Lower values make the output
+              more focused and deterministic.
+            pt_BR: Controls randomness in the output. Lower values make the output
+              more focused and deterministic.
+            zh_Hans: 控制输出的随机性。较低的值使输出更加集中和确定。
+          label:
+            en_US: Temperature
+            ja_JP: Temperature
+            pt_BR: Temperatura
+            zh_Hans: 温度
+          llm_description: ''
+          max: 1
+          min: 0
+          name: temperature
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 5
+          form: form
+          human_description:
+            en_US: The number of top results to consider for response generation.
+            ja_JP: The number of top results to consider for response generation.
+            pt_BR: The number of top results to consider for response generation.
+            zh_Hans: 用于生成响应的顶部结果数量。
+          label:
+            en_US: Top K
+            ja_JP: Top K
+            pt_BR: Top K
+            zh_Hans: 取样数量
+          llm_description: ''
+          max: 100
+          min: 1
+          name: top_k
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 1
+          form: form
+          human_description:
+            en_US: Controls diversity via nucleus sampling.
+            ja_JP: Controls diversity via nucleus sampling.
+            pt_BR: Controls diversity via nucleus sampling.
+            zh_Hans: 通过核心采样控制多样性。
+          label:
+            en_US: Top P
+            ja_JP: Top P
+            pt_BR: Top P
+            zh_Hans: Top P
+          llm_description: ''
+          max: 1
+          min: 0.1
+          name: top_p
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Positive values penalize new tokens based on whether they appear
+              in the text so far.
+            ja_JP: Positive values penalize new tokens based on whether they appear
+              in the text so far.
+            pt_BR: Positive values penalize new tokens based on whether they appear
+              in the text so far.
+            zh_Hans: 正值会根据新词元是否已经出现在文本中来对其进行惩罚。
+          label:
+            en_US: Presence Penalty
+            ja_JP: Presence Penalty
+            pt_BR: Presence Penalty
+            zh_Hans: 存在惩罚
+          llm_description: ''
+          max: 1
+          min: -1
+          name: presence_penalty
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 1
+          form: form
+          human_description:
+            en_US: Positive values penalize new tokens based on their existing frequency
+              in the text so far.
+            ja_JP: Positive values penalize new tokens based on their existing frequency
+              in the text so far.
+            pt_BR: Positive values penalize new tokens based on their existing frequency
+              in the text so far.
+            zh_Hans: 正值会根据新词元在文本中已经出现的频率来对其进行惩罚。
+          label:
+            en_US: Frequency Penalty
+            ja_JP: Frequency Penalty
+            pt_BR: Frequency Penalty
+            zh_Hans: 频率惩罚
+          llm_description: ''
+          max: 1
+          min: 0.1
+          name: frequency_penalty
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Whether to return images in the response.
+            ja_JP: Whether to return images in the response.
+            pt_BR: Whether to return images in the response.
+            zh_Hans: 是否在响应中返回图像。
+          label:
+            en_US: Return Images
+            ja_JP: Return Images
+            pt_BR: Return Images
+            zh_Hans: 返回图像
+          llm_description: ''
+          max: null
+          min: null
+          name: return_images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Whether to return related questions in the response.
+            ja_JP: Whether to return related questions in the response.
+            pt_BR: Whether to return related questions in the response.
+            zh_Hans: 是否在响应中返回相关问题。
+          label:
+            en_US: Return Related Questions
+            ja_JP: Return Related Questions
+            pt_BR: Return Related Questions
+            zh_Hans: 返回相关问题
+          llm_description: ''
+          max: null
+          min: null
+          name: return_related_questions
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: ''
+          form: form
+          human_description:
+            en_US: Domain to filter the search results. Use comma to separate multiple
+              domains. Up to 3 domains are supported.
+            ja_JP: Domain to filter the search results. Use comma to separate multiple
+              domains. Up to 3 domains are supported.
+            pt_BR: Domain to filter the search results. Use comma to separate multiple
+              domains. Up to 3 domains are supported.
+            zh_Hans: 用于过滤搜索结果的域名。使用逗号分隔多个域名。最多支持3个域名。
+          label:
+            en_US: Search Domain Filter
+            ja_JP: Search Domain Filter
+            pt_BR: Search Domain Filter
+            zh_Hans: 搜索域过滤器
+          llm_description: ''
+          max: null
+          min: null
+          name: search_domain_filter
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: month
+          form: form
+          human_description:
+            en_US: Filter for search results based on recency.
+            ja_JP: Filter for search results based on recency.
+            pt_BR: Filter for search results based on recency.
+            zh_Hans: 基于时间筛选搜索结果。
+          label:
+            en_US: Search Recency Filter
+            ja_JP: Search Recency Filter
+            pt_BR: Search Recency Filter
+            zh_Hans: 搜索时间过滤器
+          llm_description: ''
+          max: null
+          min: null
+          name: search_recency_filter
+          options:
+          - label:
+              en_US: Day
+              ja_JP: Day
+              pt_BR: Day
+              zh_Hans: 天
+            value: day
+          - label:
+              en_US: Week
+              ja_JP: Week
+              pt_BR: Week
+              zh_Hans: 周
+            value: week
+          - label:
+              en_US: Month
+              ja_JP: Month
+              pt_BR: Month
+              zh_Hans: 月
+            value: month
+          - label:
+              en_US: Year
+              ja_JP: Year
+              pt_BR: Year
+              zh_Hans: 年
+            value: year
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: low
+          form: form
+          human_description:
+            en_US: Determines how much search context is retrieved for the model.
+            ja_JP: Determines how much search context is retrieved for the model.
+            pt_BR: Determines how much search context is retrieved for the model.
+            zh_Hans: 确定模型检索的搜索上下文量。
+          label:
+            en_US: Search Context Size
+            ja_JP: Search Context Size
+            pt_BR: Search Context Size
+            zh_Hans: 搜索上下文大小
+          llm_description: ''
+          max: null
+          min: null
+          name: search_context_size
+          options:
+          - label:
+              en_US: Low
+              ja_JP: Low
+              pt_BR: Low
+              zh_Hans: 低
+            value: low
+          - label:
+              en_US: Medium
+              ja_JP: Medium
+              pt_BR: Medium
+              zh_Hans: 中等
+            value: medium
+          - label:
+              en_US: High
+              ja_JP: High
+              pt_BR: High
+              zh_Hans: 高
+            value: high
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          frequency_penalty: ''
+          max_tokens: ''
+          model: ''
+          presence_penalty: ''
+          query: ''
+          return_images: ''
+          return_related_questions: ''
+          search_context_size: ''
+          search_domain_filter: ''
+          search_recency_filter: ''
+          temperature: ''
+          top_k: ''
+          top_p: ''
+        provider_id: langgenius/perplexity/perplexity
+        provider_name: langgenius/perplexity/perplexity
+        provider_type: builtin
+        selected: false
+        title: Perplexity Search
+        tool_configurations:
+          frequency_penalty:
+            type: constant
+            value: 1
+          max_tokens:
+            type: constant
+            value: 1000
+          model:
+            type: constant
+            value: sonar-pro
+          presence_penalty:
+            type: constant
+            value: 0
+          return_images:
+            type: constant
+            value: 0
+          return_related_questions:
+            type: constant
+            value: 0
+          search_context_size:
+            type: constant
+            value: low
+          search_domain_filter:
+            type: constant
+            value: ''
+          search_recency_filter:
+            type: constant
+            value: month
+          temperature:
+            type: constant
+            value: 0.2
+          top_k:
+            type: constant
+            value: 10
+          top_p:
+            type: constant
+            value: 1
+        tool_description: Search information using Perplexity AI's language models.
+        tool_label: Perplexity Search
+        tool_name: perplexity
+        tool_node_version: '2'
+        tool_parameters:
+          query:
+            type: mixed
+            value: '以下の企業について詳細な調査を行い、営業活動に役立つ情報をレポート形式でまとめてください。
+
+               
+
+              【対象企業】
+
+              会社名：{{#1750751280741.company_name#}}
+
+              住所：{{#1750751280741.address#}}
+
+               
+
+              【調査項目】
+
+              1. 企業の正式名称と事業概要
+
+              2. 業界・業種分類
+
+              3. 企業規模（従業員数、売上規模等）
+
+              4. 主要事業・サービス内容
+
+              5. 最近のニュースや動向（直近1年以内）
+
+              6. 企業の特徴・強み・競合優位性
+
+              7. 財務状況や成長性（可能な範囲で）
+
+               
+
+              【出力形式】
+
+              営業担当者が商談前に読むことを想定した、簡潔で実用的なレポート形式で出力してください。
+
+              情報が見つからない項目については「情報なし」と記載してください。'
+        type: tool
+      height: 376
+      id: '1750844322601'
+      position:
+        x: 688
+        y: 282
+      positionAbsolute:
+        x: 688
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 125
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Zapier
+          MCPでNotionの実行アクション[Create Database Item]と[Add Content to Page]を有効化したMCPサーバーを準備し、エージェントノードのTOOL
+          LISTに組み込んでください。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 125
+      id: '1755960796845'
+      position:
+        x: 988
+        y: 495.3770486504692
+      positionAbsolute:
+        x: 988
+        y: 495.3770486504692
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 177
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Perplexity
+          Searchの代わりにエージェントノードにTavily Searchツールを組み込むことで同様の検索＋情報整理タスクを置き換えることもできます。その場合、Perplexity
+          SearchのQueryに設定しているプロンプトはエージェントノードで実行するように設定します。Perplexityの有料APIの利用を避けたい場合はこの方法を利用してみてください。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 244
+      height: 177
+      id: '1755960922917'
+      position:
+        x: 691.3706046774488
+        y: 672.5135942177276
+      positionAbsolute:
+        x: 691.3706046774488
+        y: 672.5135942177276
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 244
+    viewport:
+      x: -42.18084115224792
+      y: -196.8910903501935
+      zoom: 0.9721076060935532

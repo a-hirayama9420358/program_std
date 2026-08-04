@@ -1,0 +1,1049 @@
+app:
+  description: 'YouTube動画の基本情報（タイトル、URL）を自動でNotionデータベースに登録するワークフローアプリです。
+
+    重複チェック機能付きで、すでに登録済みの動画はスキップします。
+
+    処理結果はDiscordに通知されるため、チームでの情報共有もスムーズです。
+
+
+    【使い方】
+
+    動画IDを入力するだけで、YouTube APIから情報を取得し、Notionに自動登録します。
+
+
+    【主な機能】
+
+    - YouTube動画情報の自動取得
+
+    - Notionデータベースへの自動登録
+
+    - 重複登録の防止
+
+    - Discord通知（成功/エラー/重複）
+
+    - エラー時の詳細ログ
+
+
+    【必要な設定】
+
+    ■ Notionデータベースのプロパティ
+
+    - 動画ID（URL型）
+
+    - タイトル（タイトル型）
+
+    - URL（URL型）
+
+    - 基本情報入力（チェックボックス型）
+
+    - page_id（テキスト型）
+
+
+    ■ 環境変数（シークレット）
+
+    - NOTION_DB_ID：NotionデータベースのID
+
+    - NOTION_API_TOKEN：Notion APIトークン
+
+    - YOUTUBE_API_KEY：YouTube Data API v3のAPIキー
+
+    - DISCORD_WEBHOOK_URL：Discord通知用のWebhook URL
+
+
+    ---
+
+    input: 動画ID（例：c2uAtx-hwm8）
+
+    output: None（処理結果はDiscordに通知）
+
+    ---'
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: Notion YouTubeDB 基本情報入力
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: Notion APIキーを保存しておきます。
+    id: 2008bec8-59b7-4f67-9788-66260d84014c
+    name: NOTION_API_TOKEN
+    selector:
+    - env
+    - NOTION_API_TOKEN
+    value: Notion APIキーを入力します。
+    value_type: string
+  - description: 連携させるNotionのデータベースのIDを保存しておきます。
+    id: a98d3c92-f364-42e5-ab6c-962cd6c21df7
+    name: NOTION_DB_ID
+    selector:
+    - env
+    - NOTION_DB_ID
+    value: 連携させるNotionのデータベースのIDを入力します。
+    value_type: string
+  - description: 実行結果を送信して表示させるDiscord botのエンドポイントのURLを保存しておきます。
+    id: 04b7c4c2-f00c-4f14-95f5-5cc056dfcb29
+    name: DISCORD_WEBHOOK_URL
+    selector:
+    - env
+    - DISCORD_WEBHOOK_URL
+    value: 実行結果を送信して表示させるDiscord BotのエンドポイントのURLを入力します。
+    value_type: string
+  - description: YouTube APIキーを保存しておきます。
+    id: d0707889-6753-4cb1-a9f6-0f3d909c5128
+    name: YOUTUBE_API_KEY
+    selector:
+    - env
+    - YOUTUBE_API_KEY
+    value: YouTube APIキーを入力します。
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1743596639488-source-1743833420875-target
+      selected: false
+      source: '1743596639488'
+      sourceHandle: source
+      target: '1743833420875'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1743833420875-source-1743601226894-target
+      selected: false
+      source: '1743833420875'
+      sourceHandle: source
+      target: '1743601226894'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1743833932576-true-1743834006575-target
+      selected: false
+      source: '1743833932576'
+      sourceHandle: 'true'
+      target: '1743834006575'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1743833932576-e5389f41-b52d-4358-8680-60f954e622fa-1743834273726-target
+      selected: false
+      source: '1743833932576'
+      sourceHandle: e5389f41-b52d-4358-8680-60f954e622fa
+      target: '1743834273726'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1743839616193-source-1743839910752-target
+      selected: false
+      source: '1743839616193'
+      sourceHandle: source
+      target: '1743839910752'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: end
+      id: 1743839910752-source-1743842919277-target
+      selected: false
+      source: '1743839910752'
+      sourceHandle: source
+      target: '1743842919277'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1743601226894-source-1743833932576-target
+      selected: false
+      source: '1743601226894'
+      sourceHandle: source
+      target: '1743833932576'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1743834273726-source-1743839616193-target
+      selected: false
+      source: '1743834273726'
+      sourceHandle: source
+      target: '1743839616193'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1743833932576-true-1748754039205-target
+      selected: false
+      source: '1743833932576'
+      sourceHandle: 'true'
+      target: '1748754039205'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: http-request
+      id: 1743839910752-source-1748754319755-target
+      selected: false
+      source: '1743839910752'
+      sourceHandle: source
+      target: '1748754319755'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: end
+      id: 1748754754756-source-1748764417157-target
+      selected: false
+      source: '1748754754756'
+      sourceHandle: source
+      target: '1748764417157'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1743601226894-fail-branch-1748765742683-target
+      selected: false
+      source: '1743601226894'
+      sourceHandle: fail-branch
+      target: '1748765742683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1748765742683-source-1748754754756-target
+      selected: false
+      source: '1748765742683'
+      sourceHandle: source
+      target: '1748754754756'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1743833420875-fail-branch-1748765742683-target
+      selected: false
+      source: '1743833420875'
+      sourceHandle: fail-branch
+      target: '1748765742683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1743834273726-fail-branch-1748765742683-target
+      selected: false
+      source: '1743834273726'
+      sourceHandle: fail-branch
+      target: '1748765742683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1743839910752-fail-branch-1748765742683-target
+      selected: false
+      source: '1743839910752'
+      sourceHandle: fail-branch
+      target: '1748765742683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1743839616193-fail-branch-1748765742683-target
+      selected: false
+      source: '1743839616193'
+      sourceHandle: fail-branch
+      target: '1748765742683'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: 動画ID
+          max_length: 11
+          options: []
+          required: true
+          type: text-input
+          variable: movie_id
+      height: 90
+      id: '1743596639488'
+      position:
+        x: -72.92025520051664
+        y: -72.51098393018702
+      positionAbsolute:
+        x: -72.92025520051664
+        y: -72.51098393018702
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\n\ndef main(body: str) -> dict:\n    \"\"\"\n    Notion\
+          \ /query のレスポンスを解析し、\n      - output : 1 (checked) / 0 (unchecked)\n   \
+          \   - page_id: ページ ID（文字列）\n    を返す。\n    \"\"\"\n    data = json.loads(body)\n\
+          \n    # ① 検索結果が空なら例外化 or デフォルト値で終了\n    if not data.get(\"results\"):\n\
+          \        # “動画ID が DB に存在しない”という上位フロー判定に任せるなら\n        raise ValueError(\"\
+          該当ページが見つかりませんでした\")\n        # もしくは:\n        # return {\"output\": 0, \"\
+          page_id\": None}\n\n    page = data[\"results\"][0]\n    page_id = page[\"\
+          id\"]\n\n    # ② チェックボックスの値を安全に取得\n    props = page[\"properties\"]\n  \
+          \  checkbox_val = (\n        props.get(\"基本情報入力\", {}).get(\"checkbox\"\
+          , False)\n        if \"基本情報入力\" in props else False\n    )\n\n    # ③ IF/ELSE\
+          \ ノードが `1/0` 判定なので数値に変換\n    output_flag = 1 if checkbox_val else 0\n\n\
+          \    return {\n        \"output\": output_flag,\n        \"page_id\": page_id,\n\
+          \    }"
+        code_language: python3
+        desc: ''
+        error_strategy: fail-branch
+        outputs:
+          output:
+            children: null
+            type: number
+          page_id:
+            children: null
+            type: string
+        selected: false
+        title: パース Notion Response
+        type: code
+        variables:
+        - value_selector:
+          - '1743833420875'
+          - body
+          variable: body
+      height: 90
+      id: '1743601226894'
+      position:
+        x: 543.8576605854727
+        y: -72.51098393018702
+      positionAbsolute:
+        x: 543.8576605854727
+        y: -72.51098393018702
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-18
+            key: ''
+            type: text
+            value: "{\n  \"filter\": {\n    \"property\": \"動画ID\",\n    \"url\":\
+              \ {\n      \"equals\": \"{{#1743596639488.movie_id#}}\"\n    }\n  }\n\
+              }"
+          type: json
+        desc: ''
+        error_strategy: fail-branch
+        headers: 'Authorization:Bearer {{#env.NOTION_API_TOKEN#}}
+
+          Notion-Version:2022-06-28
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 1
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 'Notion Query: ページ検索'
+        type: http-request
+        url: https://api.notion.com/v1/databases/{{#env.NOTION_DB_ID#}}/query
+        variables: []
+      height: 194
+      id: '1743833420875'
+      position:
+        x: 242.5674982307429
+        y: -72.51098393018702
+      positionAbsolute:
+        x: 242.5674982307429
+        y: -72.51098393018702
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: a6d01d5f-7bda-4d00-9e99-9160856b04ae
+            value: '1'
+            varType: number
+            variable_selector:
+            - '1743601226894'
+            - output
+          id: 'true'
+          logical_operator: and
+        - case_id: e5389f41-b52d-4358-8680-60f954e622fa
+          conditions:
+          - comparison_operator: '='
+            id: a13da2be-e837-4a7d-a617-75842c883ca0
+            value: '0'
+            varType: number
+            variable_selector:
+            - '1743601226894'
+            - output
+          id: e5389f41-b52d-4358-8680-60f954e622fa
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 入力済み判定
+        type: if-else
+      height: 174
+      id: '1743833932576'
+      position:
+        x: 830.8920865870668
+        y: -72.51098393018702
+      positionAbsolute:
+        x: 830.8920865870668
+        y: -72.51098393018702
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: 終了 (Already Done)
+        type: end
+      height: 54
+      id: '1743834006575'
+      position:
+        x: 1135.7531163541341
+        y: -72.51098393018702
+      positionAbsolute:
+        x: 1135.7531163541341
+        y: -72.51098393018702
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        error_strategy: fail-branch
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 1
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 'YouTube API: Get Snippet'
+        type: http-request
+        url: https://www.googleapis.com/youtube/v3/videos?part=snippet&id={{#1743596639488.movie_id#}}&key={{#env.YOUTUBE_API_KEY#}}
+        variables: []
+      height: 212
+      id: '1743834273726'
+      position:
+        x: -72.92025520051664
+        y: 200.12991872642868
+      positionAbsolute:
+        x: -72.92025520051664
+        y: 200.12991872642868
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\n\ndef main(body: str) -> dict:\n    \"\"\"\n    ─ 引数 ─\n\
+          \      body : HTTPリクエスト YouTube のレスポンス(JSON文字列)\n\n    ─ 戻り値 ─\n      video_id,\
+          \ title, video_url を既存と同じキー名で返す\n    \"\"\"\n    data = json.loads(body)\n\
+          \n    if not data.get(\"items\"):\n        raise ValueError(\"動画が見つかりませんでした\"\
+          )\n\n    item      = data[\"items\"][0]\n    video_id  = item[\"id\"]\n\
+          \    title     = item[\"snippet\"][\"title\"]\n    video_url = f\"https://www.youtube.com/watch?v={video_id}\"\
+          \n\n    return {\n        \"video_id\":  video_id,\n        \"title\": \
+          \    title,\n        \"video_url\": video_url,\n    }"
+        code_language: python3
+        desc: 値を取り出す
+        error_strategy: fail-branch
+        outputs:
+          title:
+            children: null
+            type: string
+          video_id:
+            children: null
+            type: string
+          video_url:
+            children: null
+            type: string
+        selected: false
+        title: プロパティを取り出す
+        type: code
+        variables:
+        - value_selector:
+          - '1743834273726'
+          - body
+          variable: body
+      height: 118
+      id: '1743839616193'
+      position:
+        x: 237.06878785328888
+        y: 200.12991872642868
+      positionAbsolute:
+        x: 237.06878785328888
+        y: 200.12991872642868
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1
+            key: ''
+            type: text
+            value: "{\n  \"properties\": {\n    \"タイトル\": {\n      \"title\": [\n\
+              \        {\n          \"text\": {\n            \"content\": \"{{#1743839616193.title#}}\"\
+              \n          }\n        }\n      ]\n    },\n    \"URL\": {\n      \"\
+              url\": \"{{#1743839616193.video_url#}}\"\n    },\n    \"基本情報入力\": {\n\
+              \      \"checkbox\": true\n    },\n    \"page_id\": {\n      \"rich_text\"\
+              : [\n        {\n          \"text\": {\n            \"content\": \"{{#1743601226894.page_id#}}\"\
+              \n          }\n        }\n      ]\n    }\n  }\n}"
+          type: json
+        desc: ''
+        error_strategy: fail-branch
+        headers: 'Authorization:Bearer {{#env.NOTION_API_TOKEN#}}
+
+          Notion-Version:2022-06-28
+
+          Content-Type:application/json'
+        method: patch
+        params: ''
+        retry_config:
+          max_retries: 1
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 'Notion Update: Write プロパティ'
+        type: http-request
+        url: https://api.notion.com/v1/pages/{{#1743601226894.page_id#}}
+        variables: []
+      height: 193
+      id: '1743839910752'
+      position:
+        x: 543.8576605854727
+        y: 200.12991872642868
+      positionAbsolute:
+        x: 543.8576605854727
+        y: 200.12991872642868
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: 終了(Success)
+        type: end
+      height: 54
+      id: '1743842919277'
+      position:
+        x: 830.8920865870668
+        y: 200.12991872642868
+      positionAbsolute:
+        x: 830.8920865870668
+        y: 200.12991872642868
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-109
+            key: ''
+            type: text
+            value: "{\n  \"content\":  \"【Notion/YouTube】{{#1743596639488.movie_id#}}\
+              \ の基本情報は入力済みでした\"\n}"
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Discordに通知
+        type: http-request
+        url: '{{#env.DISCORD_WEBHOOK_URL#}}'
+        variables: []
+      height: 97
+      id: '1748754039205'
+      position:
+        x: 1135.7531163541341
+        y: 11.253360683430202
+      positionAbsolute:
+        x: 1135.7531163541341
+        y: 11.253360683430202
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-358
+            key: ''
+            type: text
+            value: "{\n  \"content\": \"✅ 基本情報登録完了:  ( {{#1743839616193.title#}}-\
+              \ {{#1743839616193.video_id#}})\"\n}"
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Discordに通知
+        type: http-request
+        url: '{{#env.DISCORD_WEBHOOK_URL#}}'
+        variables: []
+      height: 97
+      id: '1748754319755'
+      position:
+        x: 830.8920865870668
+        y: 292.6534747439689
+      positionAbsolute:
+        x: 830.8920865870668
+        y: 292.6534747439689
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1359
+            key: ''
+            type: text
+            value: '{{#1748765742683.safe_json#}}'
+          type: raw-text
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: '3'
+          retry_enabled: false
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: Discordに通知 (Error)
+        type: http-request
+        url: '{{#env.DISCORD_WEBHOOK_URL#}}'
+        variables: []
+      height: 97
+      id: '1748754754756'
+      position:
+        x: 543.8576605854727
+        y: 648.1000681901687
+      positionAbsolute:
+        x: 543.8576605854727
+        y: 648.1000681901687
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: 終了 (error通知)
+        type: end
+      height: 54
+      id: '1748764417157'
+      position:
+        x: 830.8920865870668
+        y: 648.1000681901687
+      positionAbsolute:
+        x: 830.8920865870668
+        y: 648.1000681901687
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json, textwrap\n\n\ndef main(\n    notion_query_err: str | None=None,\n\
+          \    parse_err: str | None=None,\n    youtube_api_err: str | None=None,\n\
+          \    prop_err: str | None=None,\n    notion_update_err: str | None=None,\n\
+          ) -> dict:\n    \"\"\"\n    受け取った 5変数 すべてを走査し、\n    値があれば「[変数名] エラー内容」でまとめる。\n\
+          \    \"\"\"\n    messages = []    \n    for label, msg in [\n        (\"\
+          Notion Query\", notion_query_err),\n        (\"Parse Notion\", parse_err),\n\
+          \        (\"YouTube API\", youtube_api_err),\n        (\"Property Parse\"\
+          , prop_err),\n        (\"Notion Update\", notion_update_err),\n    ]:\n\
+          \        if msg:\n            messages.append(f\"[{label}] {msg}\")\n\n\
+          \    raw_text = \"\\n\\n\".join(messages) or \"(no error text)\"\n\n   \
+          \ # Discord Webhook 2000 文字制限対策\n    short_text = textwrap.shorten(raw_text,\
+          \ width=1500,\n                                  placeholder=\" ...[truncated]\"\
+          )\n    return {\n        \"safe_json\": json.dumps({\"content\": short_text},\
+          \ ensure_ascii=False)\n    }\n"
+        code_language: python3
+        default_value:
+        - key: safe_json
+          type: string
+          value: ''
+        desc: ''
+        error_strategy: default-value
+        outputs:
+          safe_json:
+            children: null
+            type: string
+        selected: false
+        title: エラーをjson形式にする
+        type: code
+        variables:
+        - value_selector:
+          - '1743833420875'
+          - error_message
+          variable: notion_query_err
+        - value_selector:
+          - '1743601226894'
+          - error_message
+          variable: parse_err
+        - value_selector:
+          - '1743834273726'
+          - error_message
+          variable: youtube_api_err
+        - value_selector:
+          - '1743839616193'
+          - error_message
+          variable: prop_err
+        - value_selector:
+          - '1743839910752'
+          - error_message
+          variable: notion_update_err
+      height: 90
+      id: '1748765742683'
+      position:
+        x: 237.06878785328888
+        y: 648.1000681901687
+      positionAbsolute:
+        x: 237.06878785328888
+        y: 648.1000681901687
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 106
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"各ポイントでエラーが発生した場合は、その内容をDiscordへ送るために、決まったJSONの形へ格納します。その後、Discordでユーザーへ通知します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 106
+      id: '1755942801547'
+      position:
+        x: 237.06878785328888
+        y: 756.0075513306851
+      positionAbsolute:
+        x: 237.06878785328888
+        y: 756.0075513306851
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 109
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"入力したIDの動画について過去に処理したことがないか、Notionのデータベースの情報を確認します。NotionプラグインやMCPツールでの実行に置き換えて実行することもできます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 109
+      id: '1755942988312'
+      position:
+        x: 242.5674982307429
+        y: -215.5970410513187
+      positionAbsolute:
+        x: 242.5674982307429
+        y: -215.5970410513187
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"同一のIDがデータベースに既に登録されていた場合は、その旨をDiscordでユーザーへ通知します。登録がない場合は、YouTube
+          APIへGETリクエストを実行し、情報の取得へと進みます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 552
+      height: 88
+      id: '1755943605690'
+      position:
+        x: 830.8920865870668
+        y: -200.23400793745984
+      positionAbsolute:
+        x: 830.8920865870668
+        y: -200.23400793745984
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 552
+    - data:
+        author: Dify
+        desc: ''
+        height: 135
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"YouTube
+          APIから取得した情報をNotionデータベースへ書き込みます。今回はNotionへPATCHリクエストを実行します。NotionプラグインやMCPツールでの実行に置き換えて実行することもできます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 135
+      id: '1755943801510'
+      position:
+        x: 548.6745439130398
+        y: 404.3750684182872
+      positionAbsolute:
+        x: 548.6745439130398
+        y: 404.3750684182872
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"YouTube
+          APIを使って入力したIDの動画についての情報をGETリクエストで取得します。取得した情報はコード実行ノードで必要な部分だけに整形して3つの変数として出力します。どのような情報を取り出すかはお使いのNotionデータベースの構造に合わせて設定しましょう。コード実行でなくパラメータ抽出ノードを利用することもできます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 568
+      height: 88
+      id: '1755944080744'
+      position:
+        x: -68.88928927310354
+        y: 424.84682256044727
+      positionAbsolute:
+        x: -68.88928927310354
+        y: 424.84682256044727
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 568
+    - data:
+        author: Dify
+        desc: ''
+        height: 104
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Notionからの戻り値をコード実行ノードで整形して、入力済み判定に利用できるようにします。また、ページIDを変数として保存しておくことでデータの書き込み時に利用します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 104
+      id: '1755945031585'
+      position:
+        x: 543.8576605854727
+        y: -215.5970410513187
+      positionAbsolute:
+        x: 543.8576605854727
+        y: -215.5970410513187
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    viewport:
+      x: 210.23043090204362
+      y: 231.5145892230761
+      zoom: 0.7937005976183844
