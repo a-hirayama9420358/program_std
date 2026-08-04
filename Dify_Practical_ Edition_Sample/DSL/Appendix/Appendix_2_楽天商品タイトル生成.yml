@@ -1,0 +1,1189 @@
+app:
+  description: ''
+  icon: ℹ️
+  icon_background: '#ECE9FE'
+  mode: workflow
+  name: 楽天商品タイトル生成
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/jina_tool:0.0.7@08d5935b56b9ddaa633204874c0fd796c14971489b6379fad1a430b5ec99b569
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.26@c1e643ac6a7732f6333a783320b4d3026fa5e31d8e7026375b98d44418d33f26
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: 楽天APIを利用するためのapp_idを保存しておきます。
+    id: 2b7978bd-67be-44d0-b06e-e16f3df015dd
+    name: app_id
+    selector:
+    - env
+    - app_id
+    value: ここにapp_idを入力します。
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: code
+      id: 1730334266324-source-1730334695613-target
+      selected: false
+      source: '1730334266324'
+      sourceHandle: source
+      target: '1730334695613'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1730334695613-source-1730334270106-target
+      selected: false
+      source: '1730334695613'
+      sourceHandle: source
+      target: '1730334270106'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1730334877936-source-1748964144435-target
+      selected: false
+      source: '1730334877936'
+      sourceHandle: source
+      target: '1748964144435'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1748964144435-source-1748964206390-target
+      selected: false
+      source: '1748964144435'
+      sourceHandle: source
+      target: '1748964206390'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1748964206390-source-1730335042515-target
+      selected: false
+      source: '1748964206390'
+      sourceHandle: source
+      target: '1730335042515'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: if-else
+      id: 1730334270106-source-1748964260681-target
+      selected: false
+      source: '1730334270106'
+      sourceHandle: source
+      target: '1748964260681'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1748964260681-true-1730334877936-target
+      selected: false
+      source: '1748964260681'
+      sourceHandle: 'true'
+      target: '1730334877936'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1748964260681-false-1748964268949-target
+      selected: false
+      source: '1748964260681'
+      sourceHandle: 'false'
+      target: '1748964268949'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1730334266324-source-1748964285944-target
+      selected: false
+      source: '1730334266324'
+      sourceHandle: source
+      target: '1748964285944'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1748964285944-source-1748964206390-target
+      selected: false
+      source: '1748964285944'
+      sourceHandle: source
+      target: '1748964206390'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1748964285944-fail-branch-1748964511069-target
+      selected: false
+      source: '1748964285944'
+      sourceHandle: fail-branch
+      target: '1748964511069'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: keyword
+          max_length: 48
+          options: []
+          required: true
+          type: text-input
+          variable: keyword
+        - label: URL
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: URL
+        - label: title
+          max_length: 10000
+          options: []
+          required: true
+          type: paragraph
+          variable: title
+      height: 142
+      id: '1730334266324'
+      position:
+        x: 30
+        y: 296
+      positionAbsolute:
+        x: 30
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 楽天情報取得
+        type: http-request
+        url: https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?format=json&applicationId={{#env.app_id#}}&keyword={{#1730334695613.encoded_text#}}
+        variables: []
+      height: 192
+      id: '1730334270106'
+      position:
+        x: 638
+        y: 296
+      positionAbsolute:
+        x: 638
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import urllib.parse\n\ndef main(user_input):\n    # URLエンコード\n    encoded_text\
+          \ = urllib.parse.quote(user_input)\n    \n    return { \n        \"encoded_text\"\
+          : encoded_text\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          encoded_text:
+            children: null
+            type: string
+        selected: false
+        title: コード
+        type: code
+        variables:
+        - value_selector:
+          - '1730334266324'
+          - keyword
+          variable: user_input
+      height: 54
+      id: '1730334695613'
+      position:
+        x: 334
+        y: 296
+      positionAbsolute:
+        x: 334
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 762ae8c1-5ffb-4149-819c-b7de782b68cc
+          role: system
+          text: "<Prompt>\n  <Extract>\n    <Products>\n      <Product>\n        <ProductName>Item.itemName</ProductName>\n\
+            \      </Product>\n      <!-- 追加の商品についても同様に繰り返します -->\n    </Products>\n\
+            \  </Extract>\n  <Output format=\"json\">\n    {\n      \"Products\":\
+            \ [\n        {\n          \"ProductName\": \"Item.itemName\"\n       \
+            \ }\n        <!-- 他の商品も同様に続きます -->\n      ]\n    }\n  </Output>\n</Prompt>\n"
+        - id: 0ee71fc9-0067-4093-8b4a-e7b11389754a
+          role: user
+          text: '<information>
+
+            {{#1730334270106.body#}}
+
+            </information>'
+        selected: false
+        title: データ整形・タイトル抽出
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1730334877936'
+      position:
+        x: 1242
+        y: 296
+      positionAbsolute:
+        x: 1242
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1748964206390'
+          - text
+          variable: text
+        selected: false
+        title: 終了
+        type: end
+      height: 90
+      id: '1730335042515'
+      position:
+        x: 2154
+        y: 296
+      positionAbsolute:
+        x: 2154
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 1e5ce6aa-ea06-43b0-9be0-0a9910ec09d4
+          role: system
+          text: "<KeywordExtractionPrompt>\n    <Instruction>\n        以下のユーザー入力から、商品名に含まれる、商品の魅力を伝えるのに効果的なフレーズやキーワードを優先度が高い順に最大７個抽出してください。結果は箇条書きの形式で出力してください。\n\
+            \    </Instruction>\n</KeywordExtractionPrompt>\n"
+        - id: a5744b53-5270-4097-b2ac-6ba049a8145d
+          role: user
+          text: "<Input>\n{{#1730334877936.text#}}     \n</Input>"
+        selected: false
+        title: KW抽出
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1748964144435'
+      position:
+        x: 1546
+        y: 296
+      positionAbsolute:
+        x: 1546
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: d5e11010-9800-49e9-86d5-9eb7ef8497a4
+          role: system
+          text: "<Prompt>\n    <Thinking>\n        <!--\n        1. 競合キーワードの分析:\n\
+            \            a. 各キーワードの意味と重要性を理解する。\n            b. キーワードが競合商品のどの特徴や強みを表しているかを特定する。\n\
+            \        2. 商品の強み・差別化ポイントの抽出:\n            a. 自社商品の特徴と競合商品の特徴を比較する。\n\
+            \            b. 自社商品の優れている点、他社と異なる点を明確にする。\n        3. ターゲットユーザーのニーズの理解:\n\
+            \            a. ターゲットユーザーが重視するポイントを特定する。\n            b. ユーザーの感情や購買動機に訴える要素を抽出する。\n\
+            \        4. キーワードと商品特徴の統合:\n            a. 抽出した強みや特徴を反映する適切なキーワードを選定する。\n\
+            \            b. 自然で魅力的なフレーズを形成する。\n        5. 新しい商品名の構築:\n           \
+            \ a. ブランドや販売チャネルを適切に含める。\n            b. 簡潔で覚えやすく、かつ具体的な表現を使用する。\n   \
+            \     -->\n        競合キーワードを以下のステップで分析し、商品の強みや差別化ポイントを抽出してください：\n     \
+            \   1. 競合キーワードの意味と重要性を理解し、それぞれが競合商品のどの特徴や強みを表しているかを特定する。\n        2. 自社商品の特徴と競合商品の特徴を比較し、自社商品の優れている点や他社と異なる点を明確にする。\n\
+            \        3. ターゲットユーザーが重視するポイントを特定し、ユーザーの感情や購買動機に訴える要素を抽出する。\n        4.\
+            \ 抽出した強みや特徴を反映する適切なキーワードを選定し、自然で魅力的なフレーズを形成する。\n        5. ブランドや販売チャネルを適切に含め、簡潔で覚えやすく、かつ具体的な表現を使用して新しい商品名を構築する。\n\
+            \    </Thinking>\n    <Instruction>\n        ユーザーの入力した情報とThinkingタグの内容を基に、以下の要件に沿って商品タイトルを効果的に書き換えてください：\n\
+            \        <Requirements>\n            <Requirement>• 具体的で魅力的な表現を使用すること</Requirement>\n\
+            \            <Requirement>• 商品の強みや特徴を明確に反映すること</Requirement>\n       \
+            \     <Requirement>• キーワードの自然な統合を図ること</Requirement>\n            <Requirement>•\
+            \ 長すぎず、簡潔で覚えやすい名前にすること</Requirement>\n            <Requirement>• ブランドや販売チャネル（例：楽天市場、ふるさと納税）を適切に含めること</Requirement>\n\
+            \            <Requirement>• ターゲットユーザーのニーズや感情に訴える要素を含めること</Requirement>\n\
+            \            <Requirement>• SEOを考慮し、検索されやすいキーワードを適切に配置すること</Requirement>\n\
+            \        </Requirements>\n        最終的なアウトプットは書き換えた商品名のみとしてください。\n    </Instruction>\n\
+            </Prompt>\n"
+        - id: 083f2411-59ea-4146-8046-4a79cf3d9df3
+          role: user
+          text: '<CurrentProductName>
+
+            {{#1730334266324.title#}}
+
+            </CurrentProductName>
+
+
+            <ProductInfo>
+
+            {{#1748964285944.text#}}
+
+            </ProductInfo>
+
+            <CompetitorKeywords>
+
+            {{#1748964144435.text#}}
+
+            </CompetitorKeywords>'
+        selected: false
+        title: タイトル作成
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1748964206390'
+      position:
+        x: 1850
+        y: 296
+      positionAbsolute:
+        x: 1850
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: 535b9526-fbae-496a-87ff-41f971d8fd43
+            value: '200'
+            varType: number
+            variable_selector:
+            - '1730334270106'
+            - status_code
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 126
+      id: '1748964260681'
+      position:
+        x: 942
+        y: 296
+      positionAbsolute:
+        x: 942
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: エラー
+        type: end
+      height: 54
+      id: '1748964268949'
+      position:
+        x: 1242
+        y: 425.62789675093507
+      positionAbsolute:
+        x: 1242
+        y: 425.62789675093507
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_strategy: fail-branch
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Web link
+            ja_JP: Web link
+            pt_BR: URL da web
+            zh_Hans: 网页链接
+          label:
+            en_US: URL
+            ja_JP: URL
+            pt_BR: URL
+            zh_Hans: 网址
+          llm_description: url para scraping
+          max: null
+          min: null
+          name: url
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'request parameters, format: {"key1": "value1", "key2": "value2"}
+
+              '
+            ja_JP: 'request parameters, format: {"key1": "value1", "key2": "value2"}
+
+              '
+            pt_BR: 'parâmetros de solicitação, formato: {"key1": "value1", "key2":
+              "value2"}
+
+              '
+            zh_Hans: '请求参数，格式：{"key1": "value1", "key2": "value2"}
+
+              '
+          label:
+            en_US: Request params
+            ja_JP: Request params
+            pt_BR: Parâmetros de solicitação
+            zh_Hans: 请求参数
+          llm_description: request parameters
+          max: null
+          min: null
+          name: request_params
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: css selector for scraping specific elements
+            ja_JP: css selector for scraping specific elements
+            pt_BR: css selector para scraping de elementos específicos
+            zh_Hans: css 选择器用于抓取特定元素
+          label:
+            en_US: Target selector
+            ja_JP: Target selector
+            pt_BR: Seletor de destino
+            zh_Hans: 目标选择器
+          llm_description: css selector of the target element to scrape
+          max: null
+          min: null
+          name: target_selector
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: css selector for waiting for specific elements
+            ja_JP: css selector for waiting for specific elements
+            pt_BR: css selector para aguardar elementos específicos
+            zh_Hans: css 选择器用于等待特定元素
+          label:
+            en_US: Wait for selector
+            ja_JP: Wait for selector
+            pt_BR: Aguardar por seletor
+            zh_Hans: 等待选择器
+          llm_description: css selector of the target element to wait for
+          max: null
+          min: null
+          name: wait_for_selector
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Remove all images from the response.
+            ja_JP: Remove all images from the response.
+            pt_BR: Remove all images from the response.
+            zh_Hans: 从响应中删除所有图片。
+          label:
+            en_US: Remove images
+            ja_JP: Remove images
+            pt_BR: Remove images
+            zh_Hans: 删除图片
+          llm_description: Remove all images from the response
+          max: null
+          min: null
+          name: remove_images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: 'Captions all images at the specified URL, adding ''Image [idx]:
+              [caption]'' as an alt tag for those without one. This allows downstream
+              LLMs to interact with the images in activities such as reasoning and
+              summarizing.'
+            ja_JP: 'Captions all images at the specified URL, adding ''Image [idx]:
+              [caption]'' as an alt tag for those without one. This allows downstream
+              LLMs to interact with the images in activities such as reasoning and
+              summarizing.'
+            pt_BR: 'Adiciona legendas a todas as imagens na URL especificada, adicionando
+              ''Imagem [idx]: [legenda]'' como uma tag alt para aquelas que não têm
+              uma. Isso permite que os modelos LLM inferiores interajam com as imagens
+              em atividades como raciocínio e resumo.'
+            zh_Hans: '为指定 URL 上的所有图像添加标题，为没有标题的图像添加“Image [idx]: [caption]”作为 alt
+              标签，以支持下游模型的图像交互。'
+          label:
+            en_US: Image caption
+            ja_JP: Image caption
+            pt_BR: Legenda da imagem
+            zh_Hans: 图片说明
+          llm_description: Captions all images at the specified URL
+          max: null
+          min: null
+          name: image_caption
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: A "Buttons & Links" section will be created at the end. This helps
+              the downstream LLMs or web agents navigating the page or take further
+              actions.
+            ja_JP: A "Buttons & Links" section will be created at the end. This helps
+              the downstream LLMs or web agents navigating the page or take further
+              actions.
+            pt_BR: Um "Botões & Links" section will be created at the end. This helps
+              the downstream LLMs or web agents navigating the page or take further
+              actions.
+            zh_Hans: 末尾将添加“按钮和链接”部分，方便下游模型或网络代理做页面导航或执行进一步操作。
+          label:
+            en_US: Gather all links at the end
+            ja_JP: Gather all links at the end
+            pt_BR: Coletar todos os links ao final
+            zh_Hans: 将所有链接集中到最后
+          llm_description: Gather all links at the end
+          max: null
+          min: null
+          name: gather_all_links_at_the_end
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: An "Images" section will be created at the end. This gives the
+              downstream LLMs an overview of all visuals on the page, which may improve
+              reasoning.
+            ja_JP: An "Images" section will be created at the end. This gives the
+              downstream LLMs an overview of all visuals on the page, which may improve
+              reasoning.
+            pt_BR: Um "Imagens" section will be created at the end. This gives the
+              downstream LLMs an overview of all visuals on the page, which may improve
+              reasoning.
+            zh_Hans: 末尾会新增“图片”部分，方便下游模型全面了解页面的视觉内容，提升推理效果。
+          label:
+            en_US: Gather all images at the end
+            ja_JP: Gather all images at the end
+            pt_BR: Coletar todas as imagens ao final
+            zh_Hans: 将所有图片集中到最后
+          llm_description: Gather all images at the end
+          max: null
+          min: null
+          name: gather_all_images_at_the_end
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Use proxy to access URLs
+            ja_JP: Use proxy to access URLs
+            pt_BR: Use proxy to access URLs
+            zh_Hans: 利用代理访问 URL
+          label:
+            en_US: Proxy server
+            ja_JP: Proxy server
+            pt_BR: Servidor de proxy
+            zh_Hans: 代理服务器
+          llm_description: Use proxy to access URLs
+          max: null
+          min: null
+          name: proxy_server
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Bypass the Cache
+            ja_JP: Bypass the Cache
+            pt_BR: Ignorar o cache
+            zh_Hans: 是否绕过缓存
+          label:
+            en_US: Bypass the Cache
+            ja_JP: Bypass the Cache
+            pt_BR: Ignorar o cache
+            zh_Hans: 绕过缓存
+          llm_description: bypass the cache
+          max: null
+          min: null
+          name: no_cache
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: When enabled, request results won't be cached on jina servers.
+            ja_JP: When enabled, request results won't be cached on jina servers.
+            pt_BR: When enabled, request results won't be cached on jina servers.
+            zh_Hans: 启用后，请求结果将不会被缓存在 jina 服务器上。
+          label:
+            en_US: Do Not Cache/Track
+            ja_JP: Do Not Cache/Track
+            pt_BR: Do Not Cache/Track
+            zh_Hans: 请勿缓存/追踪
+          llm_description: Do Not Cache/Track
+          max: null
+          min: null
+          name: no_cache_track
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Enable summary for the output
+            ja_JP: Enable summary for the output
+            pt_BR: Habilitar resumo para a saída
+            zh_Hans: 为输出启用摘要
+          label:
+            en_US: Enable summary
+            ja_JP: Enable summary
+            pt_BR: Habilitar resumo
+            zh_Hans: 是否启用摘要
+          llm_description: enable summary
+          max: null
+          min: null
+          name: summary
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 3
+          form: form
+          human_description:
+            en_US: Number of times to retry the request if it fails
+            ja_JP: Number of times to retry the request if it fails
+            pt_BR: Número de vezes para repetir a solicitação se falhar
+            zh_Hans: 请求失败时重试的次数
+          label:
+            en_US: Retry
+            ja_JP: Retry
+            pt_BR: Repetir
+            zh_Hans: 重试
+          llm_description: Number of times to retry the request if it fails
+          max: null
+          min: null
+          name: max_retries
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        params:
+          gather_all_images_at_the_end: ''
+          gather_all_links_at_the_end: ''
+          image_caption: ''
+          max_retries: ''
+          no_cache: ''
+          no_cache_track: ''
+          proxy_server: ''
+          remove_images: ''
+          request_params: ''
+          summary: ''
+          target_selector: ''
+          url: ''
+          wait_for_selector: ''
+        provider_id: langgenius/jina_tool/jina
+        provider_name: langgenius/jina_tool/jina
+        provider_type: builtin
+        selected: false
+        title: 商品情報抽出
+        tool_configurations:
+          gather_all_images_at_the_end:
+            type: constant
+            value: 0
+          gather_all_links_at_the_end:
+            type: constant
+            value: 0
+          image_caption:
+            type: constant
+            value: 0
+          max_retries:
+            type: constant
+            value: 3
+          no_cache:
+            type: constant
+            value: 0
+          no_cache_track:
+            type: constant
+            value: 0
+          proxy_server:
+            type: constant
+            value: null
+          remove_images:
+            type: constant
+            value: null
+          summary:
+            type: constant
+            value: 0
+          target_selector:
+            type: constant
+            value: null
+          wait_for_selector:
+            type: constant
+            value: null
+        tool_description: Fetch the target URL (can be a PDF) and convert it into
+          a LLM-friendly markdown.
+        tool_label: Fetch Single Page
+        tool_name: jina_reader
+        tool_node_version: '2'
+        tool_parameters:
+          url:
+            type: mixed
+            value: '{{#1730334266324.URL#}}'
+        type: tool
+      height: 386
+      id: '1748964285944'
+      position:
+        x: 334
+        y: 471.19394167488645
+      positionAbsolute:
+        x: 334
+        y: 471.19394167488645
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Riku
+        desc: ''
+        height: 167
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"楽天APIを使用するには、デベロッパー登録をする必要があります","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"https://webservice.rakuten.co.jp/","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"取得したapp_idを、環境変数に設定します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 252
+      height: 167
+      id: '1748964427790'
+      position:
+        x: 638
+        y: 102.01733905245865
+      positionAbsolute:
+        x: 638
+        y: 102.01733905245865
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 252
+    - data:
+        author: Riku
+        desc: ''
+        height: 96
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"エラーが出た際に無駄にLLMを実行しないよう、しっかり分岐処理をします。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 96
+      id: '1748964480185'
+      position:
+        x: 942
+        y: 138.55504620175245
+      positionAbsolute:
+        x: 942
+        y: 138.55504620175245
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: エラー
+        type: end
+      height: 54
+      id: '1748964511069'
+      position:
+        x: 334
+        y: 868.6220393962058
+      positionAbsolute:
+        x: 334
+        y: 868.6220393962058
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Riku
+        desc: ''
+        height: 116
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"取得したJSONデータを整形・不必要なデータを減らして、LLMが扱いやすい形にします。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 116
+      id: '1748964630094'
+      position:
+        x: 1242
+        y: 138.55504620175245
+      positionAbsolute:
+        x: 1242
+        y: 138.55504620175245
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Riku
+        desc: ''
+        height: 94
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"各商品のタイトルを分析し、重要なKWを抽出します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 94
+      id: '1748964652418'
+      position:
+        x: 1546
+        y: 138.55504620175245
+      positionAbsolute:
+        x: 1546
+        y: 138.55504620175245
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Riku
+        desc: ''
+        height: 114
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"競合の情報と今のタイトル、自社商品の強みを踏まえて、最高のタイトルを生成します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 114
+      id: '1748964678585'
+      position:
+        x: 1850
+        y: 138.55504620175245
+      positionAbsolute:
+        x: 1850
+        y: 138.55504620175245
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Riku
+        desc: ''
+        height: 95
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"楽天APIにKWを渡すために、エンコード処理をします。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 241
+      height: 95
+      id: '1748964714014'
+      position:
+        x: 334
+        y: 138.55504620175245
+      positionAbsolute:
+        x: 334
+        y: 138.55504620175245
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 241
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"製品タイトルの最適化を行いたい自社EC商品とそのWebページの情報を入力します。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1755946090638'
+      position:
+        x: 33.511350358098184
+        y: 138.85773911003787
+      positionAbsolute:
+        x: 33.511350358098184
+        y: 138.85773911003787
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 158
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Jina
+          AIツールで入力した自社の商品ページのスクレイピングを実行します。現状の情報を取得して、後工程のLLMによる分析で利用します。商品ページがなくスクレイピングができない場合などは、開始ノードで変数として商品情報を与える等の調整を行って利用することができます。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ' (1)'
+        type: ''
+        width: 245
+      height: 158
+      id: '17559461691950'
+      position:
+        x: 30
+        y: 529.4332293266266
+      positionAbsolute:
+        x: 30
+        y: 529.4332293266266
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 245
+    viewport:
+      x: 45.40202119377864
+      y: -44.211470515574774
+      zoom: 0.7937005976183844

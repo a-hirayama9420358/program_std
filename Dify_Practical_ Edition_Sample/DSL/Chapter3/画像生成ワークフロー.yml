@@ -1,0 +1,579 @@
+app:
+  description: ''
+  icon: 🖼️
+  icon_background: '#D5F5F6'
+  mode: workflow
+  name: 画像生成ワークフロー
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.7@11ec0b1909200f62b6ebf2cec1da981a9071d11c1ee0e2ef332ce89bcffa2544
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/dalle:0.0.4@81f8cfb1d882517e3edac117555c3cfa6282416e27f1b9c0806bcc0cec709675
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1750499050418-source-1750496992109-target
+      selected: false
+      source: '1750499050418'
+      sourceHandle: source
+      target: '1750496992109'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1750414458747-source-1750519517996-target
+      selected: false
+      source: '1750414458747'
+      sourceHandle: source
+      target: '1750519517996'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: parameter-extractor
+      id: 1750519517996-source-1750588266772-target
+      selected: false
+      source: '1750519517996'
+      sourceHandle: source
+      target: '1750588266772'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: tool
+      id: 1750588266772-source-1750499050418-target
+      selected: false
+      source: '1750588266772'
+      sourceHandle: source
+      target: '1750499050418'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1750519517996-fail-branch-1750609332758-target
+      source: '1750519517996'
+      sourceHandle: fail-branch
+      target: '1750609332758'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: end
+      id: 1750609332758-source-1750496992109-target
+      source: '1750609332758'
+      sourceHandle: source
+      target: '1750496992109'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: 生成したい画像の内容を入力してください。
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: theme
+        - label: 画像に求める方向性を決めてください。
+          max_length: 48
+          options:
+          - シンプルなイラスト
+          - 精巧な絵画
+          - 質感のある3D
+          - 美しい写真
+          required: true
+          type: select
+          variable: tone
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 参考にしたい画像をアップロードできます。
+          max_length: 2
+          options: []
+          required: false
+          type: file-list
+          variable: reference
+      height: 141
+      id: '1750414458747'
+      position:
+        x: 30
+        y: 316
+      positionAbsolute:
+        x: 30
+        y: 316
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1750499050418'
+          - files
+          variable: files
+        - value_selector:
+          - '1750609332758'
+          - output
+          variable: output
+        - value_selector:
+          - '1750499050418'
+          - text
+          variable: text
+        - value_selector:
+          - '1750499050418'
+          - error_type
+          variable: error_type
+        - value_selector:
+          - '1750499050418'
+          - error_message
+          variable: error_message
+        selected: false
+        title: 終了
+        type: end
+      height: 193
+      id: '1750496992109'
+      position:
+        x: 1246
+        y: 316
+      positionAbsolute:
+        x: 1246
+        y: 316
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        default_value:
+        - key: text
+          type: string
+          value: ''
+        - key: json
+          type: array[object]
+          value: '[]'
+        desc: ''
+        error_strategy: default-value
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Image prompt, you can check the official documentation of DallE
+              3
+            ja_JP: Image prompt, you can check the official documentation of DallE
+              3
+            pt_BR: Image prompt, you can check the official documentation of DallE
+              3
+            zh_Hans: 图像提示词，您可以查看 DallE 3 的官方文档
+          label:
+            en_US: Prompt
+            ja_JP: Prompt
+            pt_BR: Prompt
+            zh_Hans: 提示词
+          llm_description: Image prompt of DallE 3, you should describe the image
+            you want to generate as a list of words as possible as detailed
+          max: null
+          min: null
+          name: prompt
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: square
+          form: form
+          human_description:
+            en_US: selecting the image size
+            ja_JP: selecting the image size
+            pt_BR: selecting the image size
+            zh_Hans: 选择图像大小
+          label:
+            en_US: Image size
+            ja_JP: Image size
+            pt_BR: Image size
+            zh_Hans: 图像大小
+          llm_description: ''
+          max: null
+          min: null
+          name: size
+          options:
+          - label:
+              en_US: Squre(1024x1024)
+              ja_JP: Squre(1024x1024)
+              pt_BR: Squre(1024x1024)
+              zh_Hans: 方(1024x1024)
+            value: square
+          - label:
+              en_US: Vertical(1024x1792)
+              ja_JP: Vertical(1024x1792)
+              pt_BR: Vertical(1024x1792)
+              zh_Hans: 竖屏(1024x1792)
+            value: vertical
+          - label:
+              en_US: Horizontal(1792x1024)
+              ja_JP: Horizontal(1792x1024)
+              pt_BR: Horizontal(1792x1024)
+              zh_Hans: 横屏(1792x1024)
+            value: horizontal
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: 1
+          form: form
+          human_description:
+            en_US: selecting the number of images
+            ja_JP: selecting the number of images
+            pt_BR: selecting the number of images
+            zh_Hans: 选择图像数量
+          label:
+            en_US: Number of images
+            ja_JP: Number of images
+            pt_BR: Number of images
+            zh_Hans: 图像数量
+          llm_description: ''
+          max: 1
+          min: 1
+          name: n
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: standard
+          form: form
+          human_description:
+            en_US: selecting the image quality
+            ja_JP: selecting the image quality
+            pt_BR: selecting the image quality
+            zh_Hans: 选择图像质量
+          label:
+            en_US: Image quality
+            ja_JP: Image quality
+            pt_BR: Image quality
+            zh_Hans: 图像质量
+          llm_description: ''
+          max: null
+          min: null
+          name: quality
+          options:
+          - label:
+              en_US: Standard
+              ja_JP: Standard
+              pt_BR: Standard
+              zh_Hans: 标准
+            value: standard
+          - label:
+              en_US: HD
+              ja_JP: HD
+              pt_BR: HD
+              zh_Hans: 高清
+            value: hd
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: vivid
+          form: form
+          human_description:
+            en_US: selecting the image style
+            ja_JP: selecting the image style
+            pt_BR: selecting the image style
+            zh_Hans: 选择图像风格
+          label:
+            en_US: Image style
+            ja_JP: Image style
+            pt_BR: Image style
+            zh_Hans: 图像风格
+          llm_description: ''
+          max: null
+          min: null
+          name: style
+          options:
+          - label:
+              en_US: Vivid
+              ja_JP: Vivid
+              pt_BR: Vivid
+              zh_Hans: 生动
+            value: vivid
+          - label:
+              en_US: Natural
+              ja_JP: Natural
+              pt_BR: Natural
+              zh_Hans: 自然
+            value: natural
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        params:
+          n: ''
+          prompt: ''
+          quality: ''
+          size: ''
+          style: ''
+        provider_id: langgenius/dalle/dalle
+        provider_name: langgenius/dalle/dalle
+        provider_type: builtin
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: DALL-E 3
+        tool_configurations:
+          n: 1
+          quality: standard
+          size: square
+          style: vivid
+        tool_description: DALL-E is a text to image tool
+        tool_label: DALL-E 3
+        tool_name: dalle3
+        tool_parameters:
+          prompt:
+            type: mixed
+            value: '{{#1750588266772.prompt#}}'
+        type: tool
+      height: 232
+      id: '1750499050418'
+      position:
+        x: 942
+        y: 316
+      positionAbsolute:
+        x: 942
+        y: 316
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        error_strategy: fail-branch
+        model:
+          completion_params:
+            frequency_penalty: 0.1
+            presence_penalty: 0.1
+            temperature: 0.8
+            top_p: 0.9
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 7c1dbb00-d095-429e-a6dc-ae7aebf7c85a
+          role: system
+          text: '#役割
+
+            ユーザーの希望通りの画像を生成するDALL-E 3用のプロンプトを考えてください。
+
+
+
+
+            '
+        - id: 9ed5eae9-4751-4107-be7c-7e9106d9156a
+          role: user
+          text: '{{#1750414458747.theme#}}の画像であること
+
+            作風は{{#1750414458747.tone#}}であること'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1750414458747'
+            - reference
+          enabled: true
+      height: 154
+      id: '1750519517996'
+      position:
+        x: 334
+        y: 316
+      positionAbsolute:
+        x: 334
+        y: 316
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: promptを抽出してください。
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-3.5-turbo
+          provider: langgenius/openai/openai
+        parameters:
+        - description: Image prompt of DallE 3, you should describe the image you
+            want to generate as a list of words as possible as detailed
+          name: prompt
+          options: []
+          required: true
+          type: string
+        query:
+        - '1750519517996'
+        - text
+        reasoning_mode: prompt
+        selected: false
+        title: パラメータ抽出
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1750588266772'
+      position:
+        x: 638
+        y: 316
+      positionAbsolute:
+        x: 638
+        y: 316
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "\"LLMでエラーが発生しました。情報システム課へ連絡してください。\"\r\n\r\n{{ error_type }}\r\n\
+          {{ error_message }}"
+        title: テンプレート
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1750519517996'
+          - error_type
+          variable: error_type
+        - value_selector:
+          - '1750519517996'
+          - error_message
+          variable: error_message
+      height: 53
+      id: '1750609332758'
+      position:
+        x: 942
+        y: 583.8070762978462
+      positionAbsolute:
+        x: 942
+        y: 583.8070762978462
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 351.0820590661999
+      y: -12.753155180649316
+      zoom: 0.5832645636561324

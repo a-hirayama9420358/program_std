@@ -1,0 +1,49 @@
+/**
+ * POSTされたJSONをもとに Google カレンダーへ予定を登録する Web App
+ * 期待する JSON 例:
+ * {
+ *   "title": "打合せ",
+ *   "start": "2025-07-23T15:00:00+09:00",
+ *   "end":   "2025-07-23T16:00:00+09:00",
+ *   "description": "議題: 新機能レビュー",
+ *   "location": "オンライン",
+ *   "guests": "example@example.com,other@sample.com", // 省略可
+ *   "calendarId": "your_sub_calendar_id@group.calendar.google.com" // 省略可
+ * }
+ */
+
+function doPost(e) {
+  try {
+    // 1) 受信データをパース
+    const data = JSON.parse(e.postData.contents);
+
+    // 2) 必須・任意パラメータを取得
+    const title = data.title || '無題';
+    const start = new Date(data.start);
+    const end   = new Date(data.end);
+    const options = {
+      description: data.description || '',
+      location:    data.location    || '',
+      guests:      data.guests      || '',
+      sendInvites: !!data.guests    // ゲストがいれば招待メールを送信
+    };
+
+    // 3) カレンダーを取得（指定がなければデフォルト）
+    const calId   = data.calendarId || CalendarApp.getDefaultCalendar().getId();
+    const calendar = CalendarApp.getCalendarById(calId);
+
+    // 4) イベントを作成
+    const event = calendar.createEvent(title, start, end, options);
+
+    // 5) 成功レスポンスを返す
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'success', eventId: event.getId() }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    // エラーハンドリング
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}

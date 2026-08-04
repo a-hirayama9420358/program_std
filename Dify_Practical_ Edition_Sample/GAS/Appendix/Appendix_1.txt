@@ -1,0 +1,63 @@
+/**
+ * POSTリクエストを受け取り、スプレッドシートにデータを追記する関数
+ * @param {Object} e - Apps ScriptがPOSTリクエスト時に受け取るイベントオブジェクト
+ * @return {ContentService.TextOutput} - JSON形式のレスポンス
+ */
+function doPost(e) {
+  // POSTデータが存在するかチェック
+  if (!e || !e.postData || !e.postData.contents) {
+    return createJsonResponse({
+      "status": "error",
+      "message": "No data received in the request."
+    });
+  }
+
+  try {
+    // 1. リクエストボディからJSONペイロードを解析します
+    var data = JSON.parse(e.postData.contents);
+
+    // 2. 必要なデータがJSONオブジェクトに含まれているか検証します
+    var { word, meaning, pronunciation, example, quote } = data;
+    if (!word || !meaning || !pronunciation || !example || !quote) {
+      return createJsonResponse({
+        "status": "error",
+        "message": "Missing one or more required fields. Required: word, meaning, pronunciation, example, quote."
+      });
+    }
+
+    // 3. 対象のスプレッドシートとシートを取得します
+    // 注意: この例では現在アクティブなスプレッドシートを使用します。
+    // 本番環境では、SpreadsheetApp.openById("ここにシートID") のようにIDで指定することを推奨します。
+    var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = spreadsheet.getActiveSheet(); // または、spreadsheet.getSheetByName("シート1") のように名前で指定
+
+    // 4. データを新しい行としてシートの最終行に追記します
+    var newRow = [word, meaning, pronunciation, example, quote];
+    sheet.appendRow(newRow);
+
+    // 5. 成功のレスポンスを返します
+    return createJsonResponse({
+      "status": "success",
+      "message": "Data successfully appended to the sheet.",
+      "appendedData": newRow
+    });
+
+  } catch (error) {
+    // 6. JSONの解析エラーなど、予期せぬエラーを処理します
+    return createJsonResponse({
+      "status": "error",
+      "message": "Failed to process the request.",
+      "error_details": error.toString()
+    });
+  }
+}
+
+/**
+ * JSONレスポンスを生成するためのヘルパー関数
+ * @param {Object} obj - JSONとして返すオブジェクト
+ * @return {ContentService.TextOutput} - JSON形式のTextOutput
+ */
+function createJsonResponse(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+} 

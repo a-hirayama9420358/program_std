@@ -1,0 +1,1117 @@
+app:
+  description: ''
+  icon: 📅
+  icon_background: '#D5F5F6'
+  mode: workflow
+  name: スケジュールメーカー
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.26@c1e643ac6a7732f6333a783320b4d3026fa5e31d8e7026375b98d44418d33f26
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/slack:0.0.4@8eccd2e5360bd287d887738750ae420d57d0c26d1e1a1ced4f59963005f1c163
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: Googleカレンダーに予定を追加するGAS Webアプリのエンドポイント。
+    id: 46295677-696e-4e57-a226-06b0d8b5c000
+    name: google_calender_web_app_url
+    selector:
+    - env
+    - google_calender_web_app_url
+    value: ＊ここにGAS Webアプリのエンドポイントを入力してください。
+    value_type: string
+  - description: スケジュールを追加するカレンダーのID
+    id: 4021372e-2c39-4c0e-a1ad-065fc9eaff2c
+    name: calender_id
+    selector:
+    - env
+    - calender_id
+    value: ＊ここにカレンダーのIDを入力してください。
+    value_type: string
+  - description: '#情報共有チャンネルに投稿するためのSlackアプリのエンドポイント。'
+    id: 1224f2d6-8288-402a-b410-d01beabc1994
+    name: slack_web_app_url
+    selector:
+    - env
+    - slack_web_app_url
+    value: ＊ここにSlackアプリのエンドポイントを入力してください。
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1753608501764-source-1753609527931-target
+      source: '1753608501764'
+      sourceHandle: source
+      target: '1753609527931'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1753609527931-false-1753609610110-target
+      source: '1753609527931'
+      sourceHandle: 'false'
+      target: '1753609610110'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: tool
+      id: 1753609610110-source-1753609671048-target
+      source: '1753609610110'
+      sourceHandle: source
+      target: '1753609671048'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1753609527931-true-1753609671048-target
+      source: '1753609527931'
+      sourceHandle: 'true'
+      target: '1753609671048'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: llm
+      id: 1753609671048-source-1753609779860-target
+      source: '1753609671048'
+      sourceHandle: source
+      target: '1753609779860'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1753609779860-source-1753610514971-target
+      source: '1753609779860'
+      sourceHandle: source
+      target: '1753610514971'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: tool
+      id: 1753610514971-source-1753610699886-target
+      source: '1753610514971'
+      sourceHandle: source
+      target: '1753610699886'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: http-request
+      id: 1753610514971-source-1753611962150-target
+      source: '1753610514971'
+      sourceHandle: source
+      target: '1753611962150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: if-else
+      id: 1753610699886-source-1753613561272-target
+      source: '1753610699886'
+      sourceHandle: source
+      target: '1753613561272'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: if-else
+      id: 1753611962150-source-1753613561272-target
+      source: '1753611962150'
+      sourceHandle: source
+      target: '1753613561272'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1753613561272-true-1753613689487-target
+      source: '1753613561272'
+      sourceHandle: 'true'
+      target: '1753613689487'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1753613561272-false-1753613767939-target
+      source: '1753613561272'
+      sourceHandle: 'false'
+      target: '1753613767939'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: template-transform
+        targetType: end
+      id: 1753613689487-source-1753611028164-target
+      source: '1753613689487'
+      sourceHandle: source
+      target: '1753611028164'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: end
+      id: 1753613767939-source-1753613899632-target
+      source: '1753613767939'
+      sourceHandle: source
+      target: '1753613899632'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables:
+        - label: イベント名
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: event
+        - label: 開始時間
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: start
+        - label: 終了時間
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: end
+        - label: 実施会場（Web開催の場合はURL）
+          max_length: 256
+          options: []
+          required: true
+          type: text-input
+          variable: location
+        - label: イベントの公式HPや関連サイトのURL
+          max_length: 48
+          options: []
+          required: true
+          type: text-input
+          variable: url
+        - label: イベントの詳細
+          max_length: 2000
+          options: []
+          required: false
+          type: paragraph
+          variable: description
+        - label: 招待者のメールアドレス（アドレス①, アドレス②, …）
+          max_length: 2000
+          options: []
+          required: false
+          type: paragraph
+          variable: guests
+      height: 246
+      id: '1753608501764'
+      position:
+        x: -679
+        y: 277
+      positionAbsolute:
+        x: -679
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: eead4801-974c-4236-8519-991557b17a42
+            value: ''
+            varType: string
+            variable_selector:
+            - '1753608501764'
+            - description
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 126
+      id: '1753609527931'
+      position:
+        x: -375
+        y: 277
+      positionAbsolute:
+        x: -375
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: used for linking to webpages
+            ja_JP: used for linking to webpages
+            pt_BR: used for linking to webpages
+            zh_Hans: 用于链接到网页
+          label:
+            en_US: URL
+            ja_JP: URL
+            pt_BR: URL
+            zh_Hans: 网页链接
+          llm_description: url for scraping
+          max: null
+          min: null
+          name: url
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+            like Gecko) Chrome/100.0.1000.0 Safari/537.36
+          form: form
+          human_description:
+            en_US: used for identifying the browser.
+            ja_JP: used for identifying the browser.
+            pt_BR: used for identifying the browser.
+            zh_Hans: 用于识别浏览器。
+          label:
+            en_US: User Agent
+            ja_JP: User Agent
+            pt_BR: User Agent
+            zh_Hans: User Agent
+          llm_description: null
+          max: null
+          min: null
+          name: user_agent
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 'false'
+          form: form
+          human_description:
+            en_US: If true, the crawler will only return the page summary content.
+            ja_JP: If true, the crawler will only return the page summary content.
+            pt_BR: If true, the crawler will only return the page summary content.
+            zh_Hans: 如果启用，爬虫将仅返回页面摘要内容。
+          label:
+            en_US: Whether to generate summary
+            ja_JP: Whether to generate summary
+            pt_BR: Whether to generate summary
+            zh_Hans: 是否生成摘要
+          llm_description: null
+          max: null
+          min: null
+          name: generate_summary
+          options:
+          - icon: null
+            label:
+              en_US: 'Yes'
+              ja_JP: 'Yes'
+              pt_BR: 'Yes'
+              zh_Hans: 是
+            value: 'true'
+          - icon: null
+            label:
+              en_US: 'No'
+              ja_JP: 'No'
+              pt_BR: 'No'
+              zh_Hans: 否
+            value: 'false'
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        params:
+          generate_summary: ''
+          url: ''
+          user_agent: ''
+        provider_id: webscraper
+        provider_name: webscraper
+        provider_type: builtin
+        selected: false
+        title: Web Scraper
+        tool_configurations:
+          generate_summary:
+            type: constant
+            value: false
+          user_agent:
+            type: mixed
+            value: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
+              like Gecko) Chrome/100.0.1000.0 Safari/537.36
+        tool_description: A tool for scraping webpages.
+        tool_label: Web Scraper
+        tool_name: webscraper
+        tool_node_version: '2'
+        tool_parameters:
+          url:
+            type: mixed
+            value: '{{#1753608501764.url#}}'
+        type: tool
+      height: 116
+      id: '1753609610110'
+      position:
+        x: -81.96824979694625
+        y: 277
+      positionAbsolute:
+        x: -81.96824979694625
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: '%Y-%m-%d %H:%M:%S'
+          form: form
+          human_description:
+            en_US: Time format in strftime standard.
+            ja_JP: Time format in strftime standard.
+            pt_BR: Time format in strftime standard.
+            zh_Hans: strftime 标准的时间格式。
+          label:
+            en_US: Format
+            ja_JP: Format
+            pt_BR: Format
+            zh_Hans: 格式
+          llm_description: null
+          max: null
+          min: null
+          name: format
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: UTC
+          form: form
+          human_description:
+            en_US: Timezone
+            ja_JP: Timezone
+            pt_BR: Timezone
+            zh_Hans: 时区
+          label:
+            en_US: Timezone
+            ja_JP: Timezone
+            pt_BR: Timezone
+            zh_Hans: 时区
+          llm_description: null
+          max: null
+          min: null
+          name: timezone
+          options:
+          - icon: null
+            label:
+              en_US: UTC
+              ja_JP: UTC
+              pt_BR: UTC
+              zh_Hans: UTC
+            value: UTC
+          - icon: null
+            label:
+              en_US: America/New_York
+              ja_JP: America/New_York
+              pt_BR: America/New_York
+              zh_Hans: 美洲/纽约
+            value: America/New_York
+          - icon: null
+            label:
+              en_US: America/Los_Angeles
+              ja_JP: America/Los_Angeles
+              pt_BR: America/Los_Angeles
+              zh_Hans: 美洲/洛杉矶
+            value: America/Los_Angeles
+          - icon: null
+            label:
+              en_US: America/Chicago
+              ja_JP: America/Chicago
+              pt_BR: America/Chicago
+              zh_Hans: 美洲/芝加哥
+            value: America/Chicago
+          - icon: null
+            label:
+              en_US: America/Sao_Paulo
+              ja_JP: America/Sao_Paulo
+              pt_BR: América/São Paulo
+              zh_Hans: 美洲/圣保罗
+            value: America/Sao_Paulo
+          - icon: null
+            label:
+              en_US: Asia/Shanghai
+              ja_JP: Asia/Shanghai
+              pt_BR: Asia/Shanghai
+              zh_Hans: 亚洲/上海
+            value: Asia/Shanghai
+          - icon: null
+            label:
+              en_US: Asia/Ho_Chi_Minh
+              ja_JP: Asia/Ho_Chi_Minh
+              pt_BR: Ásia/Ho Chi Minh
+              zh_Hans: 亚洲/胡志明市
+            value: Asia/Ho_Chi_Minh
+          - icon: null
+            label:
+              en_US: Asia/Tokyo
+              ja_JP: Asia/Tokyo
+              pt_BR: Asia/Tokyo
+              zh_Hans: 亚洲/东京
+            value: Asia/Tokyo
+          - icon: null
+            label:
+              en_US: Asia/Dubai
+              ja_JP: Asia/Dubai
+              pt_BR: Asia/Dubai
+              zh_Hans: 亚洲/迪拜
+            value: Asia/Dubai
+          - icon: null
+            label:
+              en_US: Asia/Kolkata
+              ja_JP: Asia/Kolkata
+              pt_BR: Asia/Kolkata
+              zh_Hans: 亚洲/加尔各答
+            value: Asia/Kolkata
+          - icon: null
+            label:
+              en_US: Asia/Seoul
+              ja_JP: Asia/Seoul
+              pt_BR: Asia/Seoul
+              zh_Hans: 亚洲/首尔
+            value: Asia/Seoul
+          - icon: null
+            label:
+              en_US: Asia/Singapore
+              ja_JP: Asia/Singapore
+              pt_BR: Asia/Singapore
+              zh_Hans: 亚洲/新加坡
+            value: Asia/Singapore
+          - icon: null
+            label:
+              en_US: Europe/London
+              ja_JP: Europe/London
+              pt_BR: Europe/London
+              zh_Hans: 欧洲/伦敦
+            value: Europe/London
+          - icon: null
+            label:
+              en_US: Europe/Berlin
+              ja_JP: Europe/Berlin
+              pt_BR: Europe/Berlin
+              zh_Hans: 欧洲/柏林
+            value: Europe/Berlin
+          - icon: null
+            label:
+              en_US: Europe/Moscow
+              ja_JP: Europe/Moscow
+              pt_BR: Europe/Moscow
+              zh_Hans: 欧洲/莫斯科
+            value: Europe/Moscow
+          - icon: null
+            label:
+              en_US: Australia/Sydney
+              ja_JP: Australia/Sydney
+              pt_BR: Australia/Sydney
+              zh_Hans: 澳大利亚/悉尼
+            value: Australia/Sydney
+          - icon: null
+            label:
+              en_US: Pacific/Auckland
+              ja_JP: Pacific/Auckland
+              pt_BR: Pacific/Auckland
+              zh_Hans: 太平洋/奥克兰
+            value: Pacific/Auckland
+          - icon: null
+            label:
+              en_US: Africa/Cairo
+              ja_JP: Africa/Cairo
+              pt_BR: Africa/Cairo
+              zh_Hans: 非洲/开罗
+            value: Africa/Cairo
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          format: ''
+          timezone: ''
+        provider_id: time
+        provider_name: time
+        provider_type: builtin
+        selected: false
+        title: Current Time
+        tool_configurations:
+          format:
+            type: mixed
+            value: '%Y-%m-%d %H:%M:%S'
+          timezone:
+            type: constant
+            value: Asia/Tokyo
+        tool_description: A tool for getting the current time.
+        tool_label: Current Time
+        tool_name: current_time
+        tool_node_version: '2'
+        tool_parameters: {}
+        type: tool
+      height: 116
+      id: '1753609671048'
+      position:
+        x: 203.3857255482451
+        y: 277
+      positionAbsolute:
+        x: 203.3857255482451
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 3b273909-4faa-459c-963f-8d0b1010036a
+          role: system
+          text: '#役割
+
+            現在の時刻は{{#1753609671048.text#}}です。
+
+            {{#1753608501764.start#}}の情報から開始時間、{{#1753608501764.end#}}の情報から終了時間を推論し、ISO
+            8601形式（YYYY-MM-DDTHH:MM:SS+09:00）に変換します。
+
+
+            {{#1753608501764.description#}}、{{#1753609610110.text#}}を参照してイベントの概要を詳しくまとめてください。
+
+
+            #出力形式
+
+            以下を格納したJSONを作成してください。
+
+            start: 開始時間（YYYY-MM-DDTHH:MM:SS+09:00）
+
+            end: 終了時間（YYYY-MM-DDTHH:MM:SS+09:00）
+
+            range: 開始から終了までの時間（YYYY年MM月DD日HH時MM分 - DD日HH時MM分）
+
+            description: イベントの概要'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              description:
+                description: イベントの概要
+                type: string
+              end:
+                description: 終了時間
+                type: string
+              range:
+                description: 開始から終了までの時間
+                type: string
+              start:
+                description: 開始時間
+                type: string
+            required:
+            - start
+            - end
+            - range
+            - description
+            type: object
+        structured_output_enabled: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1753609779860'
+      position:
+        x: 491.3829577690472
+        y: 277
+      positionAbsolute:
+        x: 491.3829577690472
+        y: 277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "<!channel> 新イベントのお知らせです！\r\n\r\n*{{ event }}*\r\n日時：{{ range }}\r\
+          \n{{ url }}\r\n\r\n{{ description }}"
+        title: テンプレート
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1753608501764'
+          - event
+          variable: event
+        - value_selector:
+          - '1753609779860'
+          - structured_output
+          - range
+          variable: range
+        - value_selector:
+          - '1753608501764'
+          - url
+          variable: url
+        - value_selector:
+          - '1753609779860'
+          - structured_output
+          - description
+          value_type: object
+          variable: description
+      height: 54
+      id: '1753610514971'
+      position:
+        x: -679
+        y: 610.2483861149356
+      positionAbsolute:
+        x: -679
+        y: 610.2483861149356
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: form
+          human_description:
+            en_US: Slack Incoming Webhook url
+            ja_JP: Slack Incoming Webhook url
+            pt_BR: Slack Incoming Webhook url
+            zh_Hans: Slack 入站 Webhook 的 url
+          label:
+            en_US: Slack Incoming Webhook url
+            ja_JP: Slack Incoming Webhook url
+            pt_BR: Slack Incoming Webhook url
+            zh_Hans: Slack 入站 Webhook 的 url
+          llm_description: ''
+          max: null
+          min: null
+          name: webhook_url
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Content to sent to the channel or person.
+            ja_JP: Content to sent to the channel or person.
+            pt_BR: Content to sent to the channel or person.
+            zh_Hans: 消息内容文本
+          label:
+            en_US: content
+            ja_JP: content
+            pt_BR: content
+            zh_Hans: 消息内容
+          llm_description: Content of the message
+          max: null
+          min: null
+          name: content
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        params:
+          content: ''
+          webhook_url: ''
+        provider_id: langgenius/slack/slack
+        provider_name: langgenius/slack/slack
+        provider_type: builtin
+        selected: false
+        title: Incoming Webhook to send message
+        tool_configurations:
+          webhook_url:
+            type: mixed
+            value: '{{#env.slack_web_app_url#}}'
+        tool_description: Sending a message on Slack via the Incoming Webhook
+        tool_label: Incoming Webhook to send message
+        tool_name: slack_webhook
+        tool_node_version: '2'
+        tool_parameters:
+          content:
+            type: mixed
+            value: '{{#1753610514971.output#}}'
+        type: tool
+      height: 90
+      id: '1753610699886'
+      position:
+        x: -375
+        y: 610.2483861149356
+      positionAbsolute:
+        x: -375
+        y: 610.2483861149356
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1753613689487'
+          - output
+          value_type: string
+          variable: output
+        selected: false
+        title: 終了
+        type: end
+      height: 90
+      id: '1753611028164'
+      position:
+        x: 491.3829577690472
+        y: 610.2483861149356
+      positionAbsolute:
+        x: 491.3829577690472
+        y: 610.2483861149356
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-192
+            key: ''
+            type: text
+            value: "{\n    \"title\": \"{{#1753608501764.event#}}\",\n    \"start\"\
+              : \"{{#1753609779860.structured_output.start#}}\",\n    \"end\": \"\
+              {{#1753609779860.structured_output.end#}}\",\n    \"description\": \"\
+              {{#1753609779860.structured_output.description#}}\",\n    \"location\"\
+              : \"{{#1753608501764.location#}}\",\n    \"guests\": \"{{#1753608501764.guests#}}\"\
+              ,\n     \"calendarId\": \"{{#env.calender_id#}}\"\n}"
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP リクエスト
+        type: http-request
+        url: '{{#env.google_calender_web_app_url#}}'
+        variables: []
+      height: 126
+      id: '1753611962150'
+      position:
+        x: -375
+        y: 729.7584118815365
+      positionAbsolute:
+        x: -375
+        y: 729.7584118815365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 922793bf-b61d-4917-9f7a-e031d5957c36
+            value: success
+            varType: string
+            variable_selector:
+            - '1753610699886'
+            - text
+          - comparison_operator: contains
+            id: 8ac2a569-a2f1-47df-810a-82290f41d4da
+            value: success
+            varType: string
+            variable_selector:
+            - '1753611962150'
+            - body
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 2
+        type: if-else
+      height: 152
+      id: '1753613561272'
+      position:
+        x: -81.96824979694625
+        y: 610.2483861149356
+      positionAbsolute:
+        x: -81.96824979694625
+        y: 610.2483861149356
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "イベント：{{ event }}\r\n{{ description }}\r\n\r\n---\r\n\r\nスケジュール登録＆通知が完了しました！"
+        title: テンプレート 2
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1753608501764'
+          - event
+          value_type: string
+          variable: event
+        - value_selector:
+          - '1753609779860'
+          - structured_output
+          - description
+          value_type: object
+          variable: description
+      height: 54
+      id: '1753613689487'
+      position:
+        x: 203.3857255482451
+        y: 610.2483861149356
+      positionAbsolute:
+        x: 203.3857255482451
+        y: 610.2483861149356
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "エラーが発生しました。以下のメッセージを確認してください。\r\n\r\nSlackへの投稿\r\n{{ text }}\r\n\
+          \r\n---\r\n\r\nGoogleカレンダーへの登録\r\n{{ body }}\r\n"
+        title: テンプレート 3
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1753610699886'
+          - text
+          value_type: string
+          variable: text
+        - value_selector:
+          - '1753611962150'
+          - body
+          value_type: string
+          variable: body
+      height: 54
+      id: '1753613767939'
+      position:
+        x: 203.3857255482451
+        y: 716.0327663749
+      positionAbsolute:
+        x: 203.3857255482451
+        y: 716.0327663749
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1753613767939'
+          - output
+          value_type: string
+          variable: output
+        selected: false
+        title: 終了 2
+        type: end
+      height: 90
+      id: '1753613899632'
+      position:
+        x: 491.3829577690472
+        y: 716.0327663749
+      positionAbsolute:
+        x: 491.3829577690472
+        y: 716.0327663749
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Googleカレンダーとの連携はプラグインツールでも実行できるようになりました。必要に応じて置き換えてください。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1755959814910'
+      position:
+        x: -371.9697683635006
+        y: 870.1241835877777
+      positionAbsolute:
+        x: -371.9697683635006
+        y: 870.1241835877777
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    viewport:
+      x: 585.4085259619995
+      y: -113.0678717994382
+      zoom: 0.6597539553864458

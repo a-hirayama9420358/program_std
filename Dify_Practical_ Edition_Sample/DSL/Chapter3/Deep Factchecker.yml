@@ -1,0 +1,1051 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Deep Factchecker
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.26@c1e643ac6a7732f6333a783320b4d3026fa5e31d8e7026375b98d44418d33f26
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables:
+  - description: 調べるキーワード
+    id: 0bf27c3e-dd48-4ff5-acf2-30e1b7c92f2c
+    name: queries
+    selector:
+    - conversation
+    - queries
+    value: []
+    value_type: array[string]
+  - description: ユーザーが提起した命題
+    id: 256d28b5-c45a-4399-bf8e-f948d09a5fa5
+    name: proposition
+    selector:
+    - conversation
+    - proposition
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ファクトチェックすべき内容を入力してください。
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1748512852331-source-1748512822987-target
+      selected: false
+      source: '1748512852331'
+      sourceHandle: source
+      target: '1748512822987'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1748512073444'
+        sourceType: agent
+        targetType: answer
+      id: 1748512083283-source-1750677990504-target
+      selected: false
+      source: '1748512083283'
+      sourceHandle: source
+      target: '1750677990504'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1748511790049-source-1748512852331-target
+      selected: false
+      source: '1748511790049'
+      sourceHandle: source
+      target: '1748512852331'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1748512073444'
+        sourceType: iteration-start
+        targetType: agent
+      id: 1748512073444start-source-1748512083283-target
+      selected: false
+      source: 1748512073444start
+      sourceHandle: source
+      target: '1748512083283'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: llm
+      id: 1748512073444-source-1751274614568-target
+      selected: false
+      source: '1748512073444'
+      sourceHandle: source
+      target: '1751274614568'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1751274614568-source-1748516227168-target
+      selected: false
+      source: '1751274614568'
+      sourceHandle: source
+      target: '1748516227168'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1748224478153-source-1751345133768-target
+      selected: false
+      source: '1748224478153'
+      sourceHandle: source
+      target: '1751345133768'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1751345133768-true-1748512073444-target
+      selected: false
+      source: '1751345133768'
+      sourceHandle: 'true'
+      target: '1748512073444'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1751345133768-false-1748511790049-target
+      selected: false
+      source: '1751345133768'
+      sourceHandle: 'false'
+      target: '1748511790049'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables: []
+      height: 54
+      id: '1748224478153'
+      position:
+        x: 1845.695813230416
+        y: 695.9251281676758
+      positionAbsolute:
+        x: 1845.695813230416
+        y: 695.9251281676758
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: b4598377-8e26-4b7f-92bb-a84af2ee0ca0
+          role: system
+          text: '#役割
+
+            ユーザーの入力の内容を確認し、命題とその真偽を検証するために事実確認が必要な論点を全てリストアップします。
+
+
+            #出力形式
+
+            命題はproposition、論点はqueriesに格納して、JSON形式で出力します。'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              proposition:
+                description: ユーザーが提起した議論の命題
+                type: string
+              queries:
+                description: 命題の検証のために事実確認が必要な項目
+                items:
+                  description: LLMが提案した確認項目の1つ
+                  type: string
+                minItems: 1
+                type: array
+            required:
+            - queries
+            - proposition
+            type: object
+        structured_output_enabled: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1748511790049'
+      position:
+        x: 2462.3592056443053
+        y: 1174.4965567391043
+      positionAbsolute:
+        x: 2462.3592056443053
+        y: 1174.4965567391043
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: remove-abnormal-output
+        height: 295
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - conversation
+        - queries
+        output_selector:
+        - '1748512083283'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1748512073444start
+        title: イテレーション
+        type: iteration
+        width: 674
+      height: 295
+      id: '1748512073444'
+      position:
+        x: 2462.3592056443053
+        y: 695.9251281676758
+      positionAbsolute:
+        x: 2462.3592056443053
+        y: 695.9251281676758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 674
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1748512073444start
+      parentId: '1748512073444'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 2486.3592056443053
+        y: 763.9251281676758
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        agent_parameters:
+          instruction:
+            type: constant
+            value: '#役割
+
+              あなたは優秀なリサーチャーです。
+
+              調べているテーマについて、真偽の結論が出るまで必要な情報の検索を繰り返しながら考察してください。
+
+
+              #ツール
+
+              Tavily Search: 最新の情報を検索できます。
+
+
+              #出力形式
+
+              -{{#1748512073444.item#}}が正しいかどうかを宣言
+
+              -その理由を説明する
+
+              - その結論に至ったリファレンスのURLを埋め込む'
+          maximum_iterations:
+            type: constant
+            value: 5
+          model:
+            type: constant
+            value:
+              completion_params: {}
+              mode: chat
+              model: gpt-4o-mini
+              model_type: llm
+              provider: langgenius/openai/openai
+              type: model-selector
+          query:
+            type: constant
+            value: '{{#1748512073444.item#}}について徹底的に情報を検索します。'
+          tools:
+            type: constant
+            value:
+            - enabled: true
+              extra:
+                description: A search engine tool built specifically for AI agents
+                  (LLMs), delivering real-time, accurate, and factual results at speed.
+              parameters:
+                days:
+                  auto: 1
+                  value: null
+                query:
+                  auto: 1
+                  value: null
+                search_depth:
+                  auto: 1
+                  value: null
+                time_range:
+                  auto: 1
+                  value: null
+                topic:
+                  auto: 1
+                  value: null
+              provider_name: langgenius/tavily/tavily
+              schemas:
+              - auto_generate: null
+                default: null
+                form: llm
+                human_description:
+                  en_US: The search query you want to execute with Tavily.
+                  ja_JP: The search query you want to execute with Tavily.
+                  pt_BR: The search query you want to execute with Tavily.
+                  zh_Hans: 您想用 Tavily 执行的搜索查询。
+                label:
+                  en_US: Query
+                  ja_JP: Query
+                  pt_BR: Query
+                  zh_Hans: 查询
+                llm_description: The search query.
+                max: null
+                min: null
+                name: query
+                options: []
+                placeholder: null
+                precision: null
+                required: true
+                scope: null
+                template: null
+                type: string
+              - auto_generate: null
+                default: basic
+                form: llm
+                human_description:
+                  en_US: The depth of the search.
+                  ja_JP: The depth of the search.
+                  pt_BR: The depth of the search.
+                  zh_Hans: 搜索的深度。
+                label:
+                  en_US: Search Depth
+                  ja_JP: Search Depth
+                  pt_BR: Search Depth
+                  zh_Hans: 搜索深度
+                llm_description: The depth of the search. 'basic' for standard search,
+                  'advanced' for more comprehensive results.
+                max: null
+                min: null
+                name: search_depth
+                options:
+                - label:
+                    en_US: Basic
+                    ja_JP: Basic
+                    pt_BR: Basic
+                    zh_Hans: 基本
+                  value: basic
+                - label:
+                    en_US: Advanced
+                    ja_JP: Advanced
+                    pt_BR: Advanced
+                    zh_Hans: 高级
+                  value: advanced
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: select
+              - auto_generate: null
+                default: general
+                form: llm
+                human_description:
+                  en_US: The category of the search.
+                  ja_JP: The category of the search.
+                  pt_BR: The category of the search.
+                  zh_Hans: 搜索的类别。
+                label:
+                  en_US: Topic
+                  ja_JP: Topic
+                  pt_BR: Topic
+                  zh_Hans: 主题
+                llm_description: The category of the search. Options include 'general',
+                  'news', or 'finance'.
+                max: null
+                min: null
+                name: topic
+                options:
+                - label:
+                    en_US: General
+                    ja_JP: General
+                    pt_BR: General
+                    zh_Hans: 一般
+                  value: general
+                - label:
+                    en_US: News
+                    ja_JP: News
+                    pt_BR: News
+                    zh_Hans: 新闻
+                  value: news
+                - label:
+                    en_US: Finance
+                    ja_JP: Finance
+                    pt_BR: Finance
+                    zh_Hans: 金融
+                  value: finance
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: select
+              - auto_generate: null
+                default: 3
+                form: llm
+                human_description:
+                  en_US: The number of days back from the current date to include
+                    in the search results (only applicable when "topic" is "news").
+                  ja_JP: The number of days back from the current date to include
+                    in the search results (only applicable when "topic" is "news").
+                  pt_BR: The number of days back from the current date to include
+                    in the search results (only applicable when "topic" is "news").
+                  zh_Hans: 从当前日期起向前追溯的天数，以包含在搜索结果中（仅当"topic"为"news"时适用）。
+                label:
+                  en_US: Days
+                  ja_JP: Days
+                  pt_BR: Days
+                  zh_Hans: 天数
+                llm_description: The number of days back from the current date to
+                  include in the search results. Only applicable when "topic" is "news".
+                max: null
+                min: 1
+                name: days
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: number
+              - auto_generate: null
+                default: not_specified
+                form: llm
+                human_description:
+                  en_US: The time range back from the current date to filter results.
+                  ja_JP: The time range back from the current date to filter results.
+                  pt_BR: The time range back from the current date to filter results.
+                  zh_Hans: 从当前日期起向后筛选结果的时间范围。
+                label:
+                  en_US: Time Range
+                  ja_JP: Time Range
+                  pt_BR: Time Range
+                  zh_Hans: 时间范围
+                llm_description: The time range back from the current date to filter
+                  results. Options include 'not_specified', 'day', 'week', 'month',
+                  or 'year'.
+                max: null
+                min: null
+                name: time_range
+                options:
+                - label:
+                    en_US: Not Specified
+                    ja_JP: Not Specified
+                    pt_BR: Not Specified
+                    zh_Hans: 不指定
+                  value: not_specified
+                - label:
+                    en_US: Day
+                    ja_JP: Day
+                    pt_BR: Day
+                    zh_Hans: 天
+                  value: day
+                - label:
+                    en_US: Week
+                    ja_JP: Week
+                    pt_BR: Week
+                    zh_Hans: 周
+                  value: week
+                - label:
+                    en_US: Month
+                    ja_JP: Month
+                    pt_BR: Month
+                    zh_Hans: 月
+                  value: month
+                - label:
+                    en_US: Year
+                    ja_JP: Year
+                    pt_BR: Year
+                    zh_Hans: 年
+                  value: year
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: select
+              - auto_generate: null
+                default: 5
+                form: form
+                human_description:
+                  en_US: The maximum number of search results to return.
+                  ja_JP: The maximum number of search results to return.
+                  pt_BR: The maximum number of search results to return.
+                  zh_Hans: 要返回的最大搜索结果数。
+                label:
+                  en_US: Max Results
+                  ja_JP: Max Results
+                  pt_BR: Max Results
+                  zh_Hans: 最大结果数
+                llm_description: The maximum number of search results to return. Range
+                  is 1-20.
+                max: 20
+                min: 1
+                name: max_results
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: number
+              - auto_generate: null
+                default: 0
+                form: form
+                human_description:
+                  en_US: Include a list of query-related images in the response.
+                  ja_JP: Include a list of query-related images in the response.
+                  pt_BR: Include a list of query-related images in the response.
+                  zh_Hans: 在响应中包含与查询相关的图片列表。
+                label:
+                  en_US: Include Images
+                  ja_JP: Include Images
+                  pt_BR: Include Images
+                  zh_Hans: 包含图片
+                llm_description: When set to true, includes a list of query-related
+                  images in the response.
+                max: null
+                min: null
+                name: include_images
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: boolean
+              - auto_generate: null
+                default: 0
+                form: form
+                human_description:
+                  en_US: When include_images is True, adds descriptive text for each
+                    image.
+                  ja_JP: When include_images is True, adds descriptive text for each
+                    image.
+                  pt_BR: When include_images is True, adds descriptive text for each
+                    image.
+                  zh_Hans: 当 include_images 为 True 时，为每个图像添加描述文本。
+                label:
+                  en_US: Include Image Descriptions
+                  ja_JP: Include Image Descriptions
+                  pt_BR: Include Image Descriptions
+                  zh_Hans: 包含图片描述
+                llm_description: When include_images is True and this is set to true,
+                  adds descriptive text for each image.
+                max: null
+                min: null
+                name: include_image_descriptions
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: boolean
+              - auto_generate: null
+                default: 0
+                form: form
+                human_description:
+                  en_US: Include a short answer to the original query in the response.
+                  ja_JP: Include a short answer to the original query in the response.
+                  pt_BR: Include a short answer to the original query in the response.
+                  zh_Hans: 在响应中包含对原始查询的简短回答。
+                label:
+                  en_US: Include Answer
+                  ja_JP: Include Answer
+                  pt_BR: Include Answer
+                  zh_Hans: 包含答案
+                llm_description: When set to true, includes a short answer to the
+                  original query in the response.
+                max: null
+                min: null
+                name: include_answer
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: boolean
+              - auto_generate: null
+                default: 0
+                form: form
+                human_description:
+                  en_US: Include the cleaned and parsed HTML content of each search
+                    result.
+                  ja_JP: Include the cleaned and parsed HTML content of each search
+                    result.
+                  pt_BR: Include the cleaned and parsed HTML content of each search
+                    result.
+                  zh_Hans: 包含每个搜索结果的已清理和解析的HTML内容。
+                label:
+                  en_US: Include Raw Content
+                  ja_JP: Include Raw Content
+                  pt_BR: Include Raw Content
+                  zh_Hans: 包含原始内容
+                llm_description: When set to true, includes the cleaned and parsed
+                  HTML content of each search result.
+                max: null
+                min: null
+                name: include_raw_content
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: boolean
+              - auto_generate: null
+                default: null
+                form: form
+                human_description:
+                  en_US: A comma-separated list of domains to specifically include
+                    in the search results.
+                  ja_JP: A comma-separated list of domains to specifically include
+                    in the search results.
+                  pt_BR: A comma-separated list of domains to specifically include
+                    in the search results.
+                  zh_Hans: 要在搜索结果中特别包含的域的逗号分隔列表。
+                label:
+                  en_US: Include Domains
+                  ja_JP: Include Domains
+                  pt_BR: Include Domains
+                  zh_Hans: 包含域
+                llm_description: A comma-separated list of domains to specifically
+                  include in the search results.
+                max: null
+                min: null
+                name: include_domains
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: string
+              - auto_generate: null
+                default: null
+                form: form
+                human_description:
+                  en_US: A comma-separated list of domains to specifically exclude
+                    from the search results.
+                  ja_JP: A comma-separated list of domains to specifically exclude
+                    from the search results.
+                  pt_BR: A comma-separated list of domains to specifically exclude
+                    from the search results.
+                  zh_Hans: 要从搜索结果中特别排除的域的逗号分隔列表。
+                label:
+                  en_US: Exclude Domains
+                  ja_JP: Exclude Domains
+                  pt_BR: Exclude Domains
+                  zh_Hans: 排除域
+                llm_description: A comma-separated list of domains to specifically
+                  exclude from the search results.
+                max: null
+                min: null
+                name: exclude_domains
+                options: []
+                placeholder: null
+                precision: null
+                required: false
+                scope: null
+                template: null
+                type: string
+              settings:
+                exclude_domains:
+                  value:
+                    type: mixed
+                    value: null
+                include_answer:
+                  value:
+                    type: constant
+                    value: false
+                include_domains:
+                  value:
+                    type: mixed
+                    value: null
+                include_image_descriptions:
+                  value:
+                    type: constant
+                    value: false
+                include_images:
+                  value:
+                    type: constant
+                    value: false
+                include_raw_content:
+                  value:
+                    type: constant
+                    value: false
+                max_results:
+                  value:
+                    type: constant
+                    value: 5
+              tool_description: A search engine tool built specifically for AI agents
+                (LLMs), delivering real-time, accurate, and factual results at speed.
+              tool_label: Tavily Search
+              tool_name: tavily_search
+              type: builtin
+        agent_strategy_label: FunctionCalling
+        agent_strategy_name: function_calling
+        agent_strategy_provider_name: langgenius/agent/agent
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1748512073444'
+        output_schema: null
+        plugin_unique_identifier: langgenius/agent:0.0.15@3cb96179914f8c4025282bcb1cc2fd5a951f6be0877567b02daee01e28ca4bf3
+        selected: false
+        title: エージェント
+        tool_node_version: '2'
+        type: agent
+      height: 198
+      id: '1748512083283'
+      parentId: '1748512073444'
+      position:
+        x: 99.86129060207395
+        y: 65
+      positionAbsolute:
+        x: 2562.2204962463793
+        y: 760.9251281676758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        answer: '『{{#conversation.proposition#}}』
+
+          という命題について、確認すべき事項は以下の通りです。
+
+
+          {{#conversation.queries#}}
+
+
+          ---
+
+
+          上記の項目でファクトチェックするには、『実行する』をクリックしてください。変更が必要な場合は、その内容を指摘してください。
+
+
+          <button data-message="【実行する】">実行する</button>'
+        desc: ''
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 204
+      id: '1748512822987'
+      position:
+        x: 3061.3095463289924
+        y: 1174.4965567391043
+      positionAbsolute:
+        x: 3061.3095463289924
+        y: 1174.4965567391043
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1748511790049'
+          - structured_output
+          - queries
+          variable_selector:
+          - conversation
+          - queries
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1748511790049'
+          - structured_output
+          - proposition
+          variable_selector:
+          - conversation
+          - proposition
+          write_mode: over-write
+        selected: false
+        title: 変数代入
+        type: assigner
+        version: '2'
+      height: 112
+      id: '1748512852331'
+      position:
+        x: 2759.5663729561757
+        y: 1174.4965567391043
+      positionAbsolute:
+        x: 2759.5663729561757
+        y: 1174.4965567391043
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1751274614568.text#}}'
+        desc: ''
+        selected: false
+        title: 回答 2
+        type: answer
+        variables: []
+      height: 104
+      id: '1748516227168'
+      position:
+        x: 3425.6416878525906
+        y: 695.9251281676758
+      positionAbsolute:
+        x: 3425.6416878525906
+        y: 695.9251281676758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1748512083283.text#}}
+
+
+          ---
+
+          '
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1748512073444'
+        selected: false
+        title: 回答 3
+        type: answer
+        variables: []
+      height: 104
+      id: '1750677990504'
+      parentId: '1748512073444'
+      position:
+        x: 375.71843345921707
+        y: 65
+      positionAbsolute:
+        x: 2838.0776391035224
+        y: 760.9251281676758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: o1-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 15fbe6f0-6502-432f-a2b0-55d7dce6e2b7
+          role: system
+          text: '{{#1748512073444.output#}}の内容をもとに、命題{{#conversation.proposition#}}についてのファクトチェックの結果をわかりやすく総括してください。'
+        selected: false
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1751274614568'
+      position:
+        x: 3165.6416878525906
+        y: 695.9251281676758
+      positionAbsolute:
+        x: 3165.6416878525906
+        y: 695.9251281676758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 912bd5b9-b2a3-4006-b83e-b290b39d5dc8
+            value: 【実行する】
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 126
+      id: '1751345133768'
+      position:
+        x: 2148.695813230416
+        y: 695.9251281676758
+      positionAbsolute:
+        x: 2148.695813230416
+        y: 695.9251281676758
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: false
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"Tavily
+          Searchツールは必要に応じて検索設定を手動で設定するようにしてください。また、途中の確認事項の出力が不要な場合は、イテレーションノード中の回答ノードを削除することでユーザーへ表示されなくなります。ただし、その場合は後から確認が必要になる可能性があるため、会話変数を設定して出力結果を保存しておき、任意で呼び出せる分岐を追加すると良いでしょう。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 672
+      height: 88
+      id: '1755959006431'
+      position:
+        x: 2462.3592056443053
+        y: 1013.9965567391039
+      positionAbsolute:
+        x: 2462.3592056443053
+        y: 1013.9965567391039
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 672
+    viewport:
+      x: -1615.2610734554328
+      y: -518.6777401713878
+      zoom: 0.8400000000000007
