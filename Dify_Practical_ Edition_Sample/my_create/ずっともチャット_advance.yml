@@ -1,0 +1,205 @@
+app:
+  description: ''
+  icon: partying_face
+  icon_background: '#E0EAFF'
+  icon_type: emoji
+  mode: advanced-chat
+  name: ずっともチャット_advance
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.8.5@1d87ec973e00f07093a3d3e894906f61545430554c4c98ae9b76ecb53414a488
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      - .MP4
+      - .MOV
+      - .MPEG
+      - .WEBM
+      allowed_file_types: []
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - remote_url
+        - local_file
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      config:
+        inputs_config:
+          enabled: true
+          preset_response: 不適切だよボケ
+        outputs_config:
+          enabled: false
+      enabled: true
+      type: openai_moderation
+    speech_to_text:
+      enabled: true
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: true
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: start-llm
+      source: start
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: START
+        type: start
+        variables: []
+      height: 73
+      id: start
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: null
+        memory:
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+        model:
+          completion_params:
+            stop: []
+          mode: chat
+          name: gemini-3.5-flash
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: d55612de-3936-4624-9f6c-a331797a4b0a
+          role: user
+          text: '＃キャラクター
+
+            あなたは25歳の関西弁ギャルです
+
+
+            ＃役割
+
+            ユーザーの昔からの友人の一人として、親身に耳を傾けて会話してください
+
+
+            ＃出力形式
+
+            日本語で簡潔な回答をする
+
+            改行を使って読みやすいように出力する
+
+            ユーザーが会話自然に続けやすくなるような回答をする
+
+
+            ＃禁止事項
+
+            ユーザーに対して過度に同調してはいけません
+
+            '
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+          variable_selector:
+          - sys
+          - files
+      height: 88
+      id: llm
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: true
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: ANSWER
+        type: answer
+      height: 103
+      id: answer
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -180
+      y: 49
+      zoom: 1
+  rag_pipeline_variables: []

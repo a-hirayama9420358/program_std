@@ -1,0 +1,372 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: 家計簿チャットフロー
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.3@cc37544750d72ca3782bdaa81ab0e2facbf5bb74105a169a7ff974a27c6a5f29
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1784962394315-llm
+      source: '1784962394315'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: llm-source-1784963601576-target
+      source: llm
+      sourceHandle: source
+      target: '1784963601576'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1784963601576-source-1784967535264-target
+      source: '1784963601576'
+      sourceHandle: source
+      target: '1784967535264'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1784967535264-source-answer-target
+      source: '1784967535264'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: ユーザー入力
+        type: start
+        variables: []
+      height: 73
+      id: '1784962394315'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 67ed6e26-7b5d-40a2-821d-ecb3d60ec117
+          role: system
+          text: 'このタスクでは、入力された内容を分析し以下のカテゴリのいずれかに分類して情報を抽出します。
+
+
+            【カテゴリ一覧】
+
+            ・食費：食材、外食、飲料、お菓子など
+
+            ・日用品：衛生用品、掃除用品、消耗品など
+
+            ・交通費：ガソリン代、電車、バス、駐車場など
+
+            ・光熱費：電気、ガス、水道など
+
+            ・娯楽・趣味：映画、音楽、本、スポーツなど
+
+
+            以下の情報を抽出し、指定された形式で出力して下さい。
+
+            1.上記のカテゴリから最適なもの
+
+            2.人物(夫/妻)
+
+            3.品名
+
+            4.金額(数値のみ)
+
+            5.詳細情報
+
+
+            出力形式
+
+            カテゴリ:[カテゴリ名]
+
+            人物:[夫/妻]
+
+            品名:[品名]
+
+            金額:[金額]
+
+            詳細:[詳細]
+
+
+
+            例
+
+            入力：「夫が駅の売店で５００円の雑誌を買った」
+
+            出力：
+
+            カテゴリ：娯楽・趣味
+
+            人物:夫
+
+            品名:雑誌
+
+            金額:500
+
+            詳細:駅の売店で購入
+
+
+            入力：「妻がスーパーでトイレットペーパーを１２００円分買ってきた」
+
+            出力：
+
+            カテゴリ:日用品
+
+            人物:妻
+
+            品名:トイレットペーパー
+
+            金額:1200
+
+            詳細:スパーで購入'
+        selected: false
+        title: 費用読み取り
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm.text#}}
+
+          {{#1784963601576.text#}}
+
+          {{#1784967535264.body#}}'
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 141
+      id: answer
+      position:
+        x: 1316.4276074817888
+        y: 282
+      positionAbsolute:
+        x: 1316.4276074817888
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5.5
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 0998a0d0-8b59-483d-9084-1b1237749766
+          role: system
+          text: '{{#llm.text#}}から、以下のJSON形式に変換してtext形式で出力して下さい。JSON形式テキストのみを出力し、不要な装飾を排除すること。
+
+
+
+            {
+
+            "Category":"{{#llm.text#}}のカテゴリ"
+
+            "Person":"{{#llm.text#}}の人物"
+
+            "Name":"{{#llm.text#}}の品名"
+
+            "Amount":"{{#llm.text#}}の金額"
+
+            "Details":"{{#llm.text#}}の詳細情報"
+
+            }'
+        selected: true
+        title: JSONデータ生成
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1784963601576'
+      position:
+        x: 658
+        y: 282
+      positionAbsolute:
+        x: 658
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-21
+            key: ''
+            type: text
+            value: '{{#1784963601576.text#}}'
+          type: json
+        headers: ''
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP リクエスト
+        type: http-request
+        url: https://script.google.com/macros/s/AKfycbzFmGXr35xWkRd0DG_a_rKS1q0Rb0souk9E2LaI2gklWDJ7FXWSh74fO2u2zLSy-pkCDA/exec
+        variables: []
+      height: 185
+      id: '1784967535264'
+      position:
+        x: 994.7068987158441
+        y: 282
+      positionAbsolute:
+        x: 994.7068987158441
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 173.47098509874718
+      y: 160.4251739524879
+      zoom: 0.8609491883389039
+  rag_pipeline_variables: []
