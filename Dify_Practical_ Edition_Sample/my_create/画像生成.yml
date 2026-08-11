@@ -1,0 +1,703 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: 画像生成
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.3@cc37544750d72ca3782bdaa81ab0e2facbf5bb74105a169a7ff974a27c6a5f29
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai_tool:0.1.10@6dddd9f3ec42c5c4b7e8da615440cbe69320cd34e085fbe1ed5ac59a599ed310
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1786170262955-source-1786167331658-target
+      source: '1786170262955'
+      sourceHandle: source
+      target: '1786167331658'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1786167216503-source-1786171298941-target
+      source: '1786167216503'
+      sourceHandle: source
+      target: '1786171298941'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: parameter-extractor
+      id: 1786171298941-source-1786175062916-target
+      source: '1786171298941'
+      sourceHandle: source
+      target: '1786175062916'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: tool
+      id: 1786175062916-source-1786170262955-target
+      source: '1786175062916'
+      sourceHandle: source
+      target: '1786170262955'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: template-transform
+      id: 1786171298941-fail-branch-1786339887912-target
+      source: '1786171298941'
+      sourceHandle: fail-branch
+      target: '1786339887912'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: end
+      id: 1786339887912-source-1786167331658-target
+      source: '1786339887912'
+      sourceHandle: source
+      target: '1786167331658'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: ユーザー入力
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 生成したい画像の内容を入力して下さい
+          max_length: 256
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: theme
+        - hint: ''
+          label: 画像に求める方向性を決めて下さい
+          options:
+          - シンプルなイラスト
+          - 精巧な絵画
+          - 質感のある３D
+          - 美しい写真
+          - お任せする
+          placeholder: ''
+          required: true
+          type: select
+          variable: tone
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hide: false
+          hint: ''
+          label: 参考にしたい画像をアップロードできます
+          max_length: 2
+          options: []
+          placeholder: ''
+          required: false
+          type: file-list
+          variable: reference
+      height: 161
+      id: '1786167216503'
+      position:
+        x: 254.59219466692184
+        y: 405.4186203679965
+      positionAbsolute:
+        x: 254.59219466692184
+        y: 405.4186203679965
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1786170262955'
+          - files
+          value_type: array[file]
+          variable: files
+        - value_selector:
+          - '1786339887912'
+          - output
+          value_type: string
+          variable: output
+        - value_selector:
+          - '1786170262955'
+          - text
+          value_type: string
+          variable: text
+        selected: false
+        title: 出力
+        type: end
+      height: 140
+      id: '1786167331658'
+      position:
+        x: 1559.7268315199892
+        y: 417.385832365401
+      positionAbsolute:
+        x: 1559.7268315199892
+        y: 417.385832365401
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        default_value:
+        - key: text
+          type: string
+          value: GPT IMAGE2 GENERETEにエラーが発生しました。管理者に連絡して下さい。
+        - key: json
+          type: array[object]
+          value: '[]'
+        error_strategy: default-value
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Detailed description of the image you want to generate.
+            ja_JP: Detailed description of the image you want to generate.
+            pt_BR: Detailed description of the image you want to generate.
+            zh_Hans: 您想要生成的图像的详细描述。
+          input_schema: null
+          label:
+            en_US: Prompt
+            ja_JP: Prompt
+            pt_BR: Prompt
+            zh_Hans: 提示词
+          llm_description: Detailed image prompt for gpt-image-2. Describe the desired
+            image clearly.
+          max: null
+          min: null
+          multiple: false
+          name: prompt
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: auto
+          form: form
+          human_description:
+            en_US: Image size. Use auto or provide a supported size string such as
+              1024x1024, 1536x1024, or 1024x1536.
+            ja_JP: Image size. Use auto or provide a supported size string such as
+              1024x1024, 1536x1024, or 1024x1536.
+            pt_BR: Image size. Use auto or provide a supported size string such as
+              1024x1024, 1536x1024, or 1024x1536.
+            zh_Hans: 图像尺寸。可使用 auto，或填写支持的尺寸字符串，例如 1024x1024、1536x1024、1024x1536。
+          input_schema: null
+          label:
+            en_US: Image Size
+            ja_JP: Image Size
+            pt_BR: Image Size
+            zh_Hans: 图像大小
+          llm_description: ''
+          max: null
+          min: null
+          multiple: false
+          name: size
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 1
+          form: form
+          human_description:
+            en_US: Number of images to generate (between 1 and 10).
+            ja_JP: Number of images to generate (between 1 and 10).
+            pt_BR: Number of images to generate (between 1 and 10).
+            zh_Hans: 要生成的图像数量（1 到 10）。
+          input_schema: null
+          label:
+            en_US: Number of Images
+            ja_JP: Number of Images
+            pt_BR: Number of Images
+            zh_Hans: 图像数量
+          llm_description: ''
+          max: 10
+          min: 1
+          multiple: false
+          name: n
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: auto
+          form: form
+          human_description:
+            en_US: Image quality.
+            ja_JP: Image quality.
+            pt_BR: Image quality.
+            zh_Hans: 图像质量。
+          input_schema: null
+          label:
+            en_US: Image Quality
+            ja_JP: Image Quality
+            pt_BR: Image Quality
+            zh_Hans: 图像质量
+          llm_description: ''
+          max: null
+          min: null
+          multiple: false
+          name: quality
+          options:
+          - icon: ''
+            label:
+              en_US: Auto
+              ja_JP: Auto
+              pt_BR: Auto
+              zh_Hans: 自动
+            value: auto
+          - icon: ''
+            label:
+              en_US: Low
+              ja_JP: Low
+              pt_BR: Low
+              zh_Hans: 低
+            value: low
+          - icon: ''
+            label:
+              en_US: Medium
+              ja_JP: Medium
+              pt_BR: Medium
+              zh_Hans: 中
+            value: medium
+          - icon: ''
+            label:
+              en_US: High
+              ja_JP: High
+              pt_BR: High
+              zh_Hans: 高
+            value: high
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: auto
+          form: form
+          human_description:
+            en_US: Output image format.
+            ja_JP: Output image format.
+            pt_BR: Output image format.
+            zh_Hans: 输出图像格式。
+          input_schema: null
+          label:
+            en_US: Output Format
+            ja_JP: Output Format
+            pt_BR: Output Format
+            zh_Hans: 输出格式
+          llm_description: ''
+          max: null
+          min: null
+          multiple: false
+          name: output_format
+          options:
+          - icon: ''
+            label:
+              en_US: Auto
+              ja_JP: Auto
+              pt_BR: Auto
+              zh_Hans: 自动
+            value: auto
+          - icon: ''
+            label:
+              en_US: PNG
+              ja_JP: PNG
+              pt_BR: PNG
+              zh_Hans: PNG
+            value: png
+          - icon: ''
+            label:
+              en_US: JPEG
+              ja_JP: JPEG
+              pt_BR: JPEG
+              zh_Hans: JPEG
+            value: jpeg
+          - icon: ''
+            label:
+              en_US: WebP
+              ja_JP: WebP
+              pt_BR: WebP
+              zh_Hans: WebP
+            value: webp
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: 100
+          form: form
+          human_description:
+            en_US: Compression level for JPEG or WebP output (0-100).
+            ja_JP: Compression level for JPEG or WebP output (0-100).
+            pt_BR: Compression level for JPEG or WebP output (0-100).
+            zh_Hans: JPEG 或 WebP 输出的压缩级别（0-100）。
+          input_schema: null
+          label:
+            en_US: Output Compression
+            ja_JP: Output Compression
+            pt_BR: Output Compression
+            zh_Hans: 输出压缩
+          llm_description: ''
+          max: 100
+          min: 0
+          multiple: false
+          name: output_compression
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: auto
+          form: form
+          human_description:
+            en_US: Moderation level.
+            ja_JP: Moderation level.
+            pt_BR: Moderation level.
+            zh_Hans: 内容审核级别。
+          input_schema: null
+          label:
+            en_US: Moderation
+            ja_JP: Moderation
+            pt_BR: Moderation
+            zh_Hans: 内容审核
+          llm_description: ''
+          max: null
+          min: null
+          multiple: false
+          name: moderation
+          options:
+          - icon: ''
+            label:
+              en_US: Auto
+              ja_JP: Auto
+              pt_BR: Auto
+              zh_Hans: 自动
+            value: auto
+          - icon: ''
+            label:
+              en_US: Low
+              ja_JP: Low
+              pt_BR: Low
+              zh_Hans: 低
+            value: low
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          moderation: ''
+          n: ''
+          output_compression: ''
+          output_format: ''
+          prompt: ''
+          quality: ''
+          size: ''
+        plugin_id: langgenius/openai_tool
+        plugin_unique_identifier: langgenius/openai_tool:0.1.10@6dddd9f3ec42c5c4b7e8da615440cbe69320cd34e085fbe1ed5ac59a599ed310
+        provider_icon: https://cloud.dify.ai/console/api/workspaces/current/plugin/icon?tenant_id=566a3a09-2b25-4936-92f7-900388f5ed99&filename=aee5498220eb9cbf03ee0752c978cc8ceaca6134265ae0080d7fc9e517a5e493.png
+        provider_id: langgenius/openai_tool/openai
+        provider_name: langgenius/openai_tool/openai
+        provider_show_name: OpenAI
+        provider_type: builtin
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: true
+        title: GPT Image 2 Generate
+        tool_configurations:
+          moderation:
+            type: constant
+            value: auto
+          n:
+            type: constant
+            value: 1
+          output_compression:
+            type: constant
+            value: 100
+          output_format:
+            type: constant
+            value: auto
+          quality:
+            type: constant
+            value: auto
+          size:
+            type: mixed
+            value: auto
+        tool_description: GPT Image 2 Generate is a text to image generation tool
+        tool_label: GPT Image 2 Generate
+        tool_name: gpt_image_2_generate
+        tool_node_version: '2'
+        tool_parameters:
+          prompt:
+            type: mixed
+            value: '{{#1786175062916.prompt#}}'
+        type: tool
+      height: 283
+      id: '1786170262955'
+      position:
+        x: 1206.2981894423192
+        y: 338.95570816961293
+      positionAbsolute:
+        x: 1206.2981894423192
+        y: 338.95570816961293
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        error_strategy: fail-branch
+        model:
+          completion_params:
+            frequency_penalty: 0.1
+            presence_penalty: 0.1
+            temperature: 0.8
+            top_p: 0.9
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: cb816250-1447-429b-a3ad-2518bcbe151e
+          role: system
+          text: '＃役割
+
+            ユーザーが希望する画像を生成する「GPT IMAGE GENERETE」用のプロンプトを考えて下さい。
+
+            添付画像がある場合はその内容を読み込んで参考にして下さい
+
+
+            '
+        - id: 4e822cb2-9d4d-459e-8be3-562d7d812123
+          role: user
+          text: '{{#1786167216503.theme#}}の画像であること
+
+            作風は{{#1786167216503.tone#}}であること'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1786167216503'
+            - reference
+          enabled: true
+      height: 153
+      id: '1786171298941'
+      position:
+        x: 606.2981894423192
+        y: 338.95570816961293
+      positionAbsolute:
+        x: 606.2981894423192
+        y: 338.95570816961293
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        instruction: プロンプトを抽出して下さい
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        parameters:
+        - description: Detailed image prompt for gpt-image-2. Describe the desired
+            image clearly.
+          name: prompt
+          options: []
+          required: true
+          type: string
+        query:
+        - '1786171298941'
+        - text
+        reasoning_mode: prompt
+        selected: false
+        title: パラメータ抽出
+        type: parameter-extractor
+        vision:
+          enabled: false
+      height: 88
+      id: '1786175062916'
+      position:
+        x: 906.2981894423192
+        y: 338.95570816961293
+      positionAbsolute:
+        x: 906.2981894423192
+        y: 338.95570816961293
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        template: 'LLMでアラーが発生しました。管理者に連絡して下さい。
+
+
+          {{ error_type }}
+
+          {{ error_message }}'
+        title: テンプレート
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1786171298941'
+          - error_type
+          value_type: string
+          variable: error_type
+        - value_selector:
+          - '1786171298941'
+          - error_message
+          value_type: string
+          variable: error_message
+      height: 52
+      id: '1786339887912'
+      position:
+        x: 912.0978141267108
+        y: 699.008755410916
+      positionAbsolute:
+        x: 912.0978141267108
+        y: 699.008755410916
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -617.3567961142498
+      y: -157.076221842491
+      zoom: 0.7736437089592775
+  rag_pipeline_variables: []
