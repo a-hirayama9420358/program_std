@@ -1,0 +1,643 @@
+app:
+  description: ''
+  icon: 🕵️‍♂️
+  icon_background: '#E4FBCC'
+  icon_type: emoji
+  mode: advanced-chat
+  name: Deep Factcheck
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.3@cc37544750d72ca3782bdaa81ab0e2facbf5bb74105a169a7ff974a27c6a5f29
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 12222bea-f346-4174-ac72-43d42f37fda6
+    name: queries
+    selector:
+    - conversation
+    - queries
+    value: []
+    value_type: array[string]
+  - description: ''
+    id: cb502d28-e96e-441c-a32e-1bb9ecac0cb1
+    name: proposition
+    selector:
+    - conversation
+    - proposition
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ファクトチェックしたい内容を入力して下さい
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1786612876773-source-1786612955365-target
+      source: '1786612876773'
+      sourceHandle: source
+      target: '1786612955365'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1786612955365-false-1786612990547-target
+      source: '1786612955365'
+      sourceHandle: 'false'
+      target: '1786612990547'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1786612955365-true-1786613075232-target
+      source: '1786612955365'
+      sourceHandle: 'true'
+      target: '1786613075232'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1786612990547-source-1786613716866-target
+      source: '1786612990547'
+      sourceHandle: source
+      target: '1786613716866'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1786613716866-source-1786613004880-target
+      source: '1786613716866'
+      sourceHandle: source
+      target: '1786613004880'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1786613075232'
+        sourceType: iteration-start
+        targetType: agent
+      id: 1786613075232start-source-1786614437562-target
+      source: 1786613075232start
+      sourceHandle: source
+      target: '1786614437562'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: llm
+      id: 1786613075232-source-llm-target
+      source: '1786613075232'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: ユーザー入力
+        type: start
+        variables: []
+      height: 73
+      id: '1786612876773'
+      position:
+        x: -63
+        y: 261
+      positionAbsolute:
+        x: -63
+        y: 261
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 5ab257ab-9e94-4aea-b606-e7c2f4a4e318
+          role: system
+          text: '{{#1786613075232.output#}}の内容をもとに、命題{{#conversation.proposition#}}についてのファクトチェックの結果を分かりやすく総括して下さい。'
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 1569.2555781562196
+        y: 190.76649041377706
+      positionAbsolute:
+        x: 1569.2555781562196
+        y: 190.76649041377706
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 1855.1135364906131
+        y: 190.76649041377706
+      positionAbsolute:
+        x: 1855.1135364906131
+        y: 190.76649041377706
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: eaad7929-3915-42e1-b88c-a2c8eb3dc739
+            value: 【実行する】
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 124
+      id: '1786612955365'
+      position:
+        x: 210
+        y: 282
+      positionAbsolute:
+        x: 210
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o-mini
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 43f95f77-bf80-472a-8956-8e7aba695cb1
+          role: system
+          text: '＃役割
+
+            ユーザーの入力内容を確認し、命題とその真偽を検証するために事実確認が必要な論点を全てリストアップします。
+
+
+
+            ＃出力形式
+
+            命題はproposition 、論点はqueriesに格納して、JSON形式で出力します。'
+        - id: abea5b47-c0e4-420f-8c9e-d45d3f08cfdd
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        structured_output:
+          schema:
+            additionalProperties: false
+            properties:
+              proposition:
+                description: ユーザーが提起した議論の命題
+                type: string
+              queries:
+                description: 命題の検証のために事実確認が必要な項目
+                items:
+                  type: string
+                type: array
+            required:
+            - proposition
+            type: object
+        structured_output_enabled: true
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1786612990547'
+      position:
+        x: 560
+        y: 501
+      positionAbsolute:
+        x: 560
+        y: 501
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '『{{#conversation.proposition#}}』という命題について、確認すべき事項は以下の通りです。
+
+
+          {{#conversation.queries#}}
+
+
+          ---
+
+
+          上記の項目でファクトチェックするには、『実行する』をクリックして下さい。変更が必要な場合は、その内容を指摘して下さい。
+
+
+          <button data-message="【実行する】">実行する</button>'
+        selected: false
+        title: 回答 2
+        type: answer
+        variables: []
+      height: 220
+      id: '1786613004880'
+      position:
+        x: 1158.1690107356746
+        y: 501
+      positionAbsolute:
+        x: 1158.1690107356746
+        y: 501
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        error_handle_mode: remove-abnormal-output
+        flatten_output: true
+        height: 276
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - conversation
+        - queries
+        output_selector:
+        - '1786614437562'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1786613075232start
+        title: イテレーション
+        type: iteration
+        width: 752.7201787895638
+      height: 276
+      id: '1786613075232'
+      position:
+        x: 1013.6630837409946
+        y: 165.86017441040852
+      positionAbsolute:
+        x: 1013.6630837409946
+        y: 165.86017441040852
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 753
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1786613075232start
+      parentId: '1786613075232'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 1037.6630837409946
+        y: 233.86017441040852
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1786612990547'
+          - structured_output
+          - proposition
+          variable_selector:
+          - conversation
+          - proposition
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1786612990547'
+          - structured_output
+          - queries
+          variable_selector:
+          - conversation
+          - queries
+        selected: false
+        title: 変数代入
+        type: assigner
+        version: '2'
+      height: 110
+      id: '1786613716866'
+      position:
+        x: 851.1787080729671
+        y: 501
+      positionAbsolute:
+        x: 851.1787080729671
+        y: 501
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        agent_parameters:
+          instruction:
+            type: constant
+            value: '＃役割
+
+
+              ＃ツール
+
+              Tavily Serch:Webの情報を検索できます。
+
+
+              ＃出力形式
+
+              -検証結果
+
+              {{#1786613075232.item#}}が正しいかどうかを宣言
+
+
+              -理由
+
+              その理由を説明する。
+
+
+              -参考文献
+
+              その結論に至ったリファレンスのURLを埋め込む。'
+          maximum_iterations:
+            type: constant
+            value: 5
+          model:
+            type: constant
+            value:
+              completion_params: {}
+              mode: chat
+              model: gpt-4o-mini
+              model_type: llm
+              provider: langgenius/openai/openai
+              type: model-selector
+          query:
+            type: constant
+            value: '{{#conversation.proposition#}}という命題の{{#1786613075232.item#}}という論点について検証して下さい。'
+          tools:
+            type: constant
+            value:
+            - enabled: true
+              extra:
+                description: A search engine tool built specifically for AI agents
+                  (LLMs), delivering real-time, accurate, and factual results at speed.
+              parameters:
+                country:
+                  auto: 1
+                  value: null
+                end_date:
+                  auto: 1
+                  value: null
+                exclude_domains:
+                  auto: 1
+                  value: null
+                include_domains:
+                  auto: 1
+                  value: null
+                query:
+                  auto: 1
+                  value: null
+                search_depth:
+                  auto: 1
+                  value: null
+                start_date:
+                  auto: 1
+                  value: null
+                time_range:
+                  auto: 1
+                  value: null
+                topic:
+                  auto: 1
+                  value: null
+              plugin_id: langgenius/tavily
+              provider_name: langgenius/tavily/tavily
+              provider_show_name: langgenius/tavily/tavily
+              settings:
+                auto_parameters:
+                  value:
+                    type: constant
+                    value: false
+                chunks_per_source:
+                  value:
+                    type: constant
+                    value: 2
+                include_answer:
+                  value:
+                    type: constant
+                    value: 'false'
+                include_favicon:
+                  value:
+                    type: constant
+                    value: false
+                include_image_descriptions:
+                  value:
+                    type: constant
+                    value: false
+                include_images:
+                  value:
+                    type: constant
+                    value: false
+                include_raw_content:
+                  value:
+                    type: constant
+                    value: 'false'
+                include_usage:
+                  value:
+                    type: constant
+                    value: false
+                max_results:
+                  value:
+                    type: constant
+                    value: 3
+                project_id:
+                  value:
+                    type: mixed
+                    value: null
+              tool_description: A search engine tool built specifically for AI agents
+                (LLMs), delivering real-time, accurate, and factual results at speed.
+              tool_label: Tavily Search
+              tool_name: tavily_search
+              type: builtin
+        agent_strategy_label: FunctionCalling
+        agent_strategy_name: function_calling
+        agent_strategy_provider_name: langgenius/agent/agent
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1786613075232'
+        meta:
+          minimum_dify_version: 1.7.0
+          version: 0.0.2
+        output_schema: {}
+        plugin_unique_identifier: langgenius/agent:0.0.42@7b26b1157dae5e2e949731d352cb97dad0897198563dff9151f8d9531e0d26f7
+        selected: true
+        title: Agent
+        tool_node_version: '2'
+        type: agent
+      height: 188
+      id: '1786614437562'
+      parentId: '1786613075232'
+      position:
+        x: 192.72017878956376
+        y: 68
+      positionAbsolute:
+        x: 1206.3832625305583
+        y: 233.86017441040852
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1001
+    viewport:
+      x: -702.0942021467729
+      y: 35.9930716785027
+      zoom: 0.8303996182337571
+  rag_pipeline_variables: []
